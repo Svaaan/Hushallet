@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Navigation/Navigation";
 
-type Props = NativeStackScreenProps<RootStackParamList, "Login">;
+type Props = NativeStackScreenProps<RootStackParamList, "Task">;
 
-export default function LoginScreen({ navigation }: Props) {
+export default function TaskScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Text>Login Screen</Text>
+      <Text>Task Screen</Text>
       
     </View>
   );
