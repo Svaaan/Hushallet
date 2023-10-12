@@ -15,6 +15,7 @@ Antal krav: 40.
 G: 20 (50%).
 
 Kravlista (3)
+
 [] En logga, splashscreen och appikon ska designas och användas. *
 [] Applikationen ska byggas med RN, Expo & TS. *
 [] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras med produktägare,
@@ -22,11 +23,12 @@ Kravlista (3)
 
 
 Hushåll (2)
-[] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet,
-[] namnet ska gå att ändra. *
+
+[] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet, namnet ska gå att ändra. *
 
 
 Konto (3)
+
 [] En användare ska kunna registrera och logga in sig. *
 [] En användare ska kunna skapa ett nytt hushåll. *
 [] En användare ska kunna gå med i ett hushåll genom att ange hushållets kod. *
@@ -47,6 +49,7 @@ Sysslor (4)
 
 
 Dagsvyn (3)
+
 [] Alla sysslor ska listas i en dagsvy och ge en översikt kring vad som behöver göras. *
 [] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar
    sedan sysslan gjordes senast samt om den är försenad. *
