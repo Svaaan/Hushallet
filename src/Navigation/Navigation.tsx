@@ -9,19 +9,17 @@ import StatisticsScreen from "../Screen/StatisticsScreen";
 import ProfileScreen from "../Screen/ProfileScreen";
 import TaskScreen from "../Screen/TaskScreen";
 import CreateHomeScreen from "../Screen/CreateHomeScreen";
-import ProfileSettingScreen from './../Screen/ProfileSettingScreen';
+import ProfileSettingScreen from "./../Screen/ProfileSettingScreen";
 
 export type RootStackParamList = {
   Home: undefined;
-  CreateHome: undefined
+  CreateHome: undefined;
   CreateAccount: undefined;
-  Profile: undefined
-  Login: undefined
-  Task: undefined
-  Statistics: undefined
-  ProfileSettings: undefined
-
-
+  Profile: undefined;
+  Login: undefined;
+  Task: undefined;
+  Statistics: undefined;
+  ProfileSettings: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -33,7 +31,11 @@ export default function Navigation() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="CreateHome" component={CreateHomeScreen} />
         <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{ presentation: "modal" }}
+        />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Statistics" component={StatisticsScreen} />
         <Stack.Screen name="Task" component={TaskScreen} />
