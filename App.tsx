@@ -1,6 +1,9 @@
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
-import { Button, Card, DefaultTheme, PaperProvider } from "react-native-paper";
+import React from "react";
+import { DefaultTheme, PaperProvider } from "react-native-paper";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import RootNavigator from "./src/Navigation/RootNavigator";
 import { ProjectTheme } from "./theme/theme";
 
 export default function App() {
@@ -11,39 +14,12 @@ export default function App() {
 
   return (
     <PaperProvider theme={theme}>
-      <View
-        style={{
-          ...ProjectTheme.containerStyle,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Button
-          style={{ marginBottom: 5 }}
-          icon="camera"
-          mode="contained"
-          onPress={() => console.log("Button pressed")}
-          labelStyle={{ color: ProjectTheme.colors.iconcolor }}
-          rippleColor={ProjectTheme.colors.secondary}
-        >
-          Press Me
-        </Button>
-        <Card style={{ backgroundColor: ProjectTheme.colors.primary }}>
-          <Card.Title title="Card Title" subtitle="Card Subtitle" />
-          <Card.Content>
-            <Text>Card content goes here.</Text>
-          </Card.Content>
-          <Card.Actions>
-            <Button labelStyle={{ color: ProjectTheme.colors.textcolor }}>
-              Cancel
-            </Button>
-            <Button labelStyle={{ color: ProjectTheme.colors.textcolor }}>
-              OK
-            </Button>
-          </Card.Actions>
-        </Card>
+      <SafeAreaProvider>
         <StatusBar style="auto" />
-      </View>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </SafeAreaProvider>
     </PaperProvider>
   );
 }
