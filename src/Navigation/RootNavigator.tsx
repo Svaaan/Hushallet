@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
 import CreateHomeScreen from '../Screen/CreateHomeScreen';
 import HomeScreen from '../Screen/HomeScreen';
@@ -9,6 +8,7 @@ import ProfileScreen from '../Screen/ProfileScreen';
 import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
 import StatisticsScreen from '../Screen/StatisticsScreen';
 import TaskScreen from '../Screen/TaskScreen';
+import SplashScreen from './../Screen/SplashScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -23,9 +23,10 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+
 export default function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName='Home'>
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateHome" component={CreateHomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
