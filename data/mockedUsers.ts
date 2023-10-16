@@ -9,28 +9,28 @@ interface User {
 const mockUsers: User[] = [
   {
     id: 1,
-    name: "John",
+    name: 'John',
     code: 12345,
     is_paused: false,
     claimedChores: [],
   },
   {
     id: 2,
-    name: "Alice",
+    name: 'Alice',
     code: 67890,
     is_paused: false,
     claimedChores: [],
   },
   {
     id: 3,
-    name: "Bob",
+    name: 'Bob',
     code: 54321,
     is_paused: false,
     claimedChores: [],
   },
   {
     id: 4,
-    name: "Maya",
+    name: 'Maya',
     code: 94325,
     is_paused: false,
     claimedChores: [],

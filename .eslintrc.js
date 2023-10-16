@@ -1,4 +1,7 @@
 module.exports = {
   root: true,
-  extends: ['universe/native', 'plugin:react-hooks/recommended'],
+  extends: ['universe/native', 'plugin:react-hooks/recommended', 'prettier'],
+  rules: {
+    'import/order': 'off',
+  },
 };
