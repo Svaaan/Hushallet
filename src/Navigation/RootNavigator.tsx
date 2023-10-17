@@ -1,6 +1,5 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
-
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
 import CreateHomeScreen from '../Screen/CreateHomeScreen';
 import HomeScreen from '../Screen/HomeScreen';
@@ -21,23 +20,52 @@ export type RootStackParamList = {
   ProfileSettings: undefined;
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createMaterialTopTabNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="CreateHome" component={CreateHomeScreen} />
-      <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
-      <Stack.Screen
+    <Tab.Navigator initialRouteName="Home">
+      <Tab.Screen
+        name="CreateAccount"
+        component={CreateAccountScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ presentation: 'modal' }}
+        options={{ tabBarShowLabel: false }}
       />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Statistics" component={StatisticsScreen} />
-      <Stack.Screen name="Task" component={TaskScreen} />
-      <Stack.Screen name="ProfileSettings" component={ProfileSettingScreen} />
-    </Stack.Navigator>
+
+      <Tab.Screen
+        name="CreateHome"
+        component={CreateHomeScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ tabBarLabelStyle: { fontSize: 14 } }}
+      />
+      <Tab.Screen
+        name="Statistics"
+        component={StatisticsScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="Task"
+        component={TaskScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="ProfileSettings"
+        component={ProfileSettingScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+    </Tab.Navigator>
   );
 }
