@@ -11,7 +11,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export default function HomeScreen({ navigation }: Props) {
   useEffect(() => {
     console.log(navigation.getId());
-  }, []);
+    //kolla vad som ska vara i dependency listan, annars klagar es lint
+  }, [navigation]);
 
   return (
     <View
