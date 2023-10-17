@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { PieChart } from 'react-native-svg-charts';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
 import { User } from '../../data/mockedUsers';
@@ -58,7 +59,7 @@ export default function StatisticsScreen({ navigation }: Props) {
   });
 
   useEffect(() => {
-    // Replace these with your actual data or functions
+    // Ersätts sedan med en Riktig Databas ----
     const chores: Chore[] = require('../../data/mockedChores').mockChores;
     const users: User[] = require('../../data/mockedUsers').mockUsers;
     const choreEvents: ChoreEvent[] =
@@ -74,13 +75,36 @@ export default function StatisticsScreen({ navigation }: Props) {
     setData(transformedData);
   }, []);
 
+  const avatars = ['🐥', '🐙', '🐳', '🐷', '🐸', '🦊'];
+  const userColors = [
+    '#0088FF',
+    '#FF0000',
+    '#FFFF00',
+    '#800080',
+    '#00FF00',
+    '#FF00FF',
+  ];
+
   return (
     <View style={styles.container}>
       <Text>Statistics Screen</Text>
       {data && (
         <View>
+          <PieChart
+            style={{ height: 200, marginBottom: 20 }}
+            data={data.choreCounts.map((count, index) => ({
+              value: count,
+              svg: { fill: userColors[index] },
+              key: `pie-${index}`,
+              arc: {
+                outerRadius: '80%',
+                padAngle: 0.02,
+              },
+            }))}
+          />
           {data.userNames.map((userName, index) => (
             <View key={index}>
+              <Text style={{ fontSize: 20 }}>{avatars[index]}</Text>
               <Text>User: {userName}</Text>
               <Text>Number of Chores: {data.choreCounts[index]}</Text>
             </View>
