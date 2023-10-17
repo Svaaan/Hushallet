@@ -36,16 +36,5 @@ const mockUsers: User[] = [
     claimedChores: [],
   },
 ];
-// en function jag testade för att låta flera användare "claima en chore"
-// import { mockChores } from "./mockedChores";
-// function claimChore(user: User, choreId: number): void {
-//   const choreToClaim = mockChores.find((chore) => chore.id === choreId);
 
-//   if (choreToClaim) {
-//     choreToClaim.claimedBy.push(user.id);
-//   } else {
-//     console.log("Chore does not exist");
-//   }
-// }
-// export { User, mockUsers, claimChore};
 export { User, mockUsers };
