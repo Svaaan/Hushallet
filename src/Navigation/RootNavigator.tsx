@@ -24,7 +24,7 @@ const Tab = createMaterialTopTabNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator initialRouteName="Start">
       <Tab.Screen
         name="CreateAccount"
         component={CreateAccountScreen}
