@@ -7,7 +7,7 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
 export default function StartScreen({ navigation }: Props) {
-  const imageUrl = 'https://i.imgur.com/UvoPa2i.png'; // Image URL
+  const imageUrl = 'https://i.imgur.com/UvoPa2i.png'; 
 
   return (
     <View style={styles.container}>
@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
     height: 200,
   },
   button: {
-    width: 200,
+    width: 195,
     height: 50,
-    marginTop: 45, // Adjust the marginTop to increase the distance from the image
+    marginTop: 45, 
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: ProjectTheme.borderRadius.medium,
