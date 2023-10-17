@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StatusBar, StyleSheet, Animated, Easing } from 'react-native';
+import { Animated, Easing, StatusBar, StyleSheet, View } from 'react-native';
 
 export default function SplashScreen() {
   const imageUrl = 'https://i.imgur.com/UvoPa2i.png';

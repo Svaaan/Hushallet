@@ -25,18 +25,47 @@ const Tab = createMaterialTopTabNavigator<RootStackParamList>();
 export default function RootNavigator() {
   return (
     <Tab.Navigator initialRouteName="Home">
-      <Tab.Screen name="CreateHome" component={CreateHomeScreen} options={{tabBarShowLabel:false}}/>
-      <Tab.Screen name="CreateAccount" component={CreateAccountScreen} options={{tabBarShowLabel:false}}/>
+      <Tab.Screen
+        name="CreateAccount"
+        component={CreateAccountScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ tabBarShowLabel: false }}
+      />
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-       options={{tabBarShowLabel:false}}
+        options={{ tabBarShowLabel: false }}
       />
-      <Tab.Screen name="Login" component={LoginScreen} options={{tabBarShowLabel:false}} />
-      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarLabelStyle:{fontSize:14}}} />
-      <Tab.Screen name="Statistics" component={StatisticsScreen} options={{tabBarShowLabel:false}}/>
-      <Tab.Screen name="Task" component={TaskScreen} options={{tabBarShowLabel:false}} />
-      <Tab.Screen name="ProfileSettings" component={ProfileSettingScreen} options={{tabBarShowLabel:false}} />
+
+      <Tab.Screen
+        name="CreateHome"
+        component={CreateHomeScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ tabBarLabelStyle: { fontSize: 14 } }}
+      />
+      <Tab.Screen
+        name="Statistics"
+        component={StatisticsScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="Task"
+        component={TaskScreen}
+        options={{ tabBarShowLabel: false }}
+      />
+      <Tab.Screen
+        name="ProfileSettings"
+        component={ProfileSettingScreen}
+        options={{ tabBarShowLabel: false }}
+      />
     </Tab.Navigator>
   );
 }
