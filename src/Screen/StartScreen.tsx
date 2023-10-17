@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateHome'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
-export default function CreateHomeScreen({ navigation }: Props) {
+export default function StartScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <Text>Create Home Screen</Text>

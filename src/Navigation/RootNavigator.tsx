@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
-import CreateHomeScreen from '../Screen/CreateHomeScreen';
+import StartScreen from '../Screen/StartScreen';
 import HomeScreen from '../Screen/HomeScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import ProfileScreen from '../Screen/ProfileScreen';
@@ -11,7 +11,7 @@ import TaskScreen from '../Screen/TaskScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  CreateHome: undefined;
+  Start: undefined;
   CreateAccount: undefined;
   Profile: undefined;
   Login: undefined;
@@ -42,8 +42,8 @@ export default function RootNavigator() {
       />
 
       <Tab.Screen
-        name="CreateHome"
-        component={CreateHomeScreen}
+        name="Start"
+        component={StartScreen}
         options={{ tabBarShowLabel: false }}
       />
       <Tab.Screen
