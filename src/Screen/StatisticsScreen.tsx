@@ -97,8 +97,9 @@ export default function StatisticsScreen({ navigation }: Props) {
               svg: { fill: userColors[index] },
               key: `pie-${index}`,
               arc: {
-                outerRadius: '80%',
-                padAngle: 0.02,
+                outerRadius: '100%',
+                innerRadius: '0%',
+                padAngle: 0.0,
               },
             }))}
           />
