@@ -7,7 +7,7 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
 export default function StartScreen({ navigation }: Props) {
-  const imageUrl = 'https://i.imgur.com/UvoPa2i.png'; 
+  const imageUrl = 'https://i.imgur.com/UvoPa2i.png';
 
   return (
     <View style={styles.container}>
@@ -49,10 +49,11 @@ const styles = StyleSheet.create({
   button: {
     width: 195,
     height: 50,
-    marginTop: 45, 
+    marginTop: 45,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: ProjectTheme.borderRadius.medium,
+    elevation: ProjectTheme.elevation.medium,
   },
   buttonText: {
     color: ProjectTheme.colors.textcolor,
