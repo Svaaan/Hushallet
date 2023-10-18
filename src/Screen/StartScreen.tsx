@@ -7,14 +7,14 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'Start'>;
 
 export default function StartScreen({ navigation }: Props) {
-  const imageUrl = 'https://i.imgur.com/UvoPa2i.png'; 
+  const imageUrl = 'https://i.imgur.com/UvoPa2i.png';
 
   return (
     <View style={styles.container}>
       <Image source={{ uri: imageUrl }} style={styles.image} />
 
       <TouchableOpacity
-        style={[styles.button, ProjectTheme.buttonPrimary]}
+        style={[styles.button, ProjectTheme.buttonSecondary]}
         onPress={() => {
           navigation.navigate('Login');
         }}
@@ -23,7 +23,7 @@ export default function StartScreen({ navigation }: Props) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, ProjectTheme.buttonPrimary]}
+        style={[styles.button, ProjectTheme.buttonSecondary]}
         onPress={() => {
           navigation.navigate('CreateAccount');
         }}
@@ -36,7 +36,7 @@ export default function StartScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ProjectTheme.colors.secondary,
+    backgroundColor: ProjectTheme.containerStyle.backgroundColor,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -49,13 +49,14 @@ const styles = StyleSheet.create({
   button: {
     width: 195,
     height: 50,
-    marginTop: 45, 
+    marginTop: 45,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: ProjectTheme.borderRadius.medium,
+    elevation: ProjectTheme.elevation.medium,
   },
   buttonText: {
-    color: ProjectTheme.buttonPrimary.color,
+    color: ProjectTheme.colors.textcolor,
     fontSize: ProjectTheme.typography.body.fontSize,
   },
 });
