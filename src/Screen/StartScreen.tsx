@@ -36,7 +36,7 @@ export default function StartScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ProjectTheme.colors.secondary,
+    backgroundColor: ProjectTheme.containerStyle.backgroundColor,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: ProjectTheme.borderRadius.medium,
   },
   buttonText: {
-    color: ProjectTheme.buttonPrimary.color,
+    color: ProjectTheme.colors.textcolor,
     fontSize: ProjectTheme.typography.body.fontSize,
   },
 });
