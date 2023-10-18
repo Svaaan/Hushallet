@@ -29,7 +29,7 @@ export const ProjectTheme = {
   typography: {
     header: {
       fontSize: 24,
-      fontWeight: 'bold',
+      fontWeight: 'bold' as 'bold',
     },
     subheader: {
       fontSize: 18,
