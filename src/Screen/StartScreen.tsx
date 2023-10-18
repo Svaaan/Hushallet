@@ -14,7 +14,7 @@ export default function StartScreen({ navigation }: Props) {
       <Image source={{ uri: imageUrl }} style={styles.image} />
 
       <TouchableOpacity
-        style={[styles.button, ProjectTheme.buttonPrimary]}
+        style={[styles.button, ProjectTheme.buttonSecondary]}
         onPress={() => {
           navigation.navigate('Login');
         }}
@@ -23,7 +23,7 @@ export default function StartScreen({ navigation }: Props) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, ProjectTheme.buttonPrimary]}
+        style={[styles.button, ProjectTheme.buttonSecondary]}
         onPress={() => {
           navigation.navigate('CreateAccount');
         }}
