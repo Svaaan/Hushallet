@@ -4,12 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateHome'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
 
-export default function CreateHomeScreen({ navigation }: Props) {
+export default function TaskDetailsScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Text>Create Home Screen</Text>
+      <Text>Task Screen</Text>
     </View>
   );
 }

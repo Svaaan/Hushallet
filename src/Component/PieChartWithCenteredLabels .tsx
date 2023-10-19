@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { G, Image } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
 import { mockChoreEvents } from '../../data/mockedChoreEvents';
@@ -9,11 +10,11 @@ export const userColors: Record<number, string> = {
   2: '#FFFF00', // Chick - Yellow
   3: '#0088FF', // Whale - Blue
   4: '#00FF00', // Frog - green
-  5: '#600080', // Octopus - pink
+  5: '#600080', // Octopus - purple
   6: '#FF0000', // Pig - Red
 };
 
-export const defaultColor = '#600080';
+export const defaultColor = '#000000';
 
 export interface DataItem {
   key: number;
@@ -89,16 +90,19 @@ class PieChartWithCenteredLabels extends React.PureComponent {
     };
 
     return (
-      <PieChart
-        style={{ marginTop: 50, height: 200 }}
-        valueAccessor={({ item }: { item: DataItem }) => item.amount}
-        data={filteredData}
-        // spacing={0}
-        // innerRadius="0%"
-        outerRadius="95%"
-      >
-        <Labels slices={filteredData as any} height={0} width={0} />
-      </PieChart>
+      <>
+        <PieChart
+          style={{ marginTop: 5, height: 200 }}
+          valueAccessor={({ item }: { item: DataItem }) => item.amount}
+          data={filteredData}
+          // spacing={0}
+          // innerRadius="0%"
+          outerRadius="95%"
+        >
+          <Labels slices={filteredData as any} height={0} width={0} />
+        </PieChart>
+        <Text>Totalt</Text>
+      </>
     );
   }
 }
