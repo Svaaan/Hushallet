@@ -19,7 +19,7 @@ export default function StartScreen({ navigation }: Props) {
           navigation.navigate('Login');
         }}
       >
-        <Text style={styles.buttonText}>Log In</Text>
+        <Text style={styles.buttonText}>Logga in</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -28,7 +28,7 @@ export default function StartScreen({ navigation }: Props) {
           navigation.navigate('CreateAccount');
         }}
       >
-        <Text style={styles.buttonText}>Create Account</Text>
+        <Text style={styles.buttonText}>Skapa konto</Text>
       </TouchableOpacity>
     </View>
   );

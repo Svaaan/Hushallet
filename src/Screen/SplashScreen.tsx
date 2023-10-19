@@ -1,20 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import { Animated, Easing, StatusBar, StyleSheet, View } from 'react-native';
-import { SharedElement } from 'react-navigation-shared-element';
 
 export default function SplashScreen() {
   const imageUrl = 'https://i.imgur.com/UvoPa2i.png';
 
-  const scaleValue = useRef(new Animated.Value(2)).current; // Start with a larger value
+  const scaleValue = useRef(new Animated.Value(2)).current; 
 
   useEffect(() => {
     Animated.timing(scaleValue, {
-      toValue: 1, // Scale down to the original size
+      toValue: 1, 
       duration: 2000,
       easing: Easing.linear,
       useNativeDriver: false,
     }).start(() => {
-      // Animation completed
+     
     });
   }, []);
 
