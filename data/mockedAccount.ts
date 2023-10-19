@@ -2,7 +2,7 @@ interface Account {
     id: number;
     username: string;
     password: string;
-    userId: number; // Reference to the corresponding user's ID
+    userId: number; 
   }
 
   const mockedAccounts: Account[] = [
@@ -10,25 +10,26 @@ interface Account {
       id: 1,
       username: 'JohnAccount',
       password: 'password123',
-      userId: 1, // John's user ID
+      userId: 1, 
     },
     {
       id: 2,
       username: 'AliceAccount',
       password: 'alicePass',
-      userId: 2, // Alice's user ID
+      userId: 2, 
     },
     {
       id: 3,
       username: 'BobAccount',
       password: 'bobPassword',
-      userId: 3, // Bob's user ID
+      userId: 3, 
     },
     {
       id: 4,
       username: 'MayaAccount',
       password: 'mayaPass',
-      userId: 4, // Maya's user ID
+      userId: 4, 
     },
   ];
-  
+
+  export { Account, mockedAccounts };
