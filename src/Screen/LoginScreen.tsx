@@ -6,27 +6,29 @@ export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const placeholderStyle = {
+    width: 300,
+    height: 40,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    paddingLeft: 10,
+    marginBottom: 20,
+    color: ProjectTheme.colors.textcolor,
+    elevation: ProjectTheme.elevation.small,
+  };
+
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start', 
+        justifyContent: 'flex-start',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 270, 
+        paddingTop: 270,
       }}
     >
-      <TextInput
-        style={{
-          width: 300,
-          height: 40,
-          backgroundColor: ProjectTheme.inputBackground,
-          borderRadius: ProjectTheme.borderRadius.medium,
-          paddingLeft: 10,
-          marginBottom: 20,
-          color: ProjectTheme.colors.textcolor,
-          elevation: ProjectTheme.elevation.small,
-        }}
+            <TextInput
+        style={placeholderStyle}
         placeholder="Användarnamn"
         placeholderTextColor={ProjectTheme.inputPlaceholderColor}
         onChangeText={(text) => setUsername(text)}
@@ -34,15 +36,7 @@ export default function LoginScreen() {
       />
 
       <TextInput
-        style={{
-          width: 300,
-          height: 40,
-          backgroundColor: ProjectTheme.inputBackground,
-          borderRadius: ProjectTheme.borderRadius.medium,
-          paddingLeft: 10,
-          marginBottom: 20,
-          color: ProjectTheme.colors.textcolor,
-        }}
+        style={placeholderStyle}
         placeholder="Lösenord"
         placeholderTextColor={ProjectTheme.inputPlaceholderColor}
         onChangeText={(text) => setPassword(text)}
@@ -62,7 +56,9 @@ export default function LoginScreen() {
         }}
         onPress={() => {}}
       >
-        <Text style={{ color: ProjectTheme.colors.textcolor }}>Logga In</Text>
+        <Text style={{ color: ProjectTheme.colors.textcolor }}>
+          Logga In
+        </Text>
       </TouchableOpacity>
     </View>
   );
