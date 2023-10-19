@@ -40,12 +40,13 @@ Profil (4)
 [] Valda avatarer ska inte kunna väljas av andra användare i hushållet. *
 [] Avataren ska användas i appen för att visa vad användaren har gjort. *
 
-Sysslor (4)
+Sysslor (3)
 
 [] En ägare ska kunna lägga till sysslor att göra i hemmet. *
-[] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
-[] vikt som beskriver hur energikrävande den är. *
 [] En ägare ska kunna redigera en syssla. *
+[] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
+vikt som beskriver hur energikrävande den är. *
+
 
 
 Dagsvyn (3)
