@@ -46,7 +46,7 @@ export function useUserContext(): UserContextType {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error(
-      'To use UserContext, you must place it inside UserProvider.'
+      'Add userprovider into app.tsx'
     );
   }
   return context;
