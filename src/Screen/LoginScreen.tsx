@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Navigation/RootNavigator';
+import { useUserContext } from '../Context/UserContext';
 
-export default function LoginScreen() {
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+
+export default function LoginScreen({ navigation }: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useUserContext();
+
+  async function handleLogin() {
+    const success = await login(username, password);
+    if (success) {
+      navigation.navigate('Home');
+    }
+  }
 
   const placeholderStyle = {
     width: 300,
@@ -27,7 +40,7 @@ export default function LoginScreen() {
         paddingTop: 270,
       }}
     >
-            <TextInput
+      <TextInput
         style={placeholderStyle}
         placeholder="Användarnamn"
         placeholderTextColor={ProjectTheme.inputPlaceholderColor}
@@ -54,11 +67,9 @@ export default function LoginScreen() {
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        onPress={() => {}}
+        onPress={handleLogin} 
       >
-        <Text style={{ color: ProjectTheme.colors.textcolor }}>
-          Logga In
-        </Text>
+        <Text style={{ color: ProjectTheme.colors.textcolor }}>Logga In</Text>
       </TouchableOpacity>
     </View>
   );

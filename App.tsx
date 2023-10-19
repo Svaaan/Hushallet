@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RootNavigator from './src/Navigation/RootNavigator';
 import SplashScreen from './src/Screen/SplashScreen';
 import { ProjectTheme } from './theme/theme';
+import { UserProvider } from './src/Context/UserContext';
 
 export default function App() {
   const theme = {
@@ -26,13 +27,15 @@ export default function App() {
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <SafeAreaProvider>
-        <StatusBar style="auto" />
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </PaperProvider>
+    <UserProvider>
+      <PaperProvider theme={theme}>
+        <SafeAreaProvider>
+          <StatusBar style="auto" />
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PaperProvider>
+    </UserProvider>
   );
 }
