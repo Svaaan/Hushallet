@@ -1,7 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
+
 import CreateHouseholdScreen from '../Screen/CreateHouseholdScreen';
+import StartScreen from '../Screen/StartScreen';
 import HomeScreen from '../Screen/HomeScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import ProfileScreen from '../Screen/ProfileScreen';
@@ -11,6 +13,7 @@ import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
 
 export type RootStackParamList = {
   Home: undefined;
+
   CreateHousehold: undefined;
   CreateAccount: undefined;
   Profile: undefined;
@@ -25,6 +28,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
+
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
