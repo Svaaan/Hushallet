@@ -1,24 +1,35 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 
-import { RootStackParamList } from '../Navigation/RootNavigator';
+import { Text, View } from 'react-native';
+import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
+import { mockChores } from '../../data/mockedChores';
+import ChoreChart from '../Component/ChoreChart';
+import PieChartWithCenteredLabels from '../Component/PieChartWithCenteredLabels ';
+import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Statistics'>;
+type Props = HouseholdSwipeScreenProps<'Statistics'>;
 
 export default function StatisticsScreen({ navigation }: Props) {
+  // Group mockedChoreEvents by chore_id
+  const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
+  mockChoreEvents.forEach((event) => {
+    if (!eventsByChoreId[event.chore_id]) {
+      eventsByChoreId[event.chore_id] = [];
+    }
+    eventsByChoreId[event.chore_id].push(event);
+  });
+
   return (
-    <View style={styles.container}>
-      <Text>Stattistics Screen</Text>
+    <View>
+      <PieChartWithCenteredLabels />
+      {mockChores.map((chore) => {
+        return (
+          <View key={chore.id}>
+            <ChoreChart choreEvents={eventsByChoreId[chore.id]} />
+            <Text>{chore.name}</Text>
+          </View>
+        );
+      })}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-  },
-});

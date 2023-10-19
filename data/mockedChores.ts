@@ -56,14 +56,6 @@ const mockChores: Chore[] = [
     task_rating: 6,
     interval: 6,
   },
-  {
-    id: 7,
-    home_id: 1,
-    name: 'Watering flowers',
-    description: 'Water the flowers',
-    task_rating: 1,
-    interval: 3,
-  },
 ];
 
 export { Chore, mockChores };

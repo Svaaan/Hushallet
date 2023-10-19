@@ -1,15 +1,18 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { RootStackParamList } from '../Navigation/RootNavigator';
+import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Task'>;
+type Props = HouseholdSwipeScreenProps<'Today'>;
 
-export default function TaskScreen({ navigation }: Props) {
+export default function TodayScreen({ navigation }: Props) {
+  const handleGoToTaskDetails = () => {
+    navigation.navigate('TaskDetails');
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Task Screen</Text>
+      <Text>Profile Screen</Text>
     </View>
   );
 }
