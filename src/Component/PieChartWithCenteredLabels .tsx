@@ -1,23 +1,21 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { G, Image } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
 import { mockChoreEvents } from '../../data/mockedChoreEvents';
 import { mockUsers } from '../../data/mockedUsers';
-import { RootStackParamList } from '../Navigation/RootNavigator';
 
-const userColors = {
-  John: '#FFA500', // Fox - Orange
-  Alice: '#FFFF00', // Chick - Yellow
-  Bob: '#0088FF', // Whale - Blue
-  Maya: '#00FF00', // Frog - green
-  April: '#600080', // Octopus - pink '#FF19FF'
-  Michael: '#FF0000', // Pig - Red
+export const userColors: Record<number, string> = {
+  1: '#FFA500', // Fox - Orange
+  2: '#FFFF00', // Chick - Yellow
+  3: '#0088FF', // Whale - Blue
+  4: '#00FF00', // Frog - green
+  5: '#600080', // Octopus - pink
+  6: '#FF0000', // Pig - Red
 };
 
-const defaultColor = '#600080';
+export const defaultColor = '#600080';
 
-interface DataItem {
+export interface DataItem {
   key: number;
   amount: number;
   svg: {
@@ -52,20 +50,21 @@ class PieChartWithCenteredLabels extends React.PureComponent {
     });
 
     const data: DataItem[] = mockUsers.map((user) => {
-      const fill = user
-        ? userColors[user.name as keyof typeof userColors] || defaultColor
-        : defaultColor;
+      const fill = user ? userColors[user.id] || defaultColor : defaultColor;
 
       const amount = user ? userChoresCount[user.id] || 0 : 0;
 
       return {
         key: user.id,
-        amount, // Set the amount based on the number of chores completed
+        amount,
         svg: {
           fill,
         },
       };
     });
+
+    // Filter the data and slices to include only users who have completed chores
+    const filteredData = data.filter((item) => item.amount > 0);
 
     const Labels: React.FC<LabelsProps> = ({ slices, height, width }) => {
       return slices.map((slice, index) => {
@@ -93,12 +92,12 @@ class PieChartWithCenteredLabels extends React.PureComponent {
       <PieChart
         style={{ marginTop: 50, height: 200 }}
         valueAccessor={({ item }: { item: DataItem }) => item.amount}
-        data={data}
+        data={filteredData}
         // spacing={0}
         // innerRadius="0%"
         outerRadius="95%"
       >
-        <Labels slices={[]} height={0} width={0} />
+        <Labels slices={filteredData as any} height={0} width={0} />
       </PieChart>
     );
   }
