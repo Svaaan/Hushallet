@@ -21,9 +21,7 @@ export default function CreateAccountScreen() {
     elevation: ProjectTheme.elevation.small,
   };
 
-  const buttonStyle = {
-    
-  }
+  const buttonStyle = {};
 
   const navigation = useNavigation();
 
@@ -59,47 +57,49 @@ export default function CreateAccountScreen() {
       style={{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         backgroundColor: ProjectTheme.colors.background,
         paddingTop: 200,
       }}
     >
-      <TextInput
-        style={placeholderStyle}
-        placeholder="Namn"
-        placeholderTextColor={ProjectTheme.inputPlaceholderColor}
-        onChangeText={(text) => setname(text)}
-        value={name}
-      />
+      <View style={{ justifyContent: 'flex-start' }}>
+        <TextInput
+          style={placeholderStyle}
+          placeholder="Namn"
+          placeholderTextColor={ProjectTheme.inputPlaceholderColor}
+          onChangeText={(text) => setname(text)}
+          value={name}
+        />
 
-      <TextInput
-        style={placeholderStyle}
-        placeholder="Användarnamn"
-        placeholderTextColor={ProjectTheme.inputPlaceholderColor}
-        onChangeText={(text) => setUsername(text)}
-        value={username}
-      />
+        <TextInput
+          style={placeholderStyle}
+          placeholder="Användarnamn"
+          placeholderTextColor={ProjectTheme.inputPlaceholderColor}
+          onChangeText={(text) => setUsername(text)}
+          value={username}
+        />
 
-      <TextInput
-        style={placeholderStyle}
-        placeholder="Lösenord"
-        placeholderTextColor={ProjectTheme.inputPlaceholderColor}
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        secureTextEntry={true}
-      />
+        <TextInput
+          style={placeholderStyle}
+          placeholder="Lösenord"
+          placeholderTextColor={ProjectTheme.inputPlaceholderColor}
+          onChangeText={(text) => setPassword(text)}
+          value={password}
+          secureTextEntry={true}
+        />
+      </View>
 
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: 300,
-          marginTop: 20,
+          justifyContent: 'space-evenly',
+          width:"100%",
+          marginVertical: 20,
         }}
       >
         <TouchableOpacity
           style={{
-            width: 140,
+            width: 160,
             height: 40,
             backgroundColor: ProjectTheme.buttonPrimary.color,
             borderRadius: ProjectTheme.borderRadius.medium,
@@ -117,7 +117,7 @@ export default function CreateAccountScreen() {
 
         <TouchableOpacity
           style={{
-            width: 140,
+            width: 160,
             height: 40,
             backgroundColor: ProjectTheme.buttonPrimary.color,
             borderRadius: ProjectTheme.borderRadius.medium,
