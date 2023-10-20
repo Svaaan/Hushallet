@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-import {  mockUsers } from '../../data/mockedUsers';
+import { mockUsers } from '../../data/mockedUsers';
 import { mockedAccounts } from '../../data/mockedAccount';
-
+import { useNavigation } from '@react-navigation/native';
 
 export default function CreateAccountScreen() {
   const [username, setUsername] = useState('');
@@ -21,6 +21,12 @@ export default function CreateAccountScreen() {
     elevation: ProjectTheme.elevation.small,
   };
 
+  const buttonStyle = {
+    
+  }
+
+  const navigation = useNavigation();
+
   const handleRegistration = () => {
     const newAccount = {
       id: mockedAccounts.length + 1,
@@ -28,22 +34,25 @@ export default function CreateAccountScreen() {
       password: password,
       userId: mockUsers.length + 1,
     };
-  
+
     const newUser = {
       id: mockUsers.length + 1,
+      avatar: '',
       name: name,
       code: 0,
       is_paused: false,
       claimedChores: [],
+      is_owner: false,
     };
-  
+
     console.log('New User:', newUser);
     console.log('New Account:', newAccount);
-  
+
     mockedAccounts.push(newAccount);
     mockUsers.push(newUser);
+
+    navigation.navigate('Login');
   };
-  
 
   return (
     <View
@@ -80,20 +89,49 @@ export default function CreateAccountScreen() {
         secureTextEntry={true}
       />
 
-      <TouchableOpacity
+      <View
         style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           width: 300,
-          height: 40,
-          backgroundColor: ProjectTheme.buttonPrimary.color,
-          borderRadius: ProjectTheme.borderRadius.medium,
-          elevation: ProjectTheme.elevation.medium,
-          justifyContent: 'center',
-          alignItems: 'center',
+          marginTop: 20,
         }}
-        onPress={handleRegistration}
       >
-        <Text style={{ color: ProjectTheme.colors.textcolor }}>Registrera</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 140,
+            height: 40,
+            backgroundColor: ProjectTheme.buttonPrimary.color,
+            borderRadius: ProjectTheme.borderRadius.medium,
+            elevation: ProjectTheme.elevation.medium,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            console.log('Spara button pressed'); // Add this line for debugging
+            handleRegistration();
+          }}
+        >
+          <Text style={{ color: ProjectTheme.colors.textcolor }}>Spara</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            width: 140,
+            height: 40,
+            backgroundColor: ProjectTheme.buttonPrimary.color,
+            borderRadius: ProjectTheme.borderRadius.medium,
+            elevation: ProjectTheme.elevation.medium,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            navigation.navigate('Start');
+          }}
+        >
+          <Text style={{ color: ProjectTheme.colors.textcolor }}>Stäng</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

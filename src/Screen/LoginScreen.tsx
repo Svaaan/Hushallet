@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }: Props) {
   async function handleLogin() {
     const success = await login(username, password);
     if (success) {
-      navigation.navigate('Home');
+      navigation.navigate('Household');
     }
   }
 
