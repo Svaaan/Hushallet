@@ -1,31 +1,51 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
-
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import * as ImagePicker from "expo-image-picker";
+import React, { useState } from 'react';
+import { ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import uuid from 'react-native-uuid';
 import { ProjectTheme } from '../../theme/theme';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
 
-// Import statements
-
 type Props = NativeStackScreenProps<RootStackParamList, 'Task'>;
 
 export default function TaskScreen({ navigation }: Props) {
-  const slectedUserId = React.useRef<string>('1'); // Ref to store the selected user id
+  const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
   const [discription, setDiscription] = React.useState('');
   const [interval, setInterval] = React.useState('');
   const [rating, setRating] = React.useState('');
+  const [image, setImage] = useState<string | null>(null);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+
+  const pickImage = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
 
   const handelAddTask = async () => {
     try {
       const taskData = {
         id: uuid.v4(),
-        SlectedUserId: slectedUserId.current,
+        SlectedHomeId: slectedHomeId.current,
         Titel: titel,
+        imageUri: image,
         Discription: discription,
         Interval: parseInt(interval, 10),
         Rating: parseInt(rating, 10),
@@ -68,17 +88,20 @@ export default function TaskScreen({ navigation }: Props) {
       </View>
       <View
         style={{
-          height: 60,
+          height: 20,
           flexDirection: 'row',
           justifyContent: 'center',
           backgroundColor: 'F2F2F2',
-        }} />
-      <View style={{
-        marginTop: 10,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingTop: 60,
-      }}>
+        }}
+      />
+      <ScrollView
+        style={{
+          marginTop: 10,
+          paddingLeft: 10,
+          paddingRight: 10,
+          paddingTop: 20,
+        }}
+      >
         <TextInput
           style={{
             height: 40,
@@ -90,6 +113,20 @@ export default function TaskScreen({ navigation }: Props) {
           placeholder="Titel"
           value={titel}
           onChangeText={(text) => setTitel(text)}
+        />
+        <Button
+          style={{
+            marginBottom: 5,
+            height: 50,
+            justifyContent: 'center',
+            backgroundColor: ProjectTheme.colors.primary,
+          }}
+          icon="file-image-plus-outline"
+          mode="contained"
+          onPress={pickImage}
+          labelStyle={{ color: ProjectTheme.colors.secondary }}
+          rippleColor={ProjectTheme.colors.background}
+          children={undefined}
         />
         <TextInput
           style={{
@@ -142,9 +179,9 @@ export default function TaskScreen({ navigation }: Props) {
               marginBottom: 5,
               height: 50,
               justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary
+              backgroundColor: ProjectTheme.colors.primary,
             }}
-            icon="camera"
+            icon="content-save"
             mode="contained"
             onPress={handelAddTask}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
@@ -157,9 +194,9 @@ export default function TaskScreen({ navigation }: Props) {
               marginBottom: 5,
               height: 50,
               justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary
+              backgroundColor: ProjectTheme.colors.primary,
             }}
-            icon="camera"
+            icon="file-image-plus-outline"
             mode="contained"
             onPress={() => navigation.navigate('Profile')}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
@@ -168,18 +205,17 @@ export default function TaskScreen({ navigation }: Props) {
             Stäng
           </Button>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 }
 
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     backgroundColor: 'white',
+//   },
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-  },
-
-});
+// });
