@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }: Props) {
   async function handleLogin() {
     const success = await login(username, password);
     if (success) {
-      navigation.navigate('Home');
+      navigation.navigate('Household');
     }
   }
 
@@ -66,8 +66,9 @@ export default function LoginScreen({ navigation }: Props) {
           elevation: ProjectTheme.elevation.medium,
           justifyContent: 'center',
           alignItems: 'center',
+          marginVertical:20
         }}
-        onPress={handleLogin} 
+        onPress={handleLogin}
       >
         <Text style={{ color: ProjectTheme.colors.textcolor }}>Logga In</Text>
       </TouchableOpacity>
