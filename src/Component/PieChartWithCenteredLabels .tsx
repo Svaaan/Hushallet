@@ -6,12 +6,12 @@ import { mockChoreEvents } from '../../data/mockedChoreEvents';
 import { mockUsers } from '../../data/mockedUsers';
 
 export const userColors: Record<number, string> = {
-  1: '#FFA500', // Fox - Orange
-  2: '#FFFF00', // Chick - Yellow
-  3: '#0088FF', // Whale - Blue
-  4: '#00FF00', // Frog - green
-  5: '#600080', // Octopus - purple
-  6: '#FF0000', // Pig - Red
+  1: '#FF7000', // Fox - Darker Orange
+  2: '#CCCC00', // Chick - Darker Yellow
+  3: '#0055AA', // Whale - Darker Blue
+  4: '#009900', // Frog - Darker Green
+  5: '#AA1100', // Octopus - Darker Pink
+  6: '#FF0066', // Pig - Darker Red
 };
 
 export const defaultColor = '#000000';
@@ -76,10 +76,10 @@ class PieChartWithCenteredLabels extends React.PureComponent {
         return (
           <G key={index} x={labelCentroid[0]} y={labelCentroid[1]}>
             <Image
-              x={-10}
-              y={-10}
-              width={20}
-              height={20}
+              x={-15}
+              y={-15}
+              width={25}
+              height={25}
               preserveAspectRatio="xMidYMid slice"
               opacity="1"
               href={imageSource}
@@ -92,7 +92,7 @@ class PieChartWithCenteredLabels extends React.PureComponent {
     return (
       <>
         <PieChart
-          style={{ marginTop: 5, height: 200 }}
+          style={{ marginTop: 5, height: 300 }}
           valueAccessor={({ item }: { item: DataItem }) => item.amount}
           data={filteredData}
           // spacing={0}
@@ -101,7 +101,17 @@ class PieChartWithCenteredLabels extends React.PureComponent {
         >
           <Labels slices={filteredData as any} height={0} width={0} />
         </PieChart>
-        <Text>Totalt</Text>
+        <Text
+          style={{
+            justifyContent: 'center',
+            textAlign: 'center',
+            marginBottom: 50,
+            fontSize: 24,
+            fontWeight: 'bold',
+          }}
+        >
+          Totalt
+        </Text>
       </>
     );
   }

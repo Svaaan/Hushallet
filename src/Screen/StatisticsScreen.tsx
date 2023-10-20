@@ -22,14 +22,24 @@ export default function StatisticsScreen({ navigation }: Props) {
   return (
     <View>
       <PieChartWithCenteredLabels />
-      {mockChores.map((chore) => {
-        return (
-          <View key={chore.id}>
-            <ChoreChart choreEvents={eventsByChoreId[chore.id]} />
-            <Text>{chore.name}</Text>
-          </View>
-        );
-      })}
+      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+        {mockChores.map((chore) => {
+          return (
+            <View key={chore.id} style={{ width: '33%', padding: 8 }}>
+              <ChoreChart choreEvents={eventsByChoreId[chore.id]} />
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '600',
+                }}
+              >
+                {chore.name}
+              </Text>
+            </View>
+          );
+        })}
+      </View>
     </View>
   );
 }

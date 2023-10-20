@@ -32,7 +32,7 @@ class ChoreChart extends React.PureComponent<ChoreChartProps> {
     }));
     return (
       <PieChart
-        style={{ height: 100 }}
+        style={{ height: 150 }}
         valueAccessor={({ item }) => item.amount}
         data={transformedData}
         // spacing={0}
