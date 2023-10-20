@@ -3,7 +3,6 @@ import React from 'react';
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
 
 import CreateHouseholdScreen from '../Screen/CreateHouseholdScreen';
-import StartScreen from '../Screen/StartScreen';
 import HomeScreen from '../Screen/HomeScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import ProfileScreen from '../Screen/ProfileScreen';
@@ -28,8 +27,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
-
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Household">
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -42,7 +40,7 @@ export default function RootNavigator() {
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
-        <Stack.Screen name="CreateTask" component={() => null} />
+        {/* <Stack.Screen name="CreateTask" component={() => null} /> */}
       </Stack.Group>
     </Stack.Navigator>
   );
