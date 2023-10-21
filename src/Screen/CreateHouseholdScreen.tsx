@@ -1,40 +1,92 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-
+import { mockedHomes } from '../../data/mockedHomes';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
+import { useFocusEffect } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
 export default function CreateHouseholdScreen({ navigation }: Props) {
+  const [householdName, setHouseholdName] = useState('');
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setHouseholdName('');
+    }, [])
+  );
+
+  const handleSaveButtonPress = () => {
+    if (householdName != '') {
+      const uniqueCode = findUniqueCode(mockedHomes.map(home => home.home_code));
+      const newHousehold = {
+        id: mockedHomes.length + 1,
+        name: householdName,
+        owner_id: 1,
+        home_code: uniqueCode
+      };
+      mockedHomes.push(newHousehold);
+      navigation.navigate('MyHouseholds')
+    }
+  };
+
+  const handleBackButtonPress = () => {
+    navigation.navigate('MyHouseholds')
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Skapa Hushåll</Text>
       </View>
       <TextInput
-        placeholder="Titel"
+        placeholder="Namn på hushåll"
         style={styles.input}
-      />
-      <TextInput
-        placeholder="Ägare"
-        style={styles.input}
+        onChangeText={(text) => setHouseholdName(text)}
+        value={householdName}
       />
       <View style={styles.footer}>
-        <Button style={styles.button} mode="contained" onPress={() => counter + 1}>
+        <Button
+          textColor='black'
+          style={styles.button}
+          mode="contained"
+          onPress={() => handleSaveButtonPress()}
+        >
           Spara
         </Button>
-        <Button style={styles.button} mode="contained" onPress={() => counter - 1}>
-          Avbryt
+        <Button
+          textColor='black'
+          style={styles.button}
+          mode="contained"
+          onPress={() => handleBackButtonPress()}
+        >
+          Tillbaka
         </Button>
       </View>
     </View>
   );
 }
 
-let counter = 0;
+function generateUniqueRandomCode(existingCodes: number[]) {
+  function generateRandomCode() {
+    return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+  }
+  let randomCode;
+  do {
+    randomCode = generateRandomCode();
+  } while (existingCodes.includes(randomCode));
+  return randomCode;
+}
+
+function findUniqueCode(existingCodes: number[]): number {
+  let uniqueCode;
+  do {
+    uniqueCode = generateUniqueRandomCode(existingCodes);
+  } while (existingCodes.includes(uniqueCode));
+  return uniqueCode;
+}
 
 const theme = ProjectTheme;
 
@@ -67,18 +119,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     bottom: 0,
     left: 0,
     right: 0,
   },
-  button:{
-    flex: 1, // Make buttons expand to fill the entire footer width
-    borderWidth: 1, // Add a thin border to separate the buttons
+  button: {
+    flex: 1,
+    borderWidth: 1,
     borderRadius: 0,
-    borderColor: '#ccc', // Border color
-    alignItems: 'center',
+    borderColor: '#ccc',
     backgroundColor: 'white',
-    height: 80,
   }
 });
