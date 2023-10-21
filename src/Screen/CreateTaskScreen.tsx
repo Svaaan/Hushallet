@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import * as ImagePicker from "expo-image-picker";
+import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
-import { ScrollView, Text, TextInput, View } from 'react-native';
+import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import uuid from 'react-native-uuid';
 import { ProjectTheme } from '../../theme/theme';
@@ -63,7 +63,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
   };
 
   return (
-    <View style={{ backgroundColor: 'F2F2F2' }}>
+    <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
       <View
         style={{
           paddingLeft: 10,
@@ -88,96 +88,119 @@ export default function CreateTaskScreen({ navigation }: Props) {
       </View>
       <View
         style={{
-          height: 20,
-          flexDirection: 'row',
-          justifyContent: 'center',
+          flex: 1,
+          flexDirection: 'column',
           backgroundColor: 'F2F2F2',
         }}
-      />
-      <ScrollView
-        style={{
-          marginTop: 10,
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingTop: 20,
-        }}
       >
-        <TextInput
+        <ScrollView
           style={{
-            height: 40,
-            borderColor: 'gray',
-            borderWidth: 1,
-            backgroundColor: '#FFFFFF',
+            flex: 1,
+            marginTop: 10,
             paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 20,
           }}
-          placeholder="Titel"
-          value={titel}
-          onChangeText={(text) => setTitel(text)}
-        />
-        <Button
-          style={{
-            marginBottom: 5,
-            height: 50,
-            justifyContent: 'center',
-            backgroundColor: ProjectTheme.colors.primary,
-          }}
-          icon="file-image-plus-outline"
-          mode="contained"
-          onPress={pickImage}
-          labelStyle={{ color: ProjectTheme.colors.secondary }}
-          rippleColor={ProjectTheme.colors.background}
-          children={undefined}
-        />
-        <TextInput
-          style={{
-            height: 100,
-            borderColor: 'gray',
-            borderWidth: 1,
-            backgroundColor: '#FFFFFF',
-            paddingLeft: 10,
-          }}
-          placeholder="Beskrivning"
-          value={discription}
-          onChangeText={(text) => setDiscription(text)}
-          multiline
-          numberOfLines={4}
-        />
-        <TextInput
-          style={{
-            height: 40,
-            borderColor: 'gray',
-            backgroundColor: '#FFFFFF',
-            borderWidth: 1,
-            paddingLeft: 10,
-          }}
-          placeholder="Återkommer:"
-          value={interval.toString()} // Convert to string
-          onChangeText={(text) => setInterval(text)}
-        />
-        <TextInput
-          style={{
-            height: 40,
-            borderColor: 'gray',
-            backgroundColor: '#FFFFFF',
-            borderWidth: 1,
-            paddingLeft: 10,
-          }}
-          placeholder="Värde:"
-          value={rating.toString()} // Convert to string
-          onChangeText={(text) => setRating(text)}
-        />
+        >
+          <Text>Titel:</Text>
+          <TextInput
+            style={{
+              borderRadius: ProjectTheme.borderRadius.large,
+              height: 40,
+              borderColor: 'gray',
+              borderWidth: 1,
+              backgroundColor: '#FFFFFF',
+              paddingLeft: 10,
+              marginBottom: 10,
+            }}
+            value={titel}
+            onChangeText={(text) => setTitel(text)}
+          />
+          <Text>Bild:</Text>
+          <Button
+            style={{
+              marginBottom: 10,
+              height: 50,
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="image"
+            mode="contained"
+            onPress={pickImage}
+            labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 40 }}
+            rippleColor={ProjectTheme.colors.background}
+            children={undefined}
+          />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 400,
+                height: 225,
+                alignSelf: 'center',
+                marginBottom: 10,
+              }}
+            />
+          )}
+          <Text>Beskrivning:</Text>
+          <TextInput
+            style={{
+              borderRadius: ProjectTheme.borderRadius.large,
+              height: 100,
+              borderColor: 'gray',
+              borderWidth: 1,
+              backgroundColor: '#FFFFFF',
+              paddingLeft: 10,
+              marginBottom: 10,
+            }}
+            value={discription}
+            onChangeText={(text) => setDiscription(text)}
+            multiline
+            numberOfLines={4}
+          />
+          <Text>Återkommer:</Text>
+          <TextInput
+            style={{
+              borderRadius: ProjectTheme.borderRadius.large,
+              height: 50,
+              borderColor: 'gray',
+              backgroundColor: '#FFFFFF',
+              borderWidth: 1,
+              paddingLeft: 10,
+            }}
+            value={interval.toString()}
+            onChangeText={(text) => setInterval(text)}
+            keyboardType="numeric"
+          />
+          <Text>Värde:</Text>
+          <TextInput
+            style={{
+              borderRadius: ProjectTheme.borderRadius.large,
+              height: 50,
+              borderColor: 'gray',
+              backgroundColor: '#FFFFFF',
+              borderWidth: 1,
+              paddingLeft: 10,
+              marginBottom: 10,
+            }}
+            value={rating.toString()}
+            onChangeText={(text) => setRating(text)}
+            keyboardType="numeric"
+          />
+        </ScrollView>
+
         <View
           style={{
-            display: 'flex',
             flexDirection: 'row',
+            alignItems: 'flex-end',
             justifyContent: 'space-between',
-            paddingTop: 20,
           }}
         >
           <Button
             style={{
               marginBottom: 5,
               height: 50,
+              width: '48%', // Make sure there is enough space for both buttons
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
@@ -191,8 +214,10 @@ export default function CreateTaskScreen({ navigation }: Props) {
           </Button>
           <Button
             style={{
+              elevation: ProjectTheme.elevation.large,
               marginBottom: 5,
               height: 50,
+              width: '48%', // Make sure there is enough space for both buttons
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
@@ -205,17 +230,19 @@ export default function CreateTaskScreen({ navigation }: Props) {
             Stäng
           </Button>
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </View >
+
+    // const styles = StyleSheet.create({
+    //   container: {
+    //     flex: 1,
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     backgroundColor: 'white',
+    //   },
+
+    // });
+
+
   );
-}
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     backgroundColor: 'white',
-//   },
-
-// });
+} 
