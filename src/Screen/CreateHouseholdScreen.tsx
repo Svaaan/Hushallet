@@ -6,9 +6,9 @@ import { ProjectTheme } from '../../theme/theme';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateHome'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
-export default function CreateHomeScreen({ navigation }: Props) {
+export default function CreateHouseholdScreen({ navigation }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>

@@ -1,17 +1,16 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-paper';
 
 import { ProjectTheme } from '../../theme/theme';
-import { RootStackParamList } from '../Navigation/RootNavigator';
+import { RootStackScreenProps } from '../Navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type Props = RootStackScreenProps<'Home'>;
 
 export default function HomeScreen({ navigation }: Props) {
   useEffect(() => {
     console.log(navigation.getId());
-    //kolla vad som ska vara i dependency listan, annars klagar es lint
+    
   }, [navigation]);
 
   return (

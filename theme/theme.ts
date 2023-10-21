@@ -3,8 +3,8 @@ export const ProjectTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#099E2C',
-    secondary: '#FFFFFF',
+    primary: '#FFFFFF',
+    secondary: '#000000',
     iconcolor: '#000000',
     textcolor: '#333333',
     whiteTextColor: '#FFFFFF',
