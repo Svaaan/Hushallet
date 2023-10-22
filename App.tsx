@@ -6,7 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RootNavigator from './src/Navigation/RootNavigator';
 import SplashScreen from './src/Screen/SplashScreen';
 import { ProjectTheme } from './theme/theme';
-import { UserProvider } from './src/Context/UserContext';
+import { UserProvider } from './src/Context/AccountContext';
 
 export default function App() {
   const theme = {

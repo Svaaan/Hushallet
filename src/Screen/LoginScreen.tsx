@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-import { useUserContext } from '../Context/UserContext';
+import { useUserContext } from '../Context/AccountContext';
 import { RootStackScreenProps } from '../Navigation/types';
 
 type Props = RootStackScreenProps<'Login'>;

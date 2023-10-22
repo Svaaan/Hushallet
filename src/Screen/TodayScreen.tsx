@@ -2,13 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
-import { useUserContext } from '../Context/UserContext';
+import { useUserContext } from '../Context/AccountContext';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
-
-
   //för att få tag i profil = user.id och household.id för att hitta profilen det gäller
 
   const handleGoToTaskDetails = () => {
