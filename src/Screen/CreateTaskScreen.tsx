@@ -60,6 +60,12 @@ export default function CreateTaskScreen({ navigation }: Props) {
     } catch (error) {
       console.log(error);
     }
+    setTitel('');
+    setDiscription('');
+    setInterval('');
+    setRating('');
+    setImage(null);
+    navigation.navigate('Household');
   };
 
   return (
@@ -223,7 +229,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             }}
             icon="close"
             mode="contained"
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() => navigation.navigate('Household')}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
@@ -231,18 +237,6 @@ export default function CreateTaskScreen({ navigation }: Props) {
           </Button>
         </View>
       </View>
-    </View >
-
-    // const styles = StyleSheet.create({
-    //   container: {
-    //     flex: 1,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     backgroundColor: 'white',
-    //   },
-
-    // });
-
-
+    </View>
   );
-} 
+}
