@@ -16,7 +16,7 @@ export default function LoginScreen({ navigation }: Props) {
     const success = await login(username, password);
     console.log('konto som loggar in:', username);
     if (success) {
-      navigation.navigate('Household');
+      navigation.navigate('MyHouseholds');
     }
   }
 

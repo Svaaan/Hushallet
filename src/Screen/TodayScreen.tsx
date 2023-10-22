@@ -7,9 +7,7 @@ import { useUserContext } from '../Context/UserContext';
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
-  //lägger in hur man får tag i inloggad user/account
 
-  const { user } = useUserContext();
 
   //för att få tag i profil = user.id och household.id för att hitta profilen det gäller
 
