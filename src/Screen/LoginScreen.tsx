@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../Navigation/RootNavigator';
 import { useUserContext } from '../Context/UserContext';
+import { RootStackScreenProps } from '../Navigation/types';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type Props = RootStackScreenProps<'Login'>;
 
 export default function LoginScreen({ navigation }: Props) {
   const [username, setUsername] = useState('');
@@ -13,7 +12,9 @@ export default function LoginScreen({ navigation }: Props) {
   const { login } = useUserContext();
 
   async function handleLogin() {
+    console.log(username, password);
     const success = await login(username, password);
+    console.log('konto som loggar in:', username);
     if (success) {
       navigation.navigate('Household');
     }
@@ -66,7 +67,7 @@ export default function LoginScreen({ navigation }: Props) {
           elevation: ProjectTheme.elevation.medium,
           justifyContent: 'center',
           alignItems: 'center',
-          marginVertical:20
+          marginVertical: 20,
         }}
         onPress={handleLogin}
       >
