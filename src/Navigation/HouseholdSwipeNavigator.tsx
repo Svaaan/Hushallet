@@ -5,6 +5,7 @@ import StatisticsScreen from '../Screen/StatisticsScreen';
 export type HouseholdSwipeParamList = {
   Today: undefined;
   Statistics: undefined;
+  CreateTask: undefined;
 };
 
 const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
