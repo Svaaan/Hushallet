@@ -200,11 +200,11 @@ export default function CreateTaskScreen({ navigation }: Props) {
             style={{
               marginBottom: 5,
               height: 50,
-              width: '48%', // Make sure there is enough space for both buttons
+              width: '48%',
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
-            icon="content-save"
+            icon="content-save-outline"
             mode="contained"
             onPress={handelAddTask}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
@@ -221,7 +221,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
-            icon="file-image-plus-outline"
+            icon="close"
             mode="contained"
             onPress={() => navigation.navigate('Profile')}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
