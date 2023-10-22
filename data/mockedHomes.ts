@@ -13,3 +13,5 @@ interface Home {
         home_code:123
     },
   ]
+
+  export { Home, mockedHomes };
