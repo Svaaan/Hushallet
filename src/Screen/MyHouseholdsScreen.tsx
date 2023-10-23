@@ -5,6 +5,7 @@ import { mockedHomes} from '../../data/mockedHomes';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
+
 export default function MyHouseholdsScreen({ navigation }: Props) {
   return (
     <View>
