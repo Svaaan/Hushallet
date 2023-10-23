@@ -1,11 +1,13 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
+import LastWeekStatisticsScreen from '../Screen/LastWeekStatisticsScreen';
 import StatisticsScreen from '../Screen/StatisticsScreen';
 
 export type HouseholdSwipeParamList = {
   Today: undefined;
   Statistics: undefined;
   CreateTask: undefined;
+  LastWeekStatistics: undefined;
 };
 
 const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
@@ -14,9 +16,13 @@ const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
 
 export default function HouseholdSwipeNavigator() {
   return (
-    <Swipe.Navigator initialRouteName="Today" tabBar={() => null}>
-      <Swipe.Screen name="Today" component={() => null} />
+    <Swipe.Navigator initialRouteName="LastWeekStatistics">
+      {/* <Swipe.Screen name="Today" component={() => null} /> */}
       <Swipe.Screen name="Statistics" component={StatisticsScreen} />
+      <Swipe.Screen
+        name="LastWeekStatistics"
+        component={LastWeekStatisticsScreen}
+      />
     </Swipe.Navigator>
   );
 }

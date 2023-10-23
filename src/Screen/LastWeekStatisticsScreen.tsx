@@ -1,36 +1,24 @@
 import React from 'react';
-
 import { Text, View } from 'react-native';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { mockChores } from '../../data/mockedChores';
 import ChoreChart from '../Component/ChoreChart';
 import PieChartWithCenteredLabels from '../Component/PieChartWithCenteredLabels ';
+
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
-type Props = HouseholdSwipeScreenProps<'Statistics'>;
+type Props = HouseholdSwipeScreenProps<'LastWeekStatistics'>;
 
-function getCurrentWeekDates() {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDay();
-  const startDate = new Date(currentDate);
-  startDate.setDate(currentDate.getDate() - currentDay);
-  const endDate = new Date(currentDate);
-  endDate.setDate(startDate.getDate() + 6);
+export default function LastWeekStatisticsScreen({ navigation }: Props) {
+  const lastWeekStartDate = new Date();
+  lastWeekStartDate.setDate(lastWeekStartDate.getDate() - 7);
 
-  return { startDate, endDate };
-}
-
-export default function StatisticsScreen({ navigation }: Props) {
-  const { startDate, endDate } = getCurrentWeekDates();
-
-  const currentWeekEvents = mockChoreEvents.filter((event) => {
-    const eventDate = new Date(event.date);
-    return eventDate >= startDate && eventDate <= endDate;
+  const lastWeekChoreEvents = mockChoreEvents.filter((event) => {
+    return event.date >= lastWeekStartDate;
   });
 
-  // Group mockedChoreEvents by chore_id
   const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
-  currentWeekEvents.forEach((event) => {
+  mockChoreEvents.forEach((event) => {
     if (!eventsByChoreId[event.chore_id]) {
       eventsByChoreId[event.chore_id] = [];
     }

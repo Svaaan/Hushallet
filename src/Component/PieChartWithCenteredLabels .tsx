@@ -6,12 +6,12 @@ import { mockChoreEvents } from '../../data/mockedChoreEvents';
 import { mockUsers } from '../../data/mockedUsers';
 
 export const userColors: Record<number, string> = {
-  1: '#FFA500', // Fox - Orange
-  2: '#FFFF00', // Chick - Yellow
-  3: '#0088FF', // Whale - Blue
-  4: '#00FF00', // Frog - green
-  5: '#600080', // Octopus - purple
-  6: '#FF0000', // Pig - Red
+  1: '#FF7000', // Fox - Darker Orange
+  2: '#CCCC00', // Chick - Darker Yellow
+  3: '#0055AA', // Whale - Darker Blue
+  4: '#009900', // Frog - Darker Green
+  5: '#AA1100', // Octopus - Darker Pink
+  6: '#FF0066', // Pig - Darker Red
 };
 
 export const defaultColor = '#000000';
@@ -67,6 +67,10 @@ class PieChartWithCenteredLabels extends React.PureComponent {
     // Filter the data and slices to include only users who have completed chores
     const filteredData = data.filter((item) => item.amount > 0);
 
+    if (filteredData.length === 0) {
+      return <Text>No chores completed yet.</Text>;
+    }
+
     const Labels: React.FC<LabelsProps> = ({ slices, height, width }) => {
       return slices.map((slice, index) => {
         const { labelCentroid, pieCentroid, data } = slice;
@@ -92,7 +96,7 @@ class PieChartWithCenteredLabels extends React.PureComponent {
     return (
       <>
         <PieChart
-          style={{ marginTop: 5, height: 200 }}
+          style={{ marginTop: 5, height: 300 }}
           valueAccessor={({ item }: { item: DataItem }) => item.amount}
           data={filteredData}
           // spacing={0}
@@ -101,7 +105,17 @@ class PieChartWithCenteredLabels extends React.PureComponent {
         >
           <Labels slices={filteredData as any} height={0} width={0} />
         </PieChart>
-        <Text>Totalt</Text>
+        <Text
+          style={{
+            justifyContent: 'center',
+            textAlign: 'center',
+            marginBottom: 50,
+            fontSize: 24,
+            fontWeight: 'bold',
+          }}
+        >
+          Totalt
+        </Text>
       </>
     );
   }

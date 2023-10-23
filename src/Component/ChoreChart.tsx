@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { PieChart } from 'react-native-svg-charts';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { defaultColor, userColors } from './PieChartWithCenteredLabels ';
@@ -9,11 +10,18 @@ interface ChoreChartProps {
 
 class ChoreChart extends React.PureComponent<ChoreChartProps> {
   render() {
+    const choreEvents = this.props.choreEvents || [];
+
+    // Check if there are choreEvents available
+    if (this.props.choreEvents.length === 0) {
+      return <Text>No event available for this chore.</Text>;
+    }
+
     const userChoresCount: Record<number, number> = {};
 
     // Calculate the number of chores completed by each user based on the choreEvents data
     this.props.choreEvents.forEach((event) => {
-      if (event.user_id !== null) {
+      if (event.user_id !== null && event.user_id !== undefined) {
         if (userChoresCount[event.user_id] === undefined) {
           userChoresCount[event.user_id] = 1;
         } else {
