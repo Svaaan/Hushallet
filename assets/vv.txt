@@ -1,0 +1,137 @@
+import React, { useState } from 'react';
+import { View, Text, Image, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper';
+
+interface Task {
+  id: string;
+  Titel: string;
+  imageUri: string | null;
+  Discription: string;
+  Interval: string;
+  Rating: string;
+  isDone: boolean; // Add a property to track if the task is done
+  // Add other task properties here
+}
+
+interface ViewSpecificTaskProps {
+  route: { params: { task: Task } };
+  navigation: any; // Adjust the type according to your navigation library
+}
+
+export default function ViewSpecificTaskScreen({ route, navigation }: ViewSpecificTaskProps) {
+  const { task } = route.params;
+  const [isTaskDone, setIsTaskDone] = useState(task.isDone);
+
+  // Function to mark the task as done
+  const markTaskAsDone = () => {
+    // Update the task's status to done
+    setIsTaskDone(true);
+
+    // You can also update the task status in your data store or backend
+
+    // Example: Update the task status in AsyncStorage
+    // You'll need to implement this logic according to your data storage
+    // const updatedTask = { ...task, isDone: true };
+    // await AsyncStorage.setItem(task.id, JSON.stringify(updatedTask));
+  };
+
+  return (
+    <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
+      <View
+        style={{
+          paddingLeft: 10,
+          paddingRight: 10,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          backgroundColor: '#FFFFFF',
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            paddingTop: 14,
+            justifyContent: 'center',
+            alignContent: 'center',
+            height: 66,
+          }}
+        >
+          Task Details
+        </Text>
+      </View>
+      <View style={{ flex: 1, flexDirection: 'column', backgroundColor: 'F2F2F2' }}>
+        <ScrollView
+          style={{
+            flex: 1,
+            marginTop: 10,
+            paddingLeft: 10,
+            paddingRight: 10,
+            paddingTop: 20,
+          }}
+        >
+          <Text>Titel:</Text>
+          <Text>{task.Titel}</Text>
+          {task.imageUri && (
+            <Image
+              source={{ uri: task.imageUri }}
+              style={{
+                width: 400,
+                height: 225,
+                alignSelf: 'center',
+                marginBottom: 10,
+              }}
+            />
+          }
+          <Text>Beskrivning:</Text>
+          <Text>{task.Discription}</Text>
+          <Text>Återkommer:</Text>
+          <Text>{task.Interval}</Text>
+          <Text>Värde:</Text>
+          <Text>{task.Rating}</Text>
+        </ScrollView>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+          }}
+        >
+          {isTaskDone ? (
+            <Button
+              style={{
+                marginBottom: 5,
+                height: 50,
+                width: '100%',
+                justifyContent: 'center',
+                backgroundColor: ProjectTheme.colors.primary, // Use the appropriate color
+              }}
+              icon="check"
+              mode="contained"
+              disabled
+              labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 18 }}
+            >
+              Marked as Done
+            </Button>
+          ) : (
+            <Button
+              style={{
+                marginBottom: 5,
+                height: 50,
+                width: '100%',
+                justifyContent: 'center',
+                backgroundColor: ProjectTheme.colors.primary, // Use the appropriate color
+              }}
+              icon="check"
+              mode="contained"
+              onPress={markTaskAsDone}
+              labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 18 }}
+            >
+              Mark as Done
+            </Button>
+          )}
+        </View>
+      </View>
+    </View>
+  );
+}
