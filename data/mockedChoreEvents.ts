@@ -6,17 +6,18 @@ interface ChoreEvent {
 }
 
 const mockChoreEvents: ChoreEvent[] = [
+  // Last Week
   {
     id: 1,
     user_id: 1,
     chore_id: 1,
-    date: new Date('2023-10-16'),
+    date: new Date('2023-10-17'),
   },
   {
     id: 2,
     user_id: 2,
     chore_id: 2,
-    date: new Date('2023-10-16'),
+    date: new Date('2023-10-17'),
   },
   {
     id: 3,
@@ -28,7 +29,7 @@ const mockChoreEvents: ChoreEvent[] = [
     id: 4,
     user_id: 4,
     chore_id: 4,
-    date: new Date('2023-10-16'),
+    date: new Date('2023-10-18'),
   },
   {
     id: 5,
@@ -52,25 +53,25 @@ const mockChoreEvents: ChoreEvent[] = [
     id: 8,
     user_id: 1,
     chore_id: 3,
-    date: new Date('2023-10-21'),
+    date: new Date('2023-10-19'),
   },
   {
     id: 9,
     user_id: 3,
     chore_id: 2,
-    date: new Date('2023-10-21'),
+    date: new Date('2023-10-19'),
   },
   {
     id: 10,
     user_id: 6,
     chore_id: 2,
-    date: new Date('2023-10-21'),
+    date: new Date('2023-10-20'),
   },
   {
     id: 10,
-    user_id: 1,
+    user_id: 2,
     chore_id: 3,
-    date: new Date('2023-10-21'),
+    date: new Date('2023-10-20'),
   },
   {
     id: 11,
@@ -78,6 +79,7 @@ const mockChoreEvents: ChoreEvent[] = [
     chore_id: 3,
     date: new Date('2023-10-21'),
   },
+  // Current week
   {
     id: 12,
     user_id: 1,
@@ -116,7 +118,7 @@ const mockChoreEvents: ChoreEvent[] = [
   },
   {
     id: 18,
-    user_id: 5,
+    user_id: 4,
     chore_id: 6,
     date: new Date('2023-10-26'),
   },

@@ -39,12 +39,16 @@ export default function StatisticsScreen({ navigation }: Props) {
 
   return (
     <View>
-      <PieChartWithCenteredLabels />
+      <PieChartWithCenteredLabels startDate={startDate} endDate={endDate} />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {
           return (
             <View key={chore.id} style={{ width: '33%', padding: 8 }}>
-              <ChoreChart choreEvents={eventsByChoreId[chore.id]} />
+              <ChoreChart
+                choreEvents={eventsByChoreId[chore.id]}
+                startDate={startDate}
+                endDate={endDate}
+              />
               <Text
                 style={{
                   textAlign: 'center',

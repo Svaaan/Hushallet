@@ -13,8 +13,11 @@ export default function LastWeekStatisticsScreen({ navigation }: Props) {
   const lastWeekStartDate = new Date();
   lastWeekStartDate.setDate(lastWeekStartDate.getDate() - 7);
 
+  const lastWeekEndDate = new Date(lastWeekStartDate);
+  lastWeekEndDate.setDate(lastWeekStartDate.getDate() + 6);
+
   const lastWeekChoreEvents = mockChoreEvents.filter((event) => {
-    return event.date >= lastWeekStartDate;
+    return event.date >= lastWeekStartDate && event.date <= lastWeekEndDate;
   });
 
   const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
@@ -27,12 +30,20 @@ export default function LastWeekStatisticsScreen({ navigation }: Props) {
 
   return (
     <View>
-      <PieChartWithCenteredLabels />
+      <PieChartWithCenteredLabels
+        startDate={lastWeekStartDate}
+        endDate={lastWeekEndDate}
+        lastWeekChoreEvents={lastWeekChoreEvents}
+      />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {
           return (
             <View key={chore.id} style={{ width: '33%', padding: 8 }}>
-              <ChoreChart choreEvents={eventsByChoreId[chore.id]} />
+              <ChoreChart
+                choreEvents={eventsByChoreId[chore.id]}
+                startDate={lastWeekStartDate}
+                endDate={lastWeekEndDate}
+              />
               <Text
                 style={{
                   textAlign: 'center',

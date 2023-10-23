@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { G, Image } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
-import { mockChoreEvents } from '../../data/mockedChoreEvents';
+import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { mockUsers } from '../../data/mockedUsers';
 
 export const userColors: Record<number, string> = {
@@ -34,21 +34,44 @@ interface LabelsProps {
   slices: SliceProps[];
   height: number;
   width: number;
+  startDate?: Date;
+  endDate?: Date;
+  lastWeekChoreEvents?: ChoreEvent[];
 }
 
-class PieChartWithCenteredLabels extends React.PureComponent {
+class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
   render() {
     // Initialize an object to store the number of chores completed by each user
     const userChoresCount: Record<number, number> = {};
 
+    //Debuggin: Printa the startDate / endDate
+    // console.log('startDate:', this.props.startDate);
+    // console.log('endDate:', this.props.endDate);
+
+    // Filter the chore events based on the specified date range
+    const filteredChoreEvents = mockChoreEvents.filter((choreEvent) => {
+      if (this.props.startDate && this.props.endDate) {
+        const eventDate = new Date(choreEvent.date);
+        return (
+          eventDate >= this.props.startDate && eventDate <= this.props.endDate
+        );
+      }
+      return true; // If no date range is specified, include all events
+    });
+
+    //Debuggin: Log filtered events from DB
+    // console.log('filteredChoreEvents:', filteredChoreEvents);
+
     // Calculate the number of chores completed by each user based on the mockChoreEvents data
-    mockChoreEvents.forEach((choreEvent) => {
+    filteredChoreEvents.forEach((choreEvent) => {
       if (userChoresCount[choreEvent.user_id] === undefined) {
         userChoresCount[choreEvent.user_id] = 1;
       } else {
         userChoresCount[choreEvent.user_id]++;
       }
     });
+    //Debuggin: Log userChores count.
+    // console.log('userChoresCount:', userChoresCount);
 
     const data: DataItem[] = mockUsers.map((user) => {
       const fill = user ? userColors[user.id] || defaultColor : defaultColor;
@@ -99,8 +122,6 @@ class PieChartWithCenteredLabels extends React.PureComponent {
           style={{ marginTop: 5, height: 300 }}
           valueAccessor={({ item }: { item: DataItem }) => item.amount}
           data={filteredData}
-          // spacing={0}
-          // innerRadius="0%"
           outerRadius="95%"
         >
           <Labels slices={filteredData as any} height={0} width={0} />
