@@ -25,7 +25,7 @@ class ChoreChart extends React.PureComponent<ChoreChartProps> {
       return <Text>No event available for this chore.</Text>;
     }
 
-    const userChoresCount: Record<number, number> = {};
+    const userChoresCount: Record<string, number> = {};
 
     // Calculate the number of chores completed by each user based on the choreEvents data
     filteredChoreEvents.forEach((event) => {

@@ -36,7 +36,7 @@ interface LabelsProps {
   width: number;
   startDate?: Date;
   endDate?: Date;
-  lastWeekChoreEvents?: ChoreEvent[];
+  choreEvents?: ChoreEvent[];
 }
 
 class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
@@ -94,7 +94,7 @@ class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
       return <Text>No chores completed yet.</Text>;
     }
 
-    const Labels: React.FC<LabelsProps> = ({ slices, height, width }) => {
+    const Labels: React.FC<LabelsProps> = ({ slices }) => {
       return slices.map((slice, index) => {
         const { labelCentroid, pieCentroid, data } = slice;
         const user = mockUsers.find((user) => user.id === data.key);

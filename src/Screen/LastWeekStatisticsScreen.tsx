@@ -33,7 +33,10 @@ export default function LastWeekStatisticsScreen({ navigation }: Props) {
       <PieChartWithCenteredLabels
         startDate={lastWeekStartDate}
         endDate={lastWeekEndDate}
-        lastWeekChoreEvents={lastWeekChoreEvents}
+        choreEvents={lastWeekChoreEvents}
+        slices={[]} // Pass an empty array as a placeholder
+        height={300} // Set a default height
+        width={300} // Set a default width
       />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {

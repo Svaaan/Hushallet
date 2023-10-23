@@ -39,7 +39,13 @@ export default function StatisticsScreen({ navigation }: Props) {
 
   return (
     <View>
-      <PieChartWithCenteredLabels startDate={startDate} endDate={endDate} />
+      <PieChartWithCenteredLabels
+        startDate={startDate}
+        endDate={endDate}
+        slices={[]} // Pass an empty array as a placeholder
+        height={300} // Set a default height
+        width={300} // Set a default width
+      />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {
           return (
