@@ -4,12 +4,14 @@ import React, { useState } from 'react';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
+import EmojiSelection from '../Component/ChooseAvatar';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'JoinHousehold'>;
 
 export default function JoinHouseholdScreen({ navigation }: Props) {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
+  const [selectedEmoji, setSelectedEmoji] = useState('');
 
   const placeholderStyle = {
     width: 300,
@@ -29,12 +31,12 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 200,
+        paddingTop: 75, 
       }}
     >
-      <View style={{}}>
+      <View>
         <TextInput
-          style={placeholderStyle} // Apply the placeholderStyle here
+          style={placeholderStyle}
           placeholder="Namn"
           placeholderTextColor={ProjectTheme.inputPlaceholderColor}
           onChangeText={(text) => setName(text)}
@@ -42,11 +44,16 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         />
 
         <TextInput
-          style={placeholderStyle} // Apply the placeholderStyle here
+          style={placeholderStyle}
           placeholder="Hushålls kod"
           placeholderTextColor={ProjectTheme.inputPlaceholderColor}
           onChangeText={(text) => setCode(text)}
           value={code}
+        />
+
+        <EmojiSelection
+          selectedEmoji={selectedEmoji}
+          onSelectEmoji={(emoji) => setSelectedEmoji(emoji)}
         />
       </View>
 
@@ -58,16 +65,17 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         }}
       >
         <Button
-          title="Spara"
+          title="Tillbaka"
           onPress={() => {
-            navigation.navigate('MyHouseholds')
+            // Here, you can also send the selectedEmoji along with other data when saving
+            navigation.navigate('MyHouseholds');
           }}
         />
 
         <Button
-          title="Stäng"
+          title="Anslut"
           onPress={() => {
-            navigation.navigate('MyHouseholds')
+            navigation.navigate('MyHouseholds');
           }}
         />
       </View>
