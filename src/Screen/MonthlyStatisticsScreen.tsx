@@ -8,7 +8,9 @@ import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
 type Props = HouseholdSwipeScreenProps<'MonthlyStatistics'>;
 
-export default function MonthlyStatisticsScreen({ navigation }: Props) {
+export default function MonthlyStatisticsScreen({ route, navigation }: Props) {
+  const { monthName } = route.params;
+
   // Calculate the start and end date for the monthly statistics
   const today = new Date();
   const currentMonthStartDate = new Date(
