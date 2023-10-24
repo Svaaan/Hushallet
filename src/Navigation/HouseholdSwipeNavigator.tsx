@@ -16,7 +16,7 @@ const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
 
 export default function HouseholdSwipeNavigator() {
   return (
-    <Swipe.Navigator initialRouteName="Today">
+    <Swipe.Navigator initialRouteName="Today" tabBar={() => null}>
       <Swipe.Screen name="Today" component={() => null} />
       <Swipe.Screen name="Statistics" component={StatisticsScreen} />
       <Swipe.Screen
