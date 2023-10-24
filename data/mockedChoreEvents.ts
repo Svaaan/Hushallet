@@ -124,43 +124,43 @@ const mockChoreEvents: ChoreEvent[] = [
   },
   // Month
   {
-    id: 12,
+    id: 19,
     user_id: 1,
     chore_id: 3,
     date: new Date('2023-10-01'),
   },
   {
-    id: 13,
+    id: 20,
     user_id: 2,
     chore_id: 1,
     date: new Date('2023-10-01'),
   },
   {
-    id: 14,
+    id: 21,
     user_id: 3,
     chore_id: 2,
     date: new Date('2023-10-01'),
   },
   {
-    id: 15,
+    id: 22,
     user_id: 4,
     chore_id: 4,
     date: new Date('2023-10-01'),
   },
   {
-    id: 16,
+    id: 23,
     user_id: 5,
     chore_id: 5,
     date: new Date('2023-10-01'),
   },
   {
-    id: 17,
+    id: 24,
     user_id: 6,
     chore_id: 6,
     date: new Date('2023-10-01'),
   },
   {
-    id: 18,
+    id: 25,
     user_id: 1,
     chore_id: 6,
     date: new Date('2023-10-02'),
@@ -168,4 +168,3 @@ const mockChoreEvents: ChoreEvent[] = [
 ];
 
 export { ChoreEvent, mockChoreEvents };
-

@@ -12,13 +12,13 @@ export default function MonthlyStatisticsScreen({ navigation }: Props) {
   // Calculate the start and end date for the monthly statistics
   const today = new Date();
   const currentMonthStartDate = new Date(
-    today.getFullYear(),
+    today.getFullYear(), //- 1, 1); To get lastMonth data
     today.getMonth(),
     1
   );
   const currentMonthEndDate = new Date(
     today.getFullYear(),
-    today.getMonth() + 1,
+    today.getMonth() + 1, // 0); to get last month data
     0
   );
 
