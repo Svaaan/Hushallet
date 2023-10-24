@@ -1,36 +1,27 @@
 import React from 'react';
-
 import { Text, View } from 'react-native';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { mockChores } from '../../data/mockedChores';
 import ChoreChart from '../Component/ChoreChart';
 import PieChartWithCenteredLabels from '../Component/PieChartWithCenteredLabels ';
+
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
-type Props = HouseholdSwipeScreenProps<'Statistics'>;
+type Props = HouseholdSwipeScreenProps<'LastWeekStatistics'>;
 
-function getCurrentWeekDates() {
-  const currentDate = new Date();
-  const currentDay = currentDate.getDay();
-  const startDate = new Date(currentDate);
-  startDate.setDate(currentDate.getDate() - currentDay);
-  const endDate = new Date(currentDate);
-  endDate.setDate(startDate.getDate() + 6);
+export default function LastWeekStatisticsScreen({ navigation }: Props) {
+  const lastWeekStartDate = new Date();
+  lastWeekStartDate.setDate(lastWeekStartDate.getDate() - 7);
 
-  return { startDate, endDate };
-}
+  const lastWeekEndDate = new Date(lastWeekStartDate);
+  lastWeekEndDate.setDate(lastWeekStartDate.getDate() + 6);
 
-export default function StatisticsScreen({ navigation }: Props) {
-  const { startDate, endDate } = getCurrentWeekDates();
-
-  const currentWeekEvents = mockChoreEvents.filter((event) => {
-    const eventDate = new Date(event.date);
-    return eventDate >= startDate && eventDate <= endDate;
+  const lastWeekChoreEvents = mockChoreEvents.filter((event) => {
+    return event.date >= lastWeekStartDate && event.date <= lastWeekEndDate;
   });
 
-  // Group mockedChoreEvents by chore_id
   const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
-  currentWeekEvents.forEach((event) => {
+  mockChoreEvents.forEach((event) => {
     if (!eventsByChoreId[event.chore_id]) {
       eventsByChoreId[event.chore_id] = [];
     }
@@ -40,8 +31,9 @@ export default function StatisticsScreen({ navigation }: Props) {
   return (
     <View>
       <PieChartWithCenteredLabels
-        startDate={startDate}
-        endDate={endDate}
+        startDate={lastWeekStartDate}
+        endDate={lastWeekEndDate}
+        choreEvents={lastWeekChoreEvents}
         slices={[]} // placeholder
         height={300} // default
         width={300} // default
@@ -52,8 +44,8 @@ export default function StatisticsScreen({ navigation }: Props) {
             <View key={chore.id} style={{ width: '33%', padding: 8 }}>
               <ChoreChart
                 choreEvents={eventsByChoreId[chore.id]}
-                startDate={startDate}
-                endDate={endDate}
+                startDate={lastWeekStartDate}
+                endDate={lastWeekEndDate}
               />
               <Text
                 style={{
