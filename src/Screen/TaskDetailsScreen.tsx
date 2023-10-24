@@ -59,7 +59,7 @@ export default function TaskDetailsScreen({ navigation }: Props) {
     if (slectedUserId.current === slectedoner_id.current) {
       navigation.navigate('EditTask');
     } else {
-      console.log(Error);
+      console.log('You are not the owner of this task');
       navigation.navigate('TaskDetails');
     }
   };
@@ -147,7 +147,7 @@ export default function TaskDetailsScreen({ navigation }: Props) {
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
-            icon="application-edit-outline"
+            icon="archive-cog-outline"
             mode="contained"
             onPress={handelRedigera}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
