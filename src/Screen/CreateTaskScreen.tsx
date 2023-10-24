@@ -8,22 +8,21 @@ import uuid from 'react-native-uuid';
 import { ProjectTheme } from '../../theme/theme';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
-
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
 
 export default function CreateTaskScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
-  const [discription, setDiscription] = React.useState('');
-  const [interval, setInterval] = React.useState('');
-  const [rating, setRating] = React.useState('');
+  const [Discription, setDiscription] = React.useState('');
+  const [Interval, setInterval] = React.useState('');
+  const [Rating, setRating] = React.useState('');
   const [image, setImage] = useState<string | null>(null);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Sorry, we need camera roll permissions to make this work!");
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
       return;
     }
 
@@ -43,18 +42,15 @@ export default function CreateTaskScreen({ navigation }: Props) {
     try {
       const taskData = {
         id: uuid.v4(),
-        SlectedHomeId: slectedHomeId.current,
-        Titel: titel,
+        home_id: slectedHomeId.current,
+        name: titel,
         imageUri: image,
-        Discription: discription,
-        Interval: parseInt(interval, 10),
-        Rating: parseInt(rating, 10),
+        discription: Discription,
+        interval: parseInt(Interval, 10),
+        task_rating: parseInt(Rating, 10),
       };
 
-      await AsyncStorage.setItem(
-        taskData.id as string,
-        JSON.stringify(taskData)
-      );
+      await AsyncStorage.setItem('taskDataKey', JSON.stringify(taskData));
       console.log(taskData);
       navigation.navigate('Home');
     } catch (error) {
@@ -159,7 +155,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={discription}
+            value={Discription}
             onChangeText={(text) => setDiscription(text)}
             multiline
             numberOfLines={4}
@@ -174,7 +170,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
               borderWidth: 1,
               paddingLeft: 10,
             }}
-            value={interval.toString()}
+            value={Interval.toString()}
             onChangeText={(text) => setInterval(text)}
             keyboardType="numeric"
           />
@@ -189,7 +185,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={rating.toString()}
+            value={Rating.toString()}
             onChangeText={(text) => setRating(text)}
             keyboardType="numeric"
           />

@@ -1,28 +1,27 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Image, Text, View } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
 
 interface Task {
   id: string;
-  SlectedHomeId: string;
-  Titel: string;
+  slectedHomeId: string;
+  name: string;
   imageUri: string;
-  Discription: string;
-  Interval: string;
-  Rating: string;
+  discription: string;
+  interval: string;
+  task_rating: string;
 }
 
 export default function TaskDetailsScreen({ navigation }: Props) {
   const [taskData, setTaskData] = useState<Task | null>(null);
-
-  // Function to retrieve task data from AsyncStorage
+  const slectedUserId = React.useRef<string>('1');
+  const slectedHomeId = React.useRef<string>('1');
   async function getTaskDataFromAsyncStorage() {
     try {
-      const storedTaskData = await AsyncStorage.getItem('taskDataKey'); // Replace 'taskDataKey' with your actual key
+      const storedTaskData = await AsyncStorage.getItem('taskDataKey');
       if (storedTaskData !== null) {
         setTaskData(JSON.parse(storedTaskData));
         console.log('Task data retrieved from AsyncStorage:', storedTaskData);
@@ -42,17 +41,30 @@ export default function TaskDetailsScreen({ navigation }: Props) {
       {taskData ? (
         <>
           <Text>ID: {taskData.id}</Text>
-          <Text>Selected Home ID: {taskData.SlectedHomeId}</Text>
-          <Text>Title: {taskData.Titel}</Text>
-          <Text>Image URI: {taskData.imageUri}</Text>
-          <Text>Description: {taskData.Discription}</Text>
-          <Text>Interval: {taskData.Interval}</Text>
-          <Text>Rating: {taskData.Rating}</Text>
+          <Text>Selected Home ID: {taskData.slectedHomeId}</Text>
+          <Text>Title: {taskData.name}</Text>
+          {Image && (
+            <Image
+              source={{ uri: taskData.imageUri }}
+              style={{
+                width: 380,
+                height: 225,
+                alignSelf: 'center',
+                marginBottom: 10,
+              }}
+            />
+          )}
+          <Text>Description: {taskData.discription}</Text>
+          <Text>Interval: {taskData.interval}</Text>
+          <Text>Rating: {taskData.task_rating}</Text>
         </>
       ) : (
         <Text>Loading task data...</Text>
       )}
-      <Button title="Go Back" onPress={() => navigation.goBack()} />
+      <Button
+        title="Go Back"
+        onPress={() => navigation.navigate('Household')}
+      />
     </View>
   );
 }
