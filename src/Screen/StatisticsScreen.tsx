@@ -42,9 +42,9 @@ export default function StatisticsScreen({ navigation }: Props) {
       <PieChartWithCenteredLabels
         startDate={startDate}
         endDate={endDate}
-        slices={[]} // Pass an empty array as a placeholder
-        height={300} // Set a default height
-        width={300} // Set a default width
+        slices={[]} // placeholder
+        height={300} // default
+        width={300} // default
       />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {
