@@ -1,16 +1,20 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
+import CustomTabBar from '../Component/CustomTabBar';
+import { getCurrentMonthName, getCurrentYear } from '../Hooks/DateUtils';
 import LastWeekStatisticsScreen from '../Screen/LastWeekStatisticsScreen';
+import MonthlyStatisticsScreen from '../Screen/MonthlyStatisticsScreen';
 import StatisticsScreen from '../Screen/StatisticsScreen';
 import TodayScreen from '../Screen/TodayScreen';
-import MonthlyStatisticsScreen from '../Screen/MonthlyStatisticsScreen';
+import YearlyStatisticsScreen from '../Screen/YearlyStatiscticsScreen';
 
 export type HouseholdSwipeParamList = {
   Today: undefined;
   Statistics: undefined;
   CreateTask: undefined;
   LastWeekStatistics: undefined;
-  MonthlyStatistics: undefined;
+  MonthlyStatistics: { monthName: string };
+  YearlyStatistics: { year: string };
 };
 
 const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
@@ -18,19 +22,36 @@ const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
 // https://reactnavigation.org/docs/material-top-tab-navigator#tabbar
 
 export default function HouseholdSwipeNavigator() {
+  const currentMonth = getCurrentMonthName();
+  const currentYear = getCurrentYear();
   return (
-    <Swipe.Navigator initialRouteName="Today">
+    <Swipe.Navigator
+      initialRouteName="Today"
+      tabBar={(props) => <CustomTabBar {...props} />}
+    >
       <Swipe.Screen name="Today" component={TodayScreen} />
-      <Swipe.Screen name="Statistics" component={StatisticsScreen} />
+      <Swipe.Screen
+        name="Statistics"
+        component={StatisticsScreen}
+        options={{ title: 'This Week' }}
+      />
       <Swipe.Screen
         name="LastWeekStatistics"
         component={LastWeekStatisticsScreen}
+        options={{ title: 'Last Week' }}
       />
       <Swipe.Screen
         name="MonthlyStatistics"
         component={MonthlyStatisticsScreen}
+        options={{ title: currentMonth }}
+        initialParams={{ monthName: currentMonth }}
+      />
+      <Swipe.Screen
+        name="YearlyStatistics"
+        component={YearlyStatisticsScreen}
+        options={{ title: currentYear }}
+        initialParams={{ year: currentYear }}
       />
     </Swipe.Navigator>
   );
 }
-
