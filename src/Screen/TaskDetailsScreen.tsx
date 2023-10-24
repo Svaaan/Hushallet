@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Image, ScrollView, Text, View } from 'react-native';
+import { Button } from 'react-native-paper';
 import uuid from 'react-native-uuid';
+import { ProjectTheme } from '../../theme/theme';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
 
 interface Task {
   id: string;
@@ -16,11 +17,14 @@ interface Task {
   task_rating: string;
 }
 
+type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
+
 export default function TaskDetailsScreen({ navigation }: Props) {
   const [taskData, setTaskData] = useState<Task | null>(null);
   const slectedUserId = React.useRef<string>('1');
   const slectedHomeId = React.useRef<string>('1');
   const slectedtaskData_id = React.useRef<string>('1');
+  const slectedoner_id = React.useRef<string>('1');
   async function getTaskDataFromAsyncStorage() {
     try {
       const storedTaskData = await AsyncStorage.getItem('taskDataKey');
@@ -32,7 +36,6 @@ export default function TaskDetailsScreen({ navigation }: Props) {
       console.error('Error retrieving task data:', error);
     }
   }
-
   useEffect(() => {
     getTaskDataFromAsyncStorage();
   }, []);
@@ -52,33 +55,108 @@ export default function TaskDetailsScreen({ navigation }: Props) {
       console.log(error);
     }
   };
+  const handelRedigera = () => {
+    if (slectedUserId.current === slectedoner_id.current) {
+      navigation.navigate('EditTask');
+    } else {
+      console.log(Error);
+      navigation.navigate('TaskDetails');
+    }
+  };
+
   return (
-    <View>
-      <Text>Task Data</Text>
-      {taskData ? (
-        <>
-          <Text>ID: {taskData.id}</Text>
-          <Text>Selected Home ID: {taskData.slectedHomeId}</Text>
-          <Text>Title: {taskData.name}</Text>
-          {Image && (
-            <Image
-              source={{ uri: taskData.imageUri }}
+    <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          backgroundColor: 'F2F2F2',
+        }}
+      >
+        <ScrollView>
+          {taskData ? (
+            <View
               style={{
-                width: 380,
-                height: 225,
-                alignSelf: 'center',
-                marginBottom: 10,
+                flex: 1,
+                flexDirection: 'column',
+                backgroundColor: 'F2F2F2',
+                margin: 10,
+                paddingLeft: 10,
+                paddingRight: 10,
               }}
-            />
+            >
+              <Text style={{ paddingBottom: 10 }}>ID: {taskData.id}</Text>
+              <Text style={{ paddingBottom: 10 }}>
+                Selected Home ID: {taskData.slectedHomeId}
+              </Text>
+              <Text style={{ paddingBottom: 10 }}>Title: {taskData.name}</Text>
+              <Text style={{ paddingBottom: 10 }}>
+                Description: {taskData.discription}
+              </Text>
+              <Text style={{ paddingBottom: 10 }}>
+                Interval: {taskData.interval}
+              </Text>
+              <Text style={{ paddingBottom: 10 }}>
+                Rating: {taskData.task_rating}
+              </Text>
+              {Image && (
+                <Image
+                  source={{ uri: taskData.imageUri }}
+                  style={{
+                    width: 380,
+                    height: 225,
+                    alignSelf: 'center',
+                    marginBottom: 10,
+                  }}
+                />
+              )}
+            </View>
+          ) : (
+            <Text>Loading task data...</Text>
           )}
-          <Text>Description: {taskData.discription}</Text>
-          <Text>Interval: {taskData.interval}</Text>
-          <Text>Rating: {taskData.task_rating}</Text>
-        </>
-      ) : (
-        <Text>Loading task data...</Text>
-      )}
-      <Button title="Avklarat" onPress={handelTaskAvklarat} />
+        </ScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Button
+            style={{
+              marginBottom: 5,
+              height: 50,
+              width: '48%',
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="archive-plus-outline"
+            mode="contained"
+            onPress={handelTaskAvklarat}
+            labelStyle={{ color: ProjectTheme.colors.secondary }}
+            rippleColor={ProjectTheme.colors.background}
+          >
+            Avklarat
+          </Button>
+          <Button
+            style={{
+              elevation: ProjectTheme.elevation.large,
+              marginBottom: 5,
+              height: 50,
+              width: '48%',
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="application-edit-outline"
+            mode="contained"
+            onPress={handelRedigera}
+            labelStyle={{ color: ProjectTheme.colors.secondary }}
+            rippleColor={ProjectTheme.colors.background}
+          >
+            Redigera
+          </Button>
+        </View>
+      </View>
     </View>
   );
 }
