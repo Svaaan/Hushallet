@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ProjectTheme } from '../../theme/theme';
 
-const CustomTabBar = ({ state, descriptors, navigation }) => {
+const CustomTabBar = ({ state, descriptors, navigation }: any) => {
   const activeRoute = state.routes[state.index];
   const { options } = descriptors[activeRoute.key];
   const label = options.title || activeRoute.name;
