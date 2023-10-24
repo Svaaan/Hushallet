@@ -61,14 +61,14 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         <Button
           title="Spara"
           onPress={() => {
-            navigation.navigate("MyHouseholds")
+            navigation.navigate('MyHouseholds')
           }}
         />
 
         <Button
           title="Stäng"
           onPress={() => {
-            "MyHouseholds"
+            navigation.navigate('MyHouseholds')
           }}
         />
       </View>
