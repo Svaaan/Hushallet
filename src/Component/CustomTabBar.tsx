@@ -31,16 +31,22 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
       <Button
         icon="chevron-left"
         children=""
-        onPress={navigateToPrevTab} // Navigate to the previous tab
-        labelStyle={{ color: ProjectTheme.colors.iconcolor, fontSize: 18 }}
+        onPress={navigateToPrevTab}
+        labelStyle={{
+          color: ProjectTheme.colors.iconcolor,
+          fontSize: ProjectTheme.iconSize,
+        }}
         rippleColor={ProjectTheme.colors.background}
       />
       <Text style={styles.tabTextCentered}>{label}</Text>
       <Button
         icon="chevron-right"
         children=""
-        onPress={navigateToNextTab} // Navigate to the next tab
-        labelStyle={{ color: ProjectTheme.colors.iconcolor, fontSize: 18 }}
+        onPress={navigateToNextTab}
+        labelStyle={{
+          color: ProjectTheme.colors.iconcolor,
+          fontSize: ProjectTheme.iconSize,
+        }}
         rippleColor={ProjectTheme.colors.background}
       />
     </View>
