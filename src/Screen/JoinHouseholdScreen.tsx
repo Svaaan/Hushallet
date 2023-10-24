@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
-import MyHouseholdsScreen from './MyHouseholdsScreen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'JoinHousehold'>;
 

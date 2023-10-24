@@ -14,7 +14,6 @@ const Button = ({ title, onPress }: ButtonProps) => {
         width: 160,
         height: 40,
         marginVertical: 50,
-        flexDirection: 'row',
         backgroundColor: ProjectTheme.buttonPrimary.color,
         borderRadius: ProjectTheme.borderRadius.medium,
         elevation: ProjectTheme.elevation.medium,
