@@ -30,9 +30,7 @@ class ChoreChart extends React.PureComponent<ChoreChartProps> {
     // Calculate the number of chores completed by each user based on the choreEvents data
     filteredChoreEvents.forEach((event) => {
       if (event.user_id !== null && event.user_id !== undefined) {
-        const userKey = `${event.user_id}-${
-          event.date.toISOString().split('T')[0]
-        }`;
+        const userKey = `${event.user_id}-${event.chore_id}`;
         if (userChoresCount[userKey] === undefined) {
           userChoresCount[userKey] = 1;
         } else {
@@ -44,9 +42,9 @@ class ChoreChart extends React.PureComponent<ChoreChartProps> {
     // Create an array of data items for the PieChart
     const transformedData = Object.keys(userChoresCount).map(
       (userKey, index) => {
-        const [userId, date] = userKey.split('-');
+        const [userId, choreId] = userKey.split('-');
         return {
-          key: `${userId}-${date}-${index}`,
+          key: `${userId}-${choreId}-${index}`,
           amount: userChoresCount[userKey],
           svg: {
             fill: userColors[parseInt(userId, 10)] || defaultColor,
