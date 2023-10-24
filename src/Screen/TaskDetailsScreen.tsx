@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Button, Image, Text, View } from 'react-native';
+import uuid from 'react-native-uuid';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
 
@@ -19,6 +20,7 @@ export default function TaskDetailsScreen({ navigation }: Props) {
   const [taskData, setTaskData] = useState<Task | null>(null);
   const slectedUserId = React.useRef<string>('1');
   const slectedHomeId = React.useRef<string>('1');
+  const slectedtaskData_id = React.useRef<string>('1');
   async function getTaskDataFromAsyncStorage() {
     try {
       const storedTaskData = await AsyncStorage.getItem('taskDataKey');
@@ -34,7 +36,22 @@ export default function TaskDetailsScreen({ navigation }: Props) {
   useEffect(() => {
     getTaskDataFromAsyncStorage();
   }, []);
-
+  const handelTaskAvklarat = async () => {
+    try {
+      const taskEvent = {
+        id: uuid.v4(),
+        user_id: slectedUserId.current,
+        home_id: slectedHomeId.current,
+        task_id: taskData?.id.toString(),
+        date: new Date(),
+      };
+      await AsyncStorage.setItem('taskEventKey', JSON.stringify(taskEvent));
+      console.log(taskEvent);
+      navigation.navigate('Household');
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <View>
       <Text>Task Data</Text>
@@ -61,10 +78,7 @@ export default function TaskDetailsScreen({ navigation }: Props) {
       ) : (
         <Text>Loading task data...</Text>
       )}
-      <Button
-        title="Go Back"
-        onPress={() => navigation.navigate('Household')}
-      />
+      <Button title="Avklarat" onPress={handelTaskAvklarat} />
     </View>
   );
 }
