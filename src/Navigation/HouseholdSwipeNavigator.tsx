@@ -1,6 +1,7 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 import CustomTabBar from '../Component/CustomTabBar';
+import { getCurrentMonthName, getCurrentYear } from '../Hooks/DateUtils';
 import LastWeekStatisticsScreen from '../Screen/LastWeekStatisticsScreen';
 import MonthlyStatisticsScreen from '../Screen/MonthlyStatisticsScreen';
 import StatisticsScreen from '../Screen/StatisticsScreen';
@@ -18,34 +19,6 @@ export type HouseholdSwipeParamList = {
 
 const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
 
-function getCurrentMonthName() {
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
-  const currentDate = new Date();
-  const currentMonth = months[currentDate.getMonth()];
-
-  return currentMonth;
-}
-
-function getCurrentYear() {
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  return currentYear.toString();
-}
-
 // https://reactnavigation.org/docs/material-top-tab-navigator#tabbar
 
 export default function HouseholdSwipeNavigator() {
@@ -60,7 +33,7 @@ export default function HouseholdSwipeNavigator() {
       <Swipe.Screen
         name="Statistics"
         component={StatisticsScreen}
-        options={{ title: 'Week' }}
+        options={{ title: 'This Week' }}
       />
       <Swipe.Screen
         name="LastWeekStatistics"

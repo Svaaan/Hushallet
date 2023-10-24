@@ -32,7 +32,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
         icon="chevron-left"
         children=""
         onPress={navigateToPrevTab} // Navigate to the previous tab
-        labelStyle={{ color: ProjectTheme.colors.iconcolor }}
+        labelStyle={{ color: ProjectTheme.colors.iconcolor, fontSize: 18 }}
         rippleColor={ProjectTheme.colors.background}
       />
       <Text style={styles.tabTextCentered}>{label}</Text>
@@ -40,7 +40,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
         icon="chevron-right"
         children=""
         onPress={navigateToNextTab} // Navigate to the next tab
-        labelStyle={{ color: ProjectTheme.colors.iconcolor }}
+        labelStyle={{ color: ProjectTheme.colors.iconcolor, fontSize: 18 }}
         rippleColor={ProjectTheme.colors.background}
       />
     </View>
@@ -51,11 +51,16 @@ const styles = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: 'white',
   },
   tabTextCentered: {
     padding: 10,
     textAlign: 'center',
+  },
+  button: {
+    padding: 0,
+    flex: 1,
   },
 });
 
