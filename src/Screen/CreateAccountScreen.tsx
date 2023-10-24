@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import { mockUsers } from '../../data/mockedUsers';
 import { mockedAccounts } from '../../data/mockedAccount';
 import { useNavigation } from '@react-navigation/native';
+import Button from '../Component/BottomButtonComponent';
 
 export default function CreateAccountScreen() {
   const [username, setUsername] = useState('');
@@ -20,8 +21,6 @@ export default function CreateAccountScreen() {
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
   };
-
-  const buttonStyle = {};
 
   const navigation = useNavigation();
 
@@ -88,49 +87,26 @@ export default function CreateAccountScreen() {
           secureTextEntry={true}
         />
       </View>
-
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          width:"100%",
-          marginVertical: 20,
+          width: '100%',
         }}
       >
-        <TouchableOpacity
-          style={{
-            width: 160,
-            height: 40,
-            backgroundColor: ProjectTheme.buttonPrimary.color,
-            borderRadius: ProjectTheme.borderRadius.medium,
-            elevation: ProjectTheme.elevation.medium,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+        <Button
+          title="Spara"
           onPress={() => {
-            console.log('Spara button pressed'); // Add this line for debugging
             handleRegistration();
           }}
-        >
-          <Text style={{ color: ProjectTheme.colors.textcolor }}>Spara</Text>
-        </TouchableOpacity>
+        />
 
-        <TouchableOpacity
-          style={{
-            width: 160,
-            height: 40,
-            backgroundColor: ProjectTheme.buttonPrimary.color,
-            borderRadius: ProjectTheme.borderRadius.medium,
-            elevation: ProjectTheme.elevation.medium,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+        <Button
+          title="Stäng"
           onPress={() => {
             navigation.navigate('Start');
           }}
-        >
-          <Text style={{ color: ProjectTheme.colors.textcolor }}>Stäng</Text>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );
