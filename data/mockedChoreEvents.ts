@@ -57,7 +57,7 @@ const mockChoreEvents: ChoreEvent[] = [
   },
   {
     id: 9,
-    user_id: 3,
+    user_id: 5,
     chore_id: 2,
     date: new Date('2023-10-19'),
   },
