@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
-import { User, mockUsers } from '../../data/mockedUsers';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { mockedAccounts } from '../../data/mockedAccount';
+import { User, mockUsers } from '../../data/mockedUsers';
 
 type UserContextType = {
   user: User | null;
@@ -45,7 +45,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 export function useUserContext(): UserContextType {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error('Add userprovider into app.tsx');
+    throw new Error(
+      'Add userprovider into app.tsx'
+    );
   }
   return context;
 }
