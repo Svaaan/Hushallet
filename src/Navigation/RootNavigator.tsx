@@ -33,7 +33,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="MyHouseholds">
+    <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={StartScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />

@@ -56,7 +56,6 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           width: '100%',
-          marginVertical: 20,
         }}
       >
         <Button
