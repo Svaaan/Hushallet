@@ -10,7 +10,6 @@ type Props = RootStackScreenProps<'Home'>;
 export default function HomeScreen({ navigation }: Props) {
   useEffect(() => {
     console.log(navigation.getId());
-    
   }, [navigation]);
 
   return (

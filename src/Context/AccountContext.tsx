@@ -45,9 +45,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 export function useUserContext(): UserContextType {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error(
-      'Add userprovider into app.tsx'
-    );
+    throw new Error('Add userprovider into app.tsx');
   }
   return context;
 }

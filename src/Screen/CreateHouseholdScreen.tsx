@@ -20,20 +20,22 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
 
   const handleSaveButtonPress = () => {
     if (householdName != '') {
-      const uniqueCode = findUniqueCode(mockedHomes.map(home => home.home_code));
+      const uniqueCode = findUniqueCode(
+        mockedHomes.map((home) => home.home_code)
+      );
       const newHousehold = {
         id: mockedHomes.length + 1,
         name: householdName,
         owner_id: 1,
-        home_code: uniqueCode
+        home_code: uniqueCode,
       };
       mockedHomes.push(newHousehold);
-      navigation.navigate('MyHouseholds')
+      navigation.navigate('MyHouseholds');
     }
   };
 
   const handleBackButtonPress = () => {
-    navigation.navigate('MyHouseholds')
+    navigation.navigate('MyHouseholds');
   };
 
   return (
@@ -49,7 +51,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
       />
       <View style={styles.footer}>
         <Button
-          textColor='black'
+          textColor="black"
           style={styles.button}
           mode="contained"
           onPress={() => handleSaveButtonPress()}
@@ -57,7 +59,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
           Spara
         </Button>
         <Button
-          textColor='black'
+          textColor="black"
           style={styles.button}
           mode="contained"
           onPress={() => handleBackButtonPress()}
@@ -129,5 +131,5 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderColor: '#ccc',
     backgroundColor: 'white',
-  }
+  },
 });

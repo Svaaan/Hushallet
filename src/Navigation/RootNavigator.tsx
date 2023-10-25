@@ -13,6 +13,8 @@ import TaskDetailsScreen from '../Screen/TaskDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
 import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
+import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
+import EditTask from '../Screen/EditTaskScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -26,8 +28,10 @@ export type RootStackParamList = {
   ProfileSettings: undefined;
   Household: undefined;
   CreateTask: undefined;
-  JoinHousehold: undefined
-  EditHousehold: undefined
+  JoinHousehold: undefined;
+  EditHousehold: undefined;
+  Users: undefined;
+  EditTask: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -46,8 +50,9 @@ export default function RootNavigator() {
       <Stack.Screen name="MyHouseholds" component={MyHouseholdsScreen} />
       <Stack.Screen name="ProfileSettings" component={ProfileSettingScreen} />
       <Stack.Screen name="EditHousehold" component={EditHouseholdScreen} />
-
+      <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
+      <Stack.Screen name="EditTask" component={EditTask} />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />

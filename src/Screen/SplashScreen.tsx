@@ -4,17 +4,15 @@ import { Animated, Easing, StatusBar, StyleSheet, View } from 'react-native';
 export default function SplashScreen() {
   const imageUrl = 'https://i.imgur.com/UvoPa2i.png';
 
-  const scaleValue = useRef(new Animated.Value(2)).current; 
+  const scaleValue = useRef(new Animated.Value(2)).current;
 
   useEffect(() => {
     Animated.timing(scaleValue, {
-      toValue: 1, 
+      toValue: 1,
       duration: 2000,
       easing: Easing.linear,
       useNativeDriver: false,
-    }).start(() => {
-     
-    });
+    }).start(() => {});
   }, []);
 
   return (
