@@ -7,7 +7,7 @@ interface Profile {
   account_id: number;
 }
 
-const mockUsers: Profile[] = [
+const mockedProfile: Profile[] = [
   {
     id: 1,
     name: 'John',
@@ -58,4 +58,4 @@ const mockUsers: Profile[] = [
   },
 ];
 
-export { Profile as Profile, mockUsers };
+export { Profile as Profile, mockedProfile };

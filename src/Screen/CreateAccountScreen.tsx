@@ -3,7 +3,7 @@ import { View, TextInput } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../Component/BottomButtonComponent';
-import { mockUsers } from '../../data/mockedProfiles';
+import { mockedProfile } from '../../data/mockedProfiles';
 import { Account, mockedAccounts } from '../../data/mockedAccount';
 import { useAccountContext } from '../Context/AccountContext';
 
@@ -41,7 +41,7 @@ export default function CreateAccountScreen() {
       id: Number(today.getMilliseconds().toString().slice(-4)),
       username: username,
       password: password,
-      userId: mockUsers.length + 1,
+      userId: mockedProfile.length + 1,
     };
 
     console.log('New Account:', newAccount);

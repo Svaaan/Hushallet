@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import { Profile, mockUsers } from '../../data/mockedProfiles';
+import { Profile, mockedProfile } from '../../data/mockedProfiles';
 
 type ProfileContextType = {
   profiles: Profile[];
@@ -15,7 +15,9 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const [profiles, setProfiles] = useState<Profile[]>([]);
 
   const setProfilesByAccountId = (accountId: number) => {
-    const mockedProfiles = mockUsers.filter((u) => u.account_id === accountId);
+    const mockedProfiles = mockedProfile.filter(
+      (u) => u.account_id === accountId
+    );
     const profilesFromState = profiles.filter(
       (u) => u.account_id === accountId
     );
@@ -30,7 +32,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   };
 
   const getProfileById = (profileId: number) => {
-    const profile = mockUsers.find((profile) => profile.id === profileId);
+    const profile = mockedProfile.find((profile) => profile.id === profileId);
     if (profile) {
       return profile;
     } else {
