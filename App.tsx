@@ -6,7 +6,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import RootNavigator from './src/Navigation/RootNavigator';
 import SplashScreen from './src/Screen/SplashScreen';
 import { ProjectTheme } from './theme/theme';
-import { UserProvider } from './src/Context/AccountContext';
+import { AccountProvider } from './src/Context/AccountContext';
+import { ProfileProvider } from './src/Context/ProfileContext';
+import { HomeProvider } from './src/Context/HomeContext';
 
 export default function App() {
   const theme = {
@@ -27,15 +29,19 @@ export default function App() {
   }
 
   return (
-    <UserProvider>
-      <PaperProvider theme={theme}>
-        <SafeAreaProvider>
-          <StatusBar style="auto" />
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </PaperProvider>
-    </UserProvider>
+    <AccountProvider>
+      <ProfileProvider>
+        <HomeProvider>
+          <PaperProvider theme={theme}>
+            <SafeAreaProvider>
+              <StatusBar style="auto" />
+              <NavigationContainer>
+                <RootNavigator />
+              </NavigationContainer>
+            </SafeAreaProvider>
+          </PaperProvider>
+        </HomeProvider>
+      </ProfileProvider>
+    </AccountProvider>
   );
 }

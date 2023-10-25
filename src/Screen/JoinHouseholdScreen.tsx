@@ -122,13 +122,12 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
             navigation.navigate('MyHouseholds');
           }}
         />
-        {/* Debugging för att kontroller aatt async storage funkar korrekt */}
-        {/* <Button
+        <Button
           title="Hämta"
           onPress={() => {
             retrieveUserData();
           }}
-        /> */}
+        />
       </View>
     </View>
   );

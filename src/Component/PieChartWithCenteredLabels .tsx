@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { G, Image } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
-import { mockUsers } from '../../data/mockedUsers';
+import { mockUsers } from '../../data/mockedProfiles';
 
 export const userColors: Record<number, string> = {
   1: '#FF7000', // Fox - Darker Orange

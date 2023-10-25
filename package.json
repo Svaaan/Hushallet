@@ -10,7 +10,7 @@
     "types": "tsc --noEmit",
     "lint": "eslint ./src",
     "format": "prettier --check .",
-    "fix": "prettier --write \"**/*.json\""
+    "fix": "prettier --write \"**/*.ts\""
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "1.18.2",
