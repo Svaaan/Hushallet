@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-import { mockUsers } from '../../data/mockedUsers';
+import { mockUsers } from '../../data/mockedProfiles';
 import { mockedAccounts } from '../../data/mockedAccount';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../Component/BottomButtonComponent';
