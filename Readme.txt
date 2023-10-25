@@ -45,7 +45,7 @@ Sysslor (4)
 [x] En ägare ska kunna lägga till sysslor att göra i hemmet. *
 [x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
     vikt som beskriver hur energikrävande den är. *
-[] En ägare ska kunna redigera en syssla. *
+[x] En ägare ska kunna redigera en syssla. *
 
 
 Dagsvyn (3)
