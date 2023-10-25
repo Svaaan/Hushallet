@@ -22,7 +22,7 @@ export type RootStackParamList = {
   CreateHousehold: undefined;
   MyHouseholds: undefined;
   CreateAccount: undefined;
-  Profile: undefined;
+  Profile: { userId: number };
   Login: undefined;
   TaskDetails: undefined;
   ProfileSettings: undefined;
@@ -44,7 +44,6 @@ export default function RootNavigator() {
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
 
-      <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="CreateHousehold" component={CreateHouseholdScreen} />
       <Stack.Screen name="JoinHousehold" component={JoinHouseholdScreen} />
       <Stack.Screen name="MyHouseholds" component={MyHouseholdsScreen} />
@@ -52,6 +51,8 @@ export default function RootNavigator() {
       <Stack.Screen name="EditHousehold" component={EditHouseholdScreen} />
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
+      <Stack.Screen name="EditTask" component={EditTask} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
