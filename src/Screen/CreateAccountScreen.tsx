@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-import { mockUsers } from '../../data/mockedProfiles';
-import { mockedAccounts } from '../../data/mockedAccount';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../Component/BottomButtonComponent';
+import { mockUsers } from '../../data/mockedProfiles';
+import { Account, mockedAccounts } from '../../data/mockedAccount';
+import { useAccountContext } from '../Context/AccountContext';
 
 export default function CreateAccountScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [name, setname] = useState('');
+  const { setAccountData, account } = useAccountContext();
+  const [isAccountSet, setIsAccountSet] = useState(false);
 
   const placeholderStyle = {
     width: 300,
@@ -24,31 +27,26 @@ export default function CreateAccountScreen() {
 
   const navigation = useNavigation();
 
+  useEffect(() => {
+    if (account) {
+      console.log('account: ', account);
+      navigation.navigate('Login');
+    }
+  }, [account]);
+
   const handleRegistration = () => {
+    const today = new Date();
+
     const newAccount = {
-      id: mockedAccounts.length + 1,
+      id: Number(today.getMilliseconds().toString().slice(-4)),
       username: username,
       password: password,
       userId: mockUsers.length + 1,
     };
 
-    const newUser = {
-      id: mockUsers.length + 1,
-      avatar: '',
-      name: name,
-      code: 0,
-      is_paused: false,
-      claimedChores: [],
-      is_owner: false,
-    };
-
-    console.log('New User:', newUser);
     console.log('New Account:', newAccount);
-
-    mockedAccounts.push(newAccount);
-    mockUsers.push(newUser);
-
-    navigation.navigate('Login');
+    //måste trycka på spara två gånger för statet hinner inte sättas direkt, kanske n use effect eller ngt?
+    setAccountData(newAccount);
   };
 
   return (
