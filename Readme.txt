@@ -42,9 +42,9 @@ Profil (4)
 
 Sysslor (4)
 
-[] En ägare ska kunna lägga till sysslor att göra i hemmet. *
-[] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
-[] vikt som beskriver hur energikrävande den är. *
+[x] En ägare ska kunna lägga till sysslor att göra i hemmet. *
+[x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
+    vikt som beskriver hur energikrävande den är. *
 [] En ägare ska kunna redigera en syssla. *
 
 
@@ -92,7 +92,7 @@ Sysslor (3)
 [] En ägare ska kunna ta bort en syssla.
 [] När en syssla tas bort ska användaren få en varning om att all statistik gällande sysslan också
    kommer att tas bort och få valet att arkivera sysslan istället.
-[] En användare ska kunna lägga till en ljudinspelning och en bild för att beskriva sysslan ytterligare.
+[x] En användare ska kunna lägga till en ljudinspelning och en bild för att beskriva sysslan ytterligare.
 
 Statistik (2)
 
