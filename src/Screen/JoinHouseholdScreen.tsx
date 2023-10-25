@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
-import { View, TextInput, Image, TouchableOpacity, Text } from 'react-native';
-import { Checkbox } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../Navigation/RootNavigator';
+import React, { useState } from 'react';
+import { Image, TextInput, View, Text } from 'react-native';
+import { Checkbox } from 'react-native-paper';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
-import chickImage from '../../avatars/chick.png';
-import foxImage from '../../avatars/fox.png';
-import frogImage from '../../avatars/frog.png';
-import octopusImage from '../../avatars/octopus.png';
-import pigImage from '../../avatars/pig.png';
-import whaleImage from '../../avatars/whale.png';
+import ChooseEmoji from '../Component/ChooseEmoji';
+import { RootStackParamList } from '../Navigation/RootNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'JoinHousehold'>;
 
@@ -19,19 +15,10 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
   const [code, setCode] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState('');
 
-  const availableAvatars = ['chick', 'fox', 'frog', 'octopus', 'pig', 'whale'];
-
-  const handleAvatarSelection = (avatar) => {
-    if (availableAvatars.includes(avatar)) {
-      setSelectedAvatar(avatar);
-  
-      availableAvatars.splice(availableAvatars.indexOf(avatar), 1);
-    } else {
-      <Text>Avataren är inte tillgänglig!</Text>
-    }
+  const handleAvatarSelection = (avatar: string) => {
+    setSelectedAvatar(avatar);
   };
-  
-  
+
   const placeholderStyle = {
     width: 300,
     height: 40,
@@ -43,15 +30,35 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
     elevation: ProjectTheme.elevation.small,
   };
 
-  const saveUserData = () => {
+  const saveUserData = async () => {
     const newProfile = {
       name: name,
       code: code,
       avatar: selectedAvatar,
+    };
+    try {
+      const profileString = JSON.stringify(newProfile);
+
+      await AsyncStorage.setItem('userProfile', profileString);
+      console.log('New profile saved to AsyncStorage: ', newProfile);
+    } catch (error) {
+      console.log('Error saving profile to AsyncStorage: ', error);
     }
-    console.log('New profile created: ', newProfile);
   };
 
+  const retrieveUserData = async () => {
+    try {
+      const profileString = await AsyncStorage.getItem('userProfile');
+      if (profileString !== null) {
+        const userProfile = JSON.parse(profileString);
+        console.log('Retrieved profile from AsyncStorage: ', userProfile);
+      } else {
+        console.log('No profile found in AsyncStorage.');
+      }
+    } catch (error) {
+      console.log('Error retrieving profile from AsyncStorage: ', error);
+    }
+  };
 
   return (
     <View
@@ -63,7 +70,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-      <View style={{}}>
+      <View>
         <TextInput
           style={placeholderStyle}
           placeholder="Ditt namn"
@@ -88,40 +95,10 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
           marginLeft: 5,
         }}
       >
-        {availableAvatars.map((avatar) => (
-          <View key={avatar} style={{ flexDirection: 'row', alignItems: 'center' }}>
-             <View style={{ padding: 10, borderRadius: 30, backgroundColor: 'white' }}>
-            <Checkbox
-              status={selectedAvatar === avatar ? 'checked' : 'unchecked'}
-              onPress={() => handleAvatarSelection(avatar)}
-              color='black'
-            />
-            </View>
-            <Image
-              source={
-                avatar === 'octopus'
-                  ? octopusImage
-                  : avatar === 'frog'
-                  ? frogImage
-                  : avatar === 'fox'
-                  ? foxImage
-                  : avatar === 'chick'
-                  ? chickImage
-                  : avatar === 'whale'
-                  ? whaleImage
-                  : pigImage
-              }
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 25,
-                borderWidth: selectedAvatar === avatar ? 2 : 0,
-                borderColor: ProjectTheme.colors.primary,
-                marginLeft: 260
-              }}
-            />
-          </View>
-        ))}
+        <ChooseEmoji
+          selectedEmoji={selectedAvatar}
+          onSelectEmoji={handleAvatarSelection}
+        />
       </View>
 
       <View
@@ -145,6 +122,13 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
             navigation.navigate('MyHouseholds');
           }}
         />
+        {/* Debugging för att kontroller aatt async storage funkar korrekt */}
+        {/* <Button
+          title="Hämta"
+          onPress={() => {
+            retrieveUserData();
+          }}
+        /> */}
       </View>
     </View>
   );

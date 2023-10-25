@@ -26,7 +26,7 @@ export type RootStackParamList = {
   ProfileSettings: undefined;
   Household: undefined;
   CreateTask: undefined;
-  JoinHousehold: undefined
+  JoinHousehold: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

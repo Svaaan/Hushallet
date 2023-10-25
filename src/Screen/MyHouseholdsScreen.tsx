@@ -18,7 +18,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-           <Text
+      <Text
         style={{
           color: ProjectTheme.colors.textcolor,
           textAlign: 'center',
