@@ -38,7 +38,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Household">
+    <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={StartScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
@@ -52,11 +52,11 @@ export default function RootNavigator() {
       <Stack.Screen name="EditHousehold" component={EditHouseholdScreen} />
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
-      <Stack.Screen name="EditTask" component={EditTask} />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
+        <Stack.Screen name="EditTask" component={EditTask} />
       </Stack.Group>
     </Stack.Navigator>
   );
