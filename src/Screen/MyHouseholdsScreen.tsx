@@ -2,7 +2,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View, Text } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
-import { mockedHomes } from '../../data/mockedHomes';
 import Button from '../Component/BottomButtonComponent';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
@@ -18,7 +17,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-           <Text
+      <Text
         style={{
           color: ProjectTheme.colors.textcolor,
           textAlign: 'center',
