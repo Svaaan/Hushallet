@@ -14,7 +14,7 @@ const nameStyle = {
   borderRadius: ProjectTheme.borderRadius.medium,
   paddingLeft: 10,
   marginBottom: 20,
-  
+
   color: ProjectTheme.colors.textcolor,
   elevation: ProjectTheme.elevation.small,
 };
@@ -48,4 +48,3 @@ export default function DisplayUsersScreen({ navigation }: Props) {
     </View>
   );
 }
-
