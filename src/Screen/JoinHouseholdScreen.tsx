@@ -94,12 +94,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
           alignItems: 'center',
           marginLeft: 5,
         }}
-      >
-        <ChooseEmoji
-          selectedEmoji={selectedAvatar}
-          onSelectEmoji={handleAvatarSelection}
-        />
-      </View>
+      ></View>
 
       <View
         style={{
