@@ -1,39 +1,42 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import { mockedHomes } from '../../data/mockedHomes';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
-import { useFocusEffect } from '@react-navigation/native';
+import { useAccountContext } from '../Context/AccountContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
 export default function CreateHouseholdScreen({ navigation }: Props) {
   const [householdName, setHouseholdName] = useState('');
+  const [generatedCode, setGeneratedCode] = useState('');
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setHouseholdName('');
-    }, [])
-  );
+  const { account } = useAccountContext(); // Get the logged-in user from context
+
+  useEffect(() => {
+    const uniqueCode = findUniqueCode(
+      mockedHomes.map((home) => home.home_code)
+    );
+    setGeneratedCode(uniqueCode.toString());
+  }, []);
 
   const handleSaveButtonPress = () => {
-    if (householdName != '') {
-      const uniqueCode = findUniqueCode(mockedHomes.map(home => home.home_code));
+    if (householdName !== '' && account) {
       const newHousehold = {
         id: mockedHomes.length + 1,
         name: householdName,
-        owner_id: 1,
-        home_code: uniqueCode
+        owner_id: account.id, // Use the logged-in user's ID
+        home_code: parseInt(generatedCode),
       };
       mockedHomes.push(newHousehold);
-      navigation.navigate('MyHouseholds')
+      navigation.navigate('MyHouseholds');
     }
   };
 
   const handleBackButtonPress = () => {
-    navigation.navigate('MyHouseholds')
+    navigation.navigate('MyHouseholds');
   };
 
   return (
@@ -47,9 +50,15 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         onChangeText={(text) => setHouseholdName(text)}
         value={householdName}
       />
+      <TextInput
+        placeholder="Genererad kod"
+        style={styles.input}
+        value={generatedCode}
+        editable={false}
+      />
       <View style={styles.footer}>
         <Button
-          textColor='black'
+          textColor="black"
           style={styles.button}
           mode="contained"
           onPress={() => handleSaveButtonPress()}
@@ -57,7 +66,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
           Spara
         </Button>
         <Button
-          textColor='black'
+          textColor="black"
           style={styles.button}
           mode="contained"
           onPress={() => handleBackButtonPress()}
@@ -68,7 +77,6 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
     </View>
   );
 }
-
 function generateUniqueRandomCode(existingCodes: number[]) {
   function generateRandomCode() {
     return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
@@ -129,5 +137,5 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     borderColor: '#ccc',
     backgroundColor: 'white',
-  }
+  },
 });

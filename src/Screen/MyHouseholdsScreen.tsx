@@ -1,13 +1,36 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
-import { mockedHomes } from '../../data/mockedHomes';
+import { useAccountContext } from '../Context/AccountContext';
+import { useProfileContext } from '../Context/ProfileContext';
+import { useHomeContext } from '../Context/HomeContext';
+import { useEffect } from 'react';
+import { Home } from '../../data/mockedHomes';
 import Button from '../Component/BottomButtonComponent';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
+  const { profiles } = useProfileContext();
+  const { homes, setHomesByProfiles } = useHomeContext();
+
+  const updateAllStates = () => {
+    if (profiles) {
+      // Set profiles to profiles state
+      setHomesByProfiles(profiles);
+      console.log('homes', homes);
+    }
+  };
+
+  useEffect(() => {
+    updateAllStates();
+  }, []); // Add profiles and setProfilesByAccountId as dependencies
+
+  const navigateToUserProfile = (owner_id: number) => {
+    navigation.navigate('Profile', { userId: owner_id });
+  };
+
   return (
     <View
       style={{
@@ -18,34 +41,39 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-           <Text
-        style={{
-          color: ProjectTheme.colors.textcolor,
-          textAlign: 'center',
-          marginBottom: 20,
-        }}
-      >
-        Klicka på skapa hushåll för ett uppdelat arbete i hemmet.
-      </Text>
+      {homes && homes.length > 0 ? ( // Check if homes data is available and not an empty array
+        homes.map((home: Home) => (
+          <View key={home.id}>
+            <TouchableOpacity
+              onPress={() => navigateToUserProfile(home.owner_id)}
+            >
+              <Text>{home.name}</Text>
+            </TouchableOpacity>
+          </View>
+        ))
+      ) : (
+        <View style={{ alignItems: 'center' }}>
+          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+          <Text> Skapa ett hem nedan!</Text>
+        </View>
+      )}
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           width: '100%',
-          marginVertical: 20,
         }}
       >
-        <Button
-          title="Skapa hushåll"
-          onPress={() => {
-            navigation.navigate('CreateHousehold');
-          }}
-        />
-
         <Button
           title="Gå med i hushåll"
           onPress={() => {
             navigation.navigate('JoinHousehold');
+          }}
+        />
+        <Button
+          title="Skapa hushåll"
+          onPress={() => {
+            navigation.navigate('CreateHousehold');
           }}
         />
       </View>

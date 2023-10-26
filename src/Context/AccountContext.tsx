@@ -1,53 +1,62 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { User, mockUsers } from '../../data/mockedUsers';
-import { mockedAccounts } from '../../data/mockedAccount';
+import { mockedProfile } from '../../data/mockedProfiles';
+import { Account, mockedAccounts } from '../../data/mockedAccount';
 
-type UserContextType = {
-  user: User | null;
+type AccountContextType = {
+  account: Account | null;
   login: (username: string, password: string) => boolean;
   logout: () => void;
+  setAccountData: (accountData: Account | null) => void;
 };
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const AccountContext = createContext<AccountContextType | null>(null);
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+export function AccountProvider({ children }: { children: React.ReactNode }) {
+  const [account, setAccount] = useState<Account | null>(null);
+
+  const setAccountData = (accountData: Account | null) => {
+    if (accountData) {
+      setAccount(accountData);
+    }
+  };
 
   const login = useCallback((username: string, password: string) => {
-    const account = mockedAccounts.find(
-      (acc) => acc.username === username && acc.password === password
-    );
-
-    if (account) {
-      const loggedInUser = mockUsers.find((user) => user.id === account.userId);
-
-      if (loggedInUser) {
-        setUser(loggedInUser);
-        console.log('Login success!');
+    //första kollar i mockade listan om finns
+    console.log('username: ', username, 'password', password);
+    try {
+      const mockedAccount = mockedAccounts.find(
+        (acc) => acc.username === username && acc.password === password
+      );
+      if (!mockedAccount) {
+        if (account?.username == username && account?.password == password) {
+          setAccount(account);
+          return true;
+        }
+      } else {
+        setAccount(mockedAccount);
+        console.log('Login success!', mockedAccount);
         return true;
       }
-    }
+    } catch {}
 
     return false;
   }, []);
 
   const logout = useCallback(() => {
-    setUser(null);
+    setAccount(null);
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <AccountContext.Provider value={{ account, login, logout, setAccountData }}>
       {children}
-    </UserContext.Provider>
+    </AccountContext.Provider>
   );
 }
 
-export function useUserContext(): UserContextType {
-  const context = useContext(UserContext);
+export function useAccountContext(): AccountContextType {
+  const context = useContext(AccountContext);
   if (!context) {
-    throw new Error(
-      'Add userprovider into app.tsx'
-    );
+    throw new Error('Add userprovider into app.tsx');
   }
   return context;
 }

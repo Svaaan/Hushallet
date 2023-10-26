@@ -3,9 +3,9 @@ import { Text } from 'react-native';
 import { G, Image } from 'react-native-svg';
 import { PieChart } from 'react-native-svg-charts';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
-import { mockUsers } from '../../data/mockedUsers';
+import { mockedProfile } from '../../data/mockedProfiles';
 
-export const userColors: Record<number, string> = {
+export const profileColors: Record<number, string> = {
   1: '#FF7000', // Fox - Darker Orange
   2: '#CCCC00', // Chick - Darker Yellow
   3: '#0055AA', // Whale - Darker Blue
@@ -41,8 +41,8 @@ interface LabelsProps {
 
 class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
   render() {
-    // Initialize an object to store the number of chores completed by each user
-    const userChoresCount: Record<number, number> = {};
+    // Initialize an object to store the number of chores completed by each profile
+    const profileChoresCount: Record<number, number> = {};
 
     //Debuggin: Printa the startDate / endDate
     // console.log('startDate:', this.props.startDate);
@@ -62,24 +62,26 @@ class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
     //Debuggin: Log filtered events from DB
     // console.log('filteredChoreEvents:', filteredChoreEvents);
 
-    // Calculate the number of chores completed by each user based on the mockChoreEvents data
+    // Calculate the number of chores completed by each profile based on the mockChoreEvents data
     filteredChoreEvents.forEach((choreEvent) => {
-      if (userChoresCount[choreEvent.user_id] === undefined) {
-        userChoresCount[choreEvent.user_id] = 1;
+      if (profileChoresCount[choreEvent.profile_id] === undefined) {
+        profileChoresCount[choreEvent.profile_id] = 1;
       } else {
-        userChoresCount[choreEvent.user_id]++;
+        profileChoresCount[choreEvent.profile_id]++;
       }
     });
-    //Debuggin: Log userChores count.
-    // console.log('userChoresCount:', userChoresCount);
+    //Debuggin: Log profileChores count.
+    // console.log('profileChoresCount:', profileChoresCount);
 
-    const data: DataItem[] = mockUsers.map((user) => {
-      const fill = user ? userColors[user.id] || defaultColor : defaultColor;
+    const data: DataItem[] = mockedProfile.map((profile) => {
+      const fill = profile
+        ? profileColors[profile.id] || defaultColor
+        : defaultColor;
 
-      const amount = user ? userChoresCount[user.id] || 0 : 0;
+      const amount = profile ? profileChoresCount[profile.id] || 0 : 0;
 
       return {
-        key: user.id,
+        key: profile.id,
         amount,
         svg: {
           fill,
@@ -87,7 +89,7 @@ class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
       };
     });
 
-    // Filter the data and slices to include only users who have completed chores
+    // Filter the data and slices to include only profiles who have completed chores
     const filteredData = data.filter((item) => item.amount > 0);
 
     if (filteredData.length === 0) {
@@ -97,8 +99,10 @@ class PieChartWithCenteredLabels extends React.PureComponent<LabelsProps> {
     const Labels: React.FC<LabelsProps> = ({ slices }) => {
       return slices.map((slice, index) => {
         const { labelCentroid, pieCentroid, data } = slice;
-        const user = mockUsers.find((user) => user.id === data.key);
-        const imageSource = user?.avatar;
+        const profile = mockedProfile.find(
+          (profile) => profile.id === data.key
+        );
+        const imageSource = profile?.avatar;
 
         return (
           <G key={index} x={labelCentroid[0]} y={labelCentroid[1]}>

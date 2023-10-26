@@ -14,7 +14,15 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
       state.index > 0 ? state.index - 1 : state.routes.length - 1;
     const prevTabRoute = state.routes[prevTabIndex];
 
-    navigation.navigate(prevTabRoute.name);
+    if (activeRoute.name === 'Today') {
+      // Navigate to the "MyHouseholds" screen when on the "Today" tab
+      navigation.navigate('MyHouseholds', {
+        screen: 'Household',
+        params: { screen: 'Today' },
+      });
+    } else {
+      navigation.navigate(prevTabRoute.name);
+    }
   };
 
   const navigateToNextTab = () => {
