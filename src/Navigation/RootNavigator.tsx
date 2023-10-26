@@ -30,6 +30,7 @@ export type RootStackParamList = {
   EditHousehold: undefined;
   Users: undefined;
   EditTask: undefined;
+  SwipeNav: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -49,7 +50,7 @@ export default function RootNavigator() {
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
       <Stack.Screen name="Profile" component={HouseProfileScreen} />
-
+      <Stack.Screen name="SwipeNav" component={HouseholdSwipeNavigator} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
