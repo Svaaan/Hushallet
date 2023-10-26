@@ -6,7 +6,6 @@ import CreateTaskScreen from '../Screen/CreateTaskScreen';
 import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
 import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import EditTask from '../Screen/EditTaskScreen';
-import HomeScreen from '../Screen/HomeScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
 import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
@@ -17,7 +16,6 @@ import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import HouseProfileScreen from '../Screen/HouseProfileScreen';
 
 export type RootStackParamList = {
-  Home: undefined;
   Start: undefined;
   CreateHousehold: undefined;
   MyHouseholds: undefined;
@@ -32,6 +30,7 @@ export type RootStackParamList = {
   EditHousehold: undefined;
   Users: undefined;
   EditTask: undefined;
+  SwipeNav: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -40,7 +39,6 @@ export default function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={StartScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
 
@@ -52,7 +50,7 @@ export default function RootNavigator() {
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
       <Stack.Screen name="Profile" component={HouseProfileScreen} />
-
+      <Stack.Screen name="SwipeNav" component={HouseholdSwipeNavigator} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
         <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
