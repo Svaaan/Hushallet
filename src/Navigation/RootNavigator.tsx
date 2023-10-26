@@ -51,7 +51,6 @@ export default function RootNavigator() {
       <Stack.Screen name="EditHousehold" component={EditHouseholdScreen} />
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
-      <Stack.Screen name="EditTask" component={EditTask} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
