@@ -7,6 +7,8 @@ import uuid from 'react-native-uuid';
 import { ProjectTheme } from '../../theme/theme';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
+type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
+
 interface Task {
   id: string;
   slectedHomeId: string;
@@ -17,13 +19,10 @@ interface Task {
   task_rating: string;
 }
 
-type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
-
-export default function TaskDetailsScreen({ navigation }: Props) {
-  const [taskData, setTaskData] = useState<Task | null>(null);
+const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
+  const [taskData, setTaskData] = useState<Task | Task>(Object);
   const slectedUserId = React.useRef<string>('1');
   const slectedHomeId = React.useRef<string>('1');
-  const slectedtaskData_id = React.useRef<string>('1');
   const slectedoner_id = React.useRef<string>('1');
   async function getTaskDataFromAsyncStorage() {
     try {
@@ -159,4 +158,5 @@ export default function TaskDetailsScreen({ navigation }: Props) {
       </View>
     </View>
   );
-}
+};
+export default TaskDetailsScreen;
