@@ -1,36 +1,24 @@
-import React, { ReactNode, createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { Chore } from '../../data/mockedChores';
 
 type ChoreContextType = {
   chores: Chore[];
-  setChore: (chores: Chore[]) => void;
+  setChores: (chores: Chore[]) => void;
 };
-
-const ChorContext = createContext<ChoreContextType | undefined>(undefined);
-
-export const TaskProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const ChoreContext = createContext<ChoreContextType | null>(null);
+export function ChoreProvider({ children }: { children: React.ReactNode }) {
   const [chores, setChores] = useState<Chore[]>([]);
 
   return (
-    <ChorContext.Provider
-      value={{
-        chores,
-        setChore: setChores,
-      }}
-    >
+    <ChoreContext.Provider value={{ chores, setChores }}>
       {children}
-    </ChorContext.Provider>
+    </ChoreContext.Provider>
   );
-};
-
-export const useTask = () => {
-  const context = useContext(ChorContext);
-
-  if (context === undefined) {
-    throw new Error('useTask must be used within a TaskProvider');
+}
+export function useChoreContext() {
+  const context = React.useContext(ChoreContext);
+  if (!context) {
+    throw new Error('Add ChoreProvider into app.tsx');
   }
-
   return context;
-};
+}
