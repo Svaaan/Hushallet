@@ -30,9 +30,15 @@ export default function TodayScreen({ navigation }: Props) {
     profilesMap.set(profile.id, profile);
   });
 
-  const handleGoToTaskDetails = (chore: Chore) => {
+  const handleGoToTaskDetails = () => {
     // Pass the chore data to the TaskDetails screen.
-    navigation.navigate('TaskDetails', { chore });
+    navigation.navigate('TaskDetails');
+  };
+  const handleGoToCreateChore = () => {
+    navigation.navigate('CreateTask');
+  };
+  const handleGoToEditTask = () => {
+    navigation.navigate('EditTask');
   };
 
   // Define a function to check if a chore has been completed within a specific date interval
@@ -80,7 +86,7 @@ export default function TodayScreen({ navigation }: Props) {
   }
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {chores.map((chore) => {
         const completedChoreEvents = choreEventsMap.get(chore.id);
         const completedByProfiles: Set<number> = new Set();
@@ -97,7 +103,7 @@ export default function TodayScreen({ navigation }: Props) {
         return (
           <TouchableOpacity
             key={chore.id}
-            onPress={() => handleGoToTaskDetails(chore)}
+            onPress={() => handleGoToTaskDetails()}
             style={{
               width: 390,
               height: 65,
@@ -161,6 +167,7 @@ export default function TodayScreen({ navigation }: Props) {
                   <Text
                     style={{
                       fontSize: 15,
+                      fontWeight: 'bold',
                     }}
                   >
                     {chore.interval}
@@ -171,6 +178,48 @@ export default function TodayScreen({ navigation }: Props) {
           </TouchableOpacity>
         );
       })}
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignContent: 'flex-end',
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            width: 200,
+            height: 40,
+            backgroundColor: ProjectTheme.buttonPrimary.color,
+            borderRadius: ProjectTheme.borderRadius.medium,
+            elevation: ProjectTheme.elevation.medium,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginLeft: 5,
+            marginVertical: 220,
+          }}
+          onPress={handleGoToCreateChore}
+        >
+          <Text style={{ color: ProjectTheme.colors.textcolor }}>
+            Skapa syssla
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 200,
+            height: 40,
+            backgroundColor: ProjectTheme.buttonPrimary.color,
+            borderRadius: ProjectTheme.borderRadius.medium,
+            elevation: ProjectTheme.elevation.medium,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginRight: 5,
+            marginVertical: 220,
+          }}
+          onPress={handleGoToEditTask}
+        >
+          <Text style={{ color: ProjectTheme.colors.textcolor }}>Ändra</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

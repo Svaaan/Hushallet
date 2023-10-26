@@ -30,10 +30,10 @@ export default function App() {
   }
 
   return (
-    <AccountProvider>
-      <ProfileProvider>
-        <HomeProvider>
-          <ChoresProvider>
+    <ProfileProvider>
+      <HomeProvider>
+        <ChoresProvider>
+          <AccountProvider>
             <PaperProvider theme={theme}>
               <SafeAreaProvider>
                 <StatusBar style="auto" />
@@ -42,9 +42,9 @@ export default function App() {
                 </NavigationContainer>
               </SafeAreaProvider>
             </PaperProvider>
-          </ChoresProvider>
-        </HomeProvider>
-      </ProfileProvider>
-    </AccountProvider>
+          </AccountProvider>
+        </ChoresProvider>
+      </HomeProvider>
+    </ProfileProvider>
   );
 }
