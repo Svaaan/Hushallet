@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { PieChart } from 'react-native-svg-charts';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
-import { defaultColor, userColors } from './PieChartWithCenteredLabels ';
+import { defaultColor, profileColors } from './PieChartWithCenteredLabels ';
 
 interface ChoreChartProps {
   choreEvents: ChoreEvent[];
@@ -25,29 +25,29 @@ class ChoreChart extends React.PureComponent<ChoreChartProps> {
       return <Text>No event available for this chore.</Text>;
     }
 
-    const userChoresCount: Record<string, number> = {};
+    const profileChoresCount: Record<string, number> = {};
 
-    // Calculate the number of chores completed by each user based on the choreEvents data
+    // Calculate the number of chores completed by each profile based on the choreEvents data
     filteredChoreEvents.forEach((event) => {
-      if (event.user_id !== null && event.user_id !== undefined) {
-        const userKey = `${event.user_id}-${event.chore_id}`;
-        if (userChoresCount[userKey] === undefined) {
-          userChoresCount[userKey] = 1;
+      if (event.profile_id !== null && event.profile_id !== undefined) {
+        const profileKey = `${event.profile_id}-${event.chore_id}`;
+        if (profileChoresCount[profileKey] === undefined) {
+          profileChoresCount[profileKey] = 1;
         } else {
-          userChoresCount[userKey]++;
+          profileChoresCount[profileKey]++;
         }
       }
     });
 
     // Create an array of data items for the PieChart
-    const transformedData = Object.keys(userChoresCount).map(
-      (userKey, index) => {
-        const [userId, choreId] = userKey.split('-');
+    const transformedData = Object.keys(profileChoresCount).map(
+      (profileKey, index) => {
+        const [profileId, choreId] = profileKey.split('-');
         return {
-          key: `${userId}-${choreId}-${index}`,
-          amount: userChoresCount[userKey],
+          key: `${profileId}-${choreId}-${index}`,
+          amount: profileChoresCount[profileKey],
           svg: {
-            fill: userColors[parseInt(userId, 10)] || defaultColor,
+            fill: profileColors[parseInt(profileId, 10)] || defaultColor,
           },
         };
       }
