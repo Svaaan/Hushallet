@@ -47,6 +47,7 @@ export default function EditTaskScreen({ navigation }: Props) {
   const handelEditTask = async () => {
     try {
       const taskData = {
+        // id:slrctedTaskId.current,
         home_id: slectedHomeId.current,
         name: titel,
         imageUri: image,
