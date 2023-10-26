@@ -28,25 +28,26 @@ export default function CreateAccountScreen() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (account) {
+    if (isAccountSet) {
       console.log('account: ', account);
       navigation.navigate('Login');
     }
-  }, [account]);
+  }, [isAccountSet, account, navigation]);
 
   const handleRegistration = () => {
     const today = new Date();
 
     const newAccount = {
       id: Number(today.getMilliseconds().toString().slice(-4)),
-      username: username,
-      password: password,
+      username,
+      password,
       userId: mockedProfile.length + 1,
     };
 
     console.log('New Account:', newAccount);
-    //måste trycka på spara två gånger för statet hinner inte sättas direkt, kanske n use effect eller ngt?
+
     setAccountData(newAccount);
+    setIsAccountSet(true); // Set the flag to true after setting the account data
   };
 
   return (
