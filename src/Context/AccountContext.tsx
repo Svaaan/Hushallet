@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
-import { mockedProfile } from '../../data/mockedProfiles';
 import { Account, mockedAccounts } from '../../data/mockedAccount';
 
 type AccountContextType = {
