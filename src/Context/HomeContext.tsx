@@ -20,6 +20,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     profiles.forEach((profile) => {
       const home = mockedHomes.find((home) => home.owner_id === profile.id);
       if (home) {
+        // Check if the home is not already in allMyHomes
         if (!allMyHomes.some((h) => h.owner_id === home.owner_id)) {
           allMyHomes.push(home);
         }
@@ -27,6 +28,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
 
       const homeInState = homes.find((home) => home.owner_id === profile.id);
       if (homeInState) {
+        // Check if the homeInState is not already in allMyHomes
         if (!allMyHomes.some((h) => h.owner_id === homeInState.owner_id)) {
           allMyHomes.push(homeInState);
         }

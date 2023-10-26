@@ -27,7 +27,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
       const newHousehold = {
         id: mockedHomes.length + 1,
         name: householdName,
-        owner_id: account.id,
+        owner_id: account.id, // Use the logged-in user's ID
         home_code: parseInt(generatedCode),
       };
       mockedHomes.push(newHousehold);
