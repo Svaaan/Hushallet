@@ -4,19 +4,24 @@ import { Chore } from '../../data/mockedChores';
 type ChoreContextType = {
   chores: Chore[];
   setChore: (chores: Chore[]) => void;
-}
+};
 
 const ChorContext = createContext<ChoreContextType | undefined>(undefined);
 
-export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [chores, setChores] = useState<Chore | null>(null);
+export const TaskProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [chores, setChores] = useState<Chore[]>([]);
 
   return (
-    <ChorContext.Provider value={{
-      chores, setChore(chores) {
-
-      },
-    }}>{children}</ChorContext.Provider>
+    <ChorContext.Provider
+      value={{
+        chores,
+        setChore: setChores,
+      }}
+    >
+      {children}
+    </ChorContext.Provider>
   );
 };
 
