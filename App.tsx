@@ -3,12 +3,13 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { DefaultTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AccountProvider } from './src/Context/AccountContext';
+import { ChoresProvider } from './src/Context/ChoressContext';
+import { HomeProvider } from './src/Context/HomeContext';
+import { ProfileProvider } from './src/Context/ProfileContext';
 import RootNavigator from './src/Navigation/RootNavigator';
 import SplashScreen from './src/Screen/SplashScreen';
 import { ProjectTheme } from './theme/theme';
-import { AccountProvider } from './src/Context/AccountContext';
-import { ProfileProvider } from './src/Context/ProfileContext';
-import { HomeProvider } from './src/Context/HomeContext';
 
 export default function App() {
   const theme = {
@@ -29,19 +30,21 @@ export default function App() {
   }
 
   return (
-    <AccountProvider>
-      <ProfileProvider>
-        <HomeProvider>
-          <PaperProvider theme={theme}>
-            <SafeAreaProvider>
-              <StatusBar style="auto" />
-              <NavigationContainer>
-                <RootNavigator />
-              </NavigationContainer>
-            </SafeAreaProvider>
-          </PaperProvider>
-        </HomeProvider>
-      </ProfileProvider>
-    </AccountProvider>
+    <ProfileProvider>
+      <HomeProvider>
+        <ChoresProvider>
+          <AccountProvider>
+            <PaperProvider theme={theme}>
+              <SafeAreaProvider>
+                <StatusBar style="auto" />
+                <NavigationContainer>
+                  <RootNavigator />
+                </NavigationContainer>
+              </SafeAreaProvider>
+            </PaperProvider>
+          </AccountProvider>
+        </ChoresProvider>
+      </HomeProvider>
+    </ProfileProvider>
   );
 }
