@@ -9,7 +9,7 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
 
-interface Task {
+interface chore {
   id: string;
   slectedHomeId: string;
   name: string;
@@ -20,35 +20,35 @@ interface Task {
 }
 
 const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
-  const [taskData, setTaskData] = useState<Task | Task>(Object);
+  const [Chore, setChore] = useState<chore | null>(null);
   const slectedUserId = React.useRef<string>('1');
   const slectedHomeId = React.useRef<string>('1');
   const slectedoner_id = React.useRef<string>('1');
-  async function getTaskDataFromAsyncStorage() {
+  async function getChoreFromAsyncStorage() {
     try {
-      const storedTaskData = await AsyncStorage.getItem('taskDataKey');
-      if (storedTaskData !== null) {
-        setTaskData(JSON.parse(storedTaskData));
-        console.log('Task data retrieved from AsyncStorage:', storedTaskData);
+      const storedChore = await AsyncStorage.getItem('ChoreKey');
+      if (storedChore !== null) {
+        setChore(JSON.parse(storedChore));
+        console.log('Task data retrieved from AsyncStorage:', storedChore);
       }
     } catch (error) {
-      console.error('Error retrieving task data:', error);
+      console.error('Error retrieving chore:', error);
     }
   }
   useEffect(() => {
-    getTaskDataFromAsyncStorage();
+    getChoreFromAsyncStorage();
   }, []);
   const handelTaskAvklarat = async () => {
     try {
-      const taskEvent = {
+      const ChoreEvent = {
         id: uuid.v4(),
         user_id: slectedUserId.current,
         home_id: slectedHomeId.current,
-        task_id: taskData?.id.toString(),
+        Chore_id: Chore?.id.toString(),
         date: new Date(),
       };
-      await AsyncStorage.setItem('taskEventKey', JSON.stringify(taskEvent));
-      console.log(taskEvent);
+      await AsyncStorage.setItem('ChoreEventKey', JSON.stringify(ChoreEvent));
+      console.log('ChoreEvent', ChoreEvent);
       navigation.navigate('Household');
     } catch (error) {
       console.log(error);
@@ -73,7 +73,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
         }}
       >
         <ScrollView>
-          {taskData ? (
+          {Chore ? (
             <View
               style={{
                 flex: 1,
@@ -84,23 +84,23 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
                 paddingRight: 10,
               }}
             >
-              <Text style={{ paddingBottom: 10 }}>ID: {taskData.id}</Text>
+              <Text style={{ paddingBottom: 10 }}>ID: {Chore.id}</Text>
               <Text style={{ paddingBottom: 10 }}>
-                Selected Home ID: {taskData.slectedHomeId}
+                Selected Home ID: {Chore.slectedHomeId}
               </Text>
-              <Text style={{ paddingBottom: 10 }}>Title: {taskData.name}</Text>
+              <Text style={{ paddingBottom: 10 }}>Title: {Chore.name}</Text>
               <Text style={{ paddingBottom: 10 }}>
-                Description: {taskData.discription}
-              </Text>
-              <Text style={{ paddingBottom: 10 }}>
-                Interval: {taskData.interval}
+                Description: {Chore.discription}
               </Text>
               <Text style={{ paddingBottom: 10 }}>
-                Rating: {taskData.task_rating}
+                Interval: {Chore.interval}
+              </Text>
+              <Text style={{ paddingBottom: 10 }}>
+                Rating: {Chore.task_rating}
               </Text>
               {Image && (
                 <Image
-                  source={{ uri: taskData.imageUri }}
+                  source={{ uri: Chore.imageUri }}
                   style={{
                     width: 380,
                     height: 225,

@@ -40,7 +40,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
 
   const handelAddTask = async () => {
     try {
-      const taskData = {
+      const Chore = {
         id: uuid.v4(),
         home_id: slectedHomeId.current,
         name: titel,
@@ -50,8 +50,8 @@ export default function CreateTaskScreen({ navigation }: Props) {
         task_rating: parseInt(Rating, 10),
       };
 
-      await AsyncStorage.setItem('taskDataKey', JSON.stringify(taskData));
-      console.log(taskData);
+      await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
+      console.log(Chore);
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);

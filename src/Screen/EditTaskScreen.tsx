@@ -24,12 +24,12 @@ export default function EditTaskScreen({ navigation }: Props) {
       alert('Sorry, we need camera roll permissions to make this work!');
       return;
     }
-    // {TaskData? (
-    //   titel: TaskData.name,
-    //   image: TaskData.imageUri,
-    //   Discription: TaskData.discription,
-    //   Interval: TaskData.interval,
-    //   Rating: TaskData.task_rating,
+    // {Chore? (
+    //   titel: Chore.name,
+    //   image: Chore.imageUri,
+    //   Discription: Chore.discription,
+    //   Interval: Chore.interval,
+    //   Rating: Chore.task_rating,
     // } : null)
 
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -46,8 +46,8 @@ export default function EditTaskScreen({ navigation }: Props) {
 
   const handelEditTask = async () => {
     try {
-      const taskData = {
-        // id:slrctedTaskId.current,
+      const Chore = {
+        // id:slrctedChoreId.current,
         home_id: slectedHomeId.current,
         name: titel,
         imageUri: image,
@@ -56,8 +56,8 @@ export default function EditTaskScreen({ navigation }: Props) {
         task_rating: parseInt(Rating, 10),
       };
 
-      await AsyncStorage.setItem('taskDataKey', JSON.stringify(taskData));
-      console.log(taskData);
+      await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
+      console.log(Chore);
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);
