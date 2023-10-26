@@ -2,7 +2,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
-import { useAccountContext } from '../Context/AccountContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { useHomeContext } from '../Context/HomeContext';
 import { useEffect } from 'react';
@@ -17,7 +16,6 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   const updateAllStates = () => {
     if (profiles) {
-      // Set profiles to profiles state
       setHomesByProfiles(profiles);
       console.log('homes', homes);
     }
@@ -25,7 +23,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   useEffect(() => {
     updateAllStates();
-  }, []); // Add profiles and setProfilesByAccountId as dependencies
+  }, []);
 
   const navigateToUserProfile = (owner_id: number) => {
     navigation.navigate('Profile', { userId: owner_id });
@@ -41,7 +39,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-      {homes && homes.length > 0 ? ( // Check if homes data is available and not an empty array
+      {homes && homes.length > 0 ? (
         homes.map((home: Home) => (
           <View key={home.id}>
             <TouchableOpacity

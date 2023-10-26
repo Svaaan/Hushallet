@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import { RootStackScreenProps } from '../Navigation/types';
-import { useProfileContext } from '../Context/ProfileContext';
 import { useAccountContext } from '../Context/AccountContext';
 
 type Props = RootStackScreenProps<'Login'>;
@@ -11,18 +10,9 @@ export default function LoginScreen({ navigation }: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login } = useAccountContext();
-  const { setProfilesByAccountId, profiles } = useProfileContext();
-  const { account } = useAccountContext();
 
-  //loggas inte in när man skapat konto
   async function handleLogin() {
-    console.log('account state: ', account);
-    console.log(username, password);
     const success = await login(username, password);
-    console.log('konto som loggar in:', username);
-    if (account) {
-      setProfilesByAccountId(account.id);
-    }
     if (success) {
       navigation.navigate('MyHouseholds');
     }
