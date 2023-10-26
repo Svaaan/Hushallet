@@ -2,12 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
+import { Home, mockedHomes } from '../../data/mockedHomes';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
 import { useAccountContext } from '../Context/AccountContext';
 import { useHomeContext } from '../Context/HomeContext';
-import { mockedProfile, Profile } from '../../data/mockedProfiles';
-import { Home, mockedHomes } from '../../data/mockedHomes';
+import { ProfileProvider } from '../Context/ProfileContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
@@ -16,25 +16,26 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
   const [generatedCode, setGeneratedCode] = useState('');
 
   const { account } = useAccountContext();
-  const { setHomesByProfiles, createHome } = useHomeContext();
-  const profiles: Profile[] = mockedProfile;
-  const homes: Home[] = mockedHomes;
+  const { createHome } = useHomeContext();
 
   useEffect(() => {
-    const uniqueCode = findUniqueCode(homes.map((home) => home.home_code));
+    const uniqueCode = findUniqueCode(
+      mockedHomes.map((home) => home.home_code)
+    );
     setGeneratedCode(uniqueCode.toString());
-  }, [homes]);
+  }, []);
 
   const handleSaveButtonPress = () => {
     if (householdName !== '' && account) {
-      const newHousehold = {
-        id: homes.length + 1,
+      const newHousehold: Home = {
+        id: mockedHomes.length + 1,
         name: householdName,
-        owner_id: account.id,
+        profile_id: account.id,
         home_code: parseInt(generatedCode),
       };
+      console.log('hushåll som ska pushas in: ', newHousehold);
+      mockedHomes.push(newHousehold);
       createHome(newHousehold);
-
       navigation.navigate('MyHouseholds');
     }
   };

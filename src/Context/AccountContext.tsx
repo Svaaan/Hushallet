@@ -3,7 +3,7 @@ import { Account, mockedAccounts } from '../../data/mockedAccount';
 
 type AccountContextType = {
   account: Account | null;
-  login: (username: string, password: string) => Promise<boolean>;
+  login: (username: string, password: string) => Promise<Account | null>;
   logout: () => void;
   setAccountData: (accountData: Account | null) => void;
 };
@@ -29,20 +29,20 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
         if (mockedAccount) {
           setAccount(mockedAccount);
           console.log('Login success!', mockedAccount);
-          return true;
+          return mockedAccount;
         } else if (
           account &&
           account.username === username &&
           account.password === password
         ) {
           console.log('Login success!', account);
-          return true;
+          return account;
         }
       } catch (error) {
         console.error('Error during login:', error);
       }
 
-      return false;
+      return null;
     },
     [account]
   );

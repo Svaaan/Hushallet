@@ -19,16 +19,16 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     let allMyHomes: Home[] = [];
 
     profiles.forEach((profile) => {
-      const home = mockedHomes.find((home) => home.owner_id === profile.id);
+      const home = mockedHomes.find((home) => home.profile_id === profile.id);
       if (home) {
-        if (!allMyHomes.some((h) => h.owner_id === home.owner_id)) {
+        if (!allMyHomes.some((h) => h.profile_id === home.profile_id)) {
           allMyHomes.push(home);
         }
       }
 
-      const homeInState = homes.find((home) => home.owner_id === profile.id);
+      const homeInState = homes.find((home) => home.profile_id === profile.id);
       if (homeInState) {
-        if (!allMyHomes.some((h) => h.owner_id === homeInState.owner_id)) {
+        if (!allMyHomes.some((h) => h.profile_id === homeInState.profile_id)) {
           allMyHomes.push(homeInState);
         }
       }

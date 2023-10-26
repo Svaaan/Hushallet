@@ -8,19 +8,23 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { useHomeContext } from '../Context/HomeContext';
 import { mockedProfile, Profile } from '../../data/mockedProfiles';
+import { useProfileContext } from '../Context/ProfileContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
   const { account } = useAccountContext();
+  const { setProfilesByAccountId, profiles } = useProfileContext();
   const { homes, setHomesByProfiles } = useHomeContext();
-  const profiles: Profile[] = mockedProfile;
+  // const profiles: Profile[] = mockedProfile;
 
   const updateAllStates = () => {
-    if (account && profiles) {
+    if (profiles) {
+      //alla hem som profiler har till state homes
       setHomesByProfiles(profiles);
     }
   };
+
   useEffect(() => {
     updateAllStates();
   }, []);
@@ -39,21 +43,21 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-      {homes && homes.length > 0 ? (
+      {account && homes.length === 0 ? (
+        <View style={{ alignItems: 'center' }}>
+          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+          <Text> Skapa ett hem nedan!</Text>
+        </View>
+      ) : (
         homes.map((home: Home) => (
           <View key={home.id}>
             <TouchableOpacity
-              onPress={() => navigateToUserProfile(home.owner_id)}
+              onPress={() => navigateToUserProfile(home.profile_id)}
             >
               <Text>{home.name}</Text>
             </TouchableOpacity>
           </View>
         ))
-      ) : (
-        <View style={{ alignItems: 'center' }}>
-          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
-          <Text> Skapa ett hem nedan!</Text>
-        </View>
       )}
       <View
         style={{

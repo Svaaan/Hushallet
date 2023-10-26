@@ -3,17 +3,22 @@ import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import { RootStackScreenProps } from '../Navigation/types';
 import { useAccountContext } from '../Context/AccountContext';
+import { useProfileContext } from '../Context/ProfileContext';
 
 type Props = RootStackScreenProps<'Login'>;
 
 export default function LoginScreen({ navigation }: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setProfilesByAccountId } = useProfileContext();
   const { login } = useAccountContext();
 
   async function handleLogin() {
-    const success = await login(username, password);
-    if (success) {
+    const account = await login(username, password);
+    if (account) {
+      console.log('kontot som loggades in: ', account);
+      //alla profiler som account har sätts till state profiles
+      setProfilesByAccountId(account.id);
       navigation.navigate('MyHouseholds');
     }
   }
