@@ -63,11 +63,13 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
   const nameStyle = {
-    width: 310,
+    width: '100%',
     height: 40,
     backgroundColor: ProjectTheme.inputBackground,
     borderRadius: ProjectTheme.borderRadius.medium,
     paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
     marginBottom: 20,
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
