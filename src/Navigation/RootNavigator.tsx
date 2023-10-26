@@ -7,14 +7,14 @@ import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
 import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import EditTask from '../Screen/EditTaskScreen';
 import HomeScreen from '../Screen/HomeScreen';
-import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
-import ProfileScreen from '../Screen/ProfileScreen';
 import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
 import StartScreen from '../Screen/StartScreen';
 import TaskDetailsScreen from '../Screen/TaskDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
+import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
+import HouseProfileScreen from '../Screen/HouseProfileScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -51,7 +51,7 @@ export default function RootNavigator() {
       <Stack.Screen name="EditHousehold" component={EditHouseholdScreen} />
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Profile" component={HouseProfileScreen} />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="TaskDetails" component={TaskDetailsScreen} />
