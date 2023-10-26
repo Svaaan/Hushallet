@@ -2,10 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-import { mockedHomes } from '../../data/mockedHomes';
+import { Home, mockedHomes } from '../../data/mockedHomes';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
 import { useAccountContext } from '../Context/AccountContext';
+import { useHomeContext } from '../Context/HomeContext';
+import { ProfileProvider } from '../Context/ProfileContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
@@ -13,7 +15,8 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
   const [householdName, setHouseholdName] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
 
-  const { account } = useAccountContext(); // Get the logged-in user from context
+  const { account } = useAccountContext();
+  const { createHome } = useHomeContext();
 
   useEffect(() => {
     const uniqueCode = findUniqueCode(
@@ -24,13 +27,15 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
 
   const handleSaveButtonPress = () => {
     if (householdName !== '' && account) {
-      const newHousehold = {
+      const newHousehold: Home = {
         id: mockedHomes.length + 1,
         name: householdName,
-        owner_id: account.id, // Use the logged-in user's ID
+        profile_id: account.id,
         home_code: parseInt(generatedCode),
       };
+      console.log('hushåll som ska pushas in: ', newHousehold);
       mockedHomes.push(newHousehold);
+      createHome(newHousehold);
       navigation.navigate('MyHouseholds');
     }
   };
@@ -77,6 +82,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
     </View>
   );
 }
+
 function generateUniqueRandomCode(existingCodes: number[]) {
   function generateRandomCode() {
     return Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;

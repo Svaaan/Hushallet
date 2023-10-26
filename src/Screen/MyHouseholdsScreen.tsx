@@ -1,31 +1,33 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
-import { useAccountContext } from '../Context/AccountContext';
-import { useProfileContext } from '../Context/ProfileContext';
-import { useHomeContext } from '../Context/HomeContext';
-import { useEffect } from 'react';
-import { Home } from '../../data/mockedHomes';
 import Button from '../Component/BottomButtonComponent';
+import { Home } from '../../data/mockedHomes';
+import { useAccountContext } from '../Context/AccountContext';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Navigation/RootNavigator';
+import { useHomeContext } from '../Context/HomeContext';
+import { mockedProfile, Profile } from '../../data/mockedProfiles';
+import { useProfileContext } from '../Context/ProfileContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
-  const { profiles } = useProfileContext();
+  const { account } = useAccountContext();
+  const { setProfilesByAccountId, profiles } = useProfileContext();
   const { homes, setHomesByProfiles } = useHomeContext();
+  // const profiles: Profile[] = mockedProfile;
 
   const updateAllStates = () => {
     if (profiles) {
-      // Set profiles to profiles state
+      //alla hem som profiler har till state homes
       setHomesByProfiles(profiles);
-      console.log('homes', homes);
     }
   };
 
   useEffect(() => {
     updateAllStates();
-  }, []); // Add profiles and setProfilesByAccountId as dependencies
+  }, []);
 
   const navigateToUserProfile = (owner_id: number) => {
     navigation.navigate('Profile', { userId: owner_id });
@@ -41,21 +43,21 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         paddingTop: 200,
       }}
     >
-      {homes && homes.length > 0 ? ( // Check if homes data is available and not an empty array
+      {account && homes.length === 0 ? (
+        <View style={{ alignItems: 'center' }}>
+          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+          <Text> Skapa ett hem nedan!</Text>
+        </View>
+      ) : (
         homes.map((home: Home) => (
           <View key={home.id}>
             <TouchableOpacity
-              onPress={() => navigateToUserProfile(home.owner_id)}
+              onPress={() => navigateToUserProfile(home.profile_id)}
             >
               <Text>{home.name}</Text>
             </TouchableOpacity>
           </View>
         ))
-      ) : (
-        <View style={{ alignItems: 'center' }}>
-          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
-          <Text> Skapa ett hem nedan!</Text>
-        </View>
       )}
       <View
         style={{

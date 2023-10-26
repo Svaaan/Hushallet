@@ -3,7 +3,7 @@ import { Account, mockedAccounts } from '../../data/mockedAccount';
 
 type AccountContextType = {
   account: Account | null;
-  login: (username: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<Account | null>;
   logout: () => void;
   setAccountData: (accountData: Account | null) => void;
 };
@@ -19,27 +19,33 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const login = useCallback((username: string, password: string) => {
-    //första kollar i mockade listan om finns
-    console.log('username: ', username, 'password', password);
-    try {
-      const mockedAccount = mockedAccounts.find(
-        (acc) => acc.username === username && acc.password === password
-      );
-      if (!mockedAccount) {
-        if (account?.username == username && account?.password == password) {
-          setAccount(account);
-          return true;
-        }
-      } else {
-        setAccount(mockedAccount);
-        console.log('Login success!', mockedAccount);
-        return true;
-      }
-    } catch {}
+  const login = useCallback(
+    async (username: string, password: string) => {
+      try {
+        const mockedAccount = mockedAccounts.find(
+          (acc) => acc.username === username && acc.password === password
+        );
 
-    return false;
-  }, []);
+        if (mockedAccount) {
+          setAccount(mockedAccount);
+          console.log('Login success!', mockedAccount);
+          return mockedAccount;
+        } else if (
+          account &&
+          account.username === username &&
+          account.password === password
+        ) {
+          console.log('Login success!', account);
+          return account;
+        }
+      } catch (error) {
+        console.error('Error during login:', error);
+      }
+
+      return null;
+    },
+    [account]
+  );
 
   const logout = useCallback(() => {
     setAccount(null);
