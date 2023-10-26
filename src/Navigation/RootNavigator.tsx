@@ -6,7 +6,6 @@ import CreateTaskScreen from '../Screen/CreateTaskScreen';
 import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
 import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import EditTask from '../Screen/EditTaskScreen';
-import HomeScreen from '../Screen/HomeScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
 import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
@@ -17,7 +16,6 @@ import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import HouseProfileScreen from '../Screen/HouseProfileScreen';
 
 export type RootStackParamList = {
-  Home: undefined;
   Start: undefined;
   CreateHousehold: undefined;
   MyHouseholds: undefined;
@@ -40,7 +38,6 @@ export default function RootNavigator() {
   return (
     <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={StartScreen} />
-      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
 
