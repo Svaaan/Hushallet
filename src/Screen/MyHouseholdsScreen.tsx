@@ -1,26 +1,26 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
-import { useProfileContext } from '../Context/ProfileContext';
-import { useHomeContext } from '../Context/HomeContext';
-import { useEffect } from 'react';
-import { Home } from '../../data/mockedHomes';
 import Button from '../Component/BottomButtonComponent';
+import { Home } from '../../data/mockedHomes';
+import { useAccountContext } from '../Context/AccountContext';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../Navigation/RootNavigator';
+import { useHomeContext } from '../Context/HomeContext';
+import { mockedProfile, Profile } from '../../data/mockedProfiles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
-  const { profiles } = useProfileContext();
+  const { account } = useAccountContext();
   const { homes, setHomesByProfiles } = useHomeContext();
+  const profiles: Profile[] = mockedProfile;
 
   const updateAllStates = () => {
-    if (profiles) {
+    if (account && profiles) {
       setHomesByProfiles(profiles);
-      console.log('homes', homes);
     }
   };
-
   useEffect(() => {
     updateAllStates();
   }, []);

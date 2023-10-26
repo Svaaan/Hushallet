@@ -6,6 +6,8 @@ type HomeContextType = {
   homes: Home[];
   setHomes: (homes: Home[]) => void;
   setHomesByProfiles: (profiles: Profile[]) => void;
+  createHome: (home: Home) => void;
+  joinHome: (homeId: number) => void;
 };
 
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
@@ -14,13 +16,11 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
   const [homes, setHomes] = useState<Home[]>([]);
 
   const setHomesByProfiles = (profiles: Profile[]) => {
-    console.log('profiler som kommer in hit: ', profiles);
     let allMyHomes: Home[] = [];
 
     profiles.forEach((profile) => {
       const home = mockedHomes.find((home) => home.owner_id === profile.id);
       if (home) {
-        // Check if the home is not already in allMyHomes
         if (!allMyHomes.some((h) => h.owner_id === home.owner_id)) {
           allMyHomes.push(home);
         }
@@ -28,7 +28,6 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
 
       const homeInState = homes.find((home) => home.owner_id === profile.id);
       if (homeInState) {
-        // Check if the homeInState is not already in allMyHomes
         if (!allMyHomes.some((h) => h.owner_id === homeInState.owner_id)) {
           allMyHomes.push(homeInState);
         }
@@ -38,8 +37,21 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     setHomes(allMyHomes);
   };
 
+  const createHome = (home: Home) => {
+    setHomes([...homes, home]);
+  };
+
+  const joinHome = (homeId: number) => {
+    const joinedHome = mockedHomes.find((home) => home.id === homeId);
+    if (joinedHome) {
+      setHomes([...homes, joinedHome]);
+    }
+  };
+
   return (
-    <HomeContext.Provider value={{ homes, setHomes, setHomesByProfiles }}>
+    <HomeContext.Provider
+      value={{ homes, setHomes, setHomesByProfiles, createHome, joinHome }}
+    >
       {children}
     </HomeContext.Provider>
   );
@@ -48,7 +60,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
 export function useHomeContext() {
   const context = useContext(HomeContext);
   if (!context) {
-    throw new Error('Add HomeProvider into app.tsx');
+    throw Error('Add HomeProvider into app.tsx');
   }
   return context;
 }
