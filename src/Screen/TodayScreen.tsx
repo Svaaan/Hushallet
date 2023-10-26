@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
+import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
+import { Profile, mockedProfile } from '../../data/mockedProfiles';
 import { ProjectTheme } from '../../theme/theme';
 import { useChoresContext } from '../Context/ChoressContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
@@ -10,7 +12,22 @@ type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
   const { chores } = useChoresContext();
-  //för att få tag i profil = user.id och household.id för att hitta profilen det gäller
+
+  // Create a map to group chore events by chore ID
+  const choreEventsMap = new Map<number, ChoreEvent[]>();
+  mockChoreEvents.forEach((choreEvent) => {
+    if (choreEventsMap.has(choreEvent.chore_id)) {
+      choreEventsMap.get(choreEvent.chore_id)?.push(choreEvent);
+    } else {
+      choreEventsMap.set(choreEvent.chore_id, [choreEvent]);
+    }
+  });
+
+  // Create a map to store user profiles by their ID
+  const profilesMap = new Map<number, Profile>();
+  mockedProfile.forEach((profile) => {
+    profilesMap.set(profile.id, profile);
+  });
 
   const handleGoToTaskDetails = (chore: Chore) => {
     // You can pass the chore data to the TaskDetails screen.
@@ -19,61 +36,66 @@ export default function TodayScreen({ navigation }: Props) {
 
   return (
     <View>
-      {chores.map((chore) => (
-        <TouchableOpacity
-          key={chore.id}
-          onPress={() => handleGoToTaskDetails(chore)}
-          style={{
-            width: 390,
-            height: 65,
-            backgroundColor: ProjectTheme.buttonPrimary.color,
-            borderRadius: ProjectTheme.borderRadius.medium,
-            elevation: ProjectTheme.elevation.medium,
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'row',
-            marginLeft: 10,
-            marginRight: 10,
-            marginTop: 10,
-            paddingLeft: 15,
-          }}
-        >
-          <Text
+      {chores.map((chore) => {
+        const completedChoreEvents = choreEventsMap.get(chore.id);
+        const completedByProfiles: Set<number> = new Set();
+
+        if (completedChoreEvents) {
+          completedChoreEvents.forEach((choreEvent) => {
+            const profile = profilesMap.get(choreEvent.profile_id);
+            if (profile) {
+              completedByProfiles.add(profile.id);
+            }
+          });
+        }
+
+        return (
+          <TouchableOpacity
+            key={chore.id}
+            onPress={() => handleGoToTaskDetails(chore)}
             style={{
-              fontSize: 17,
-              fontWeight: 'bold',
+              width: 390,
+              height: 65,
+              backgroundColor: ProjectTheme.buttonPrimary.color,
+              borderRadius: ProjectTheme.borderRadius.medium,
+              elevation: ProjectTheme.elevation.medium,
+              alignItems: 'center',
+              marginLeft: 10,
+              marginRight: 10,
+              marginTop: 10,
+              paddingLeft: 15,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
             }}
           >
-            {chore.name}
-          </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View
+            <Text
               style={{
-                width: 30,
-                height: 30,
-                backgroundColor: 'lightgrey',
-                borderRadius: 15,
-                justifyContent: 'center',
-                alignItems: 'center',
-                marginRight: 15,
+                fontSize: 17,
+                fontWeight: 'bold',
               }}
             >
-              <Text style={{ color: 'black', fontSize: 16 }}>
-                {chore.interval}
-              </Text>
+              {chore.name}
+            </Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              {Array.from(completedByProfiles).map((profileId) => {
+                const profile = profilesMap.get(profileId);
+                return (
+                  <Image
+                    key={profile.id}
+                    source={profile.avatar}
+                    style={{
+                      width: 25,
+                      height: 25,
+                      borderRadius: 15,
+                      marginRight: 7,
+                    }}
+                  />
+                );
+              })}
             </View>
-          </View>
-        </TouchableOpacity>
-      ))}
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-  },
-});
