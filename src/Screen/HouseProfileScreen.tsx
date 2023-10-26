@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
-import HouseholdSwipeNavigator from '../Navigation/HouseholdSwipeNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
@@ -25,9 +24,8 @@ export default function ProfileScreen({ navigation }: Props) {
       style={{
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 200,
+        paddingTop: 20, // Adjusted paddingTop
       }}
     >
       <Text style={nameStyle}>Hushållets namn</Text>
@@ -36,7 +34,7 @@ export default function ProfileScreen({ navigation }: Props) {
       <Text style={nameStyle}>Mitt namn</Text>
 
       <Button
-        title="Mina sysslor"
+        title="Mina Sysslor"
         onPress={() => {
           navigation.navigate('SwipeNav');
         }}
@@ -47,7 +45,7 @@ export default function ProfileScreen({ navigation }: Props) {
           flexDirection: 'row',
           justifyContent: 'space-evenly',
           width: '100%',
-          marginTop: 150,
+          marginTop: 20, // Adjusted marginTop
         }}
       >
         <Button
