@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { mockChores } from '../../data/mockedChores';
 
-// Define your chore type
+// Define chore type
 interface Chore {
   id: number;
   home_id: number;
@@ -12,14 +12,14 @@ interface Chore {
   interval: number;
 }
 
-// Define your context type
+// Define context type
 interface ChoresContextType {
   chores: Chore[];
   initializeChores: () => void;
   createChore: (chore: Chore) => void;
 }
 
-// Create the context
+// Creating the context
 const ChoresContext = createContext<ChoresContextType | undefined>(undefined);
 
 const fetchChoresFromStorage = async (): Promise<Chore[]> => {
@@ -47,6 +47,7 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
     // Fetch chores data and set it in the state
     const fetchedChores = await fetchChoresFromStorage();
 
+    // Check to see if any chores are in AsyncStorage, Otherwise use the mockData
     if (fetchedChores.length === 0) {
       setChores(mockChores);
     } else {
@@ -71,8 +72,8 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // Initialize chores when the app starts with useEffect
   useEffect(() => {
-    // Initialize chores when the app starts
     initializeChores();
   }, []);
 
@@ -83,7 +84,7 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Create a custom hook for using the context
+// hook for using the context
 export function useChoresContext() {
   const context = useContext(ChoresContext);
   if (!context) {

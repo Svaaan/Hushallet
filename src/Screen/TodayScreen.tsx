@@ -1,8 +1,8 @@
+import { Image } from 'expo-image';
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-
+import { Text, TouchableOpacity, View } from 'react-native';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
-import { Chore } from '../../data/mockedChores';
+import { Chore, mockChores } from '../../data/mockedChores';
 import { Profile, mockedProfile } from '../../data/mockedProfiles';
 import { ProjectTheme } from '../../theme/theme';
 import { useChoresContext } from '../Context/ChoressContext';
@@ -12,6 +12,7 @@ type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
   const { chores } = useChoresContext();
+  const intervalDate = new Date();
 
   // Create a map to group chore events by chore ID
   const choreEventsMap = new Map<number, ChoreEvent[]>();
@@ -30,9 +31,53 @@ export default function TodayScreen({ navigation }: Props) {
   });
 
   const handleGoToTaskDetails = (chore: Chore) => {
-    // You can pass the chore data to the TaskDetails screen.
+    // Pass the chore data to the TaskDetails screen.
     navigation.navigate('TaskDetails', { chore });
   };
+
+  // Define a function to check if a chore has been completed within a specific date interval
+  function hasCompletedWithinInterval(
+    choreEvents: ChoreEvent[],
+    chores: Chore[],
+    intervalDate: Date
+  ) {
+    if (
+      !choreEvents ||
+      choreEvents.length === 0 ||
+      !chores ||
+      chores.length === 0
+    ) {
+      return false; // No completion events or chores
+    }
+
+    // Check if each chore has been completed within its own interval
+    for (const chore of chores) {
+      const completedChoreEvents = choreEvents.filter(
+        (event) => event.chore_id === chore.id
+      );
+
+      if (completedChoreEvents.length > 0) {
+        const eventDates = completedChoreEvents.map(
+          (event) => new Date(event.date)
+        );
+
+        // Calculate the start date of the interval based on the chore's interval
+        const startDate = new Date(intervalDate);
+        startDate.setDate(intervalDate.getDate() - chore.interval);
+
+        // Check if any of the completion events are within the interval
+        if (
+          eventDates.some(
+            (eventDate) => eventDate >= startDate && eventDate <= intervalDate
+          )
+        ) {
+          return true; // A completion event is within the interval for this chore
+        }
+      }
+    }
+
+    return false; // No completion events within the interval for any chore
+  }
 
   return (
     <View>
@@ -77,21 +122,51 @@ export default function TodayScreen({ navigation }: Props) {
               {chore.name}
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {Array.from(completedByProfiles).map((profileId) => {
-                const profile = profilesMap.get(profileId);
-                return (
-                  <Image
-                    key={profile.id}
-                    source={profile.avatar}
+              {completedChoreEvents &&
+              hasCompletedWithinInterval(
+                completedChoreEvents,
+                mockChores,
+                intervalDate
+              ) ? (
+                Array.from(completedByProfiles).map((profileId) => {
+                  const profile = profilesMap.get(profileId);
+                  if (profile?.avatar) {
+                    return (
+                      <Image
+                        key={profile?.id}
+                        source={profile.avatar}
+                        style={{
+                          width: 25,
+                          height: 25,
+                          borderRadius: 15,
+                          marginRight: 7,
+                        }}
+                      />
+                    );
+                  }
+                  return null; // Profile has no avatar, return null
+                })
+              ) : (
+                <View
+                  style={{
+                    width: 30,
+                    height: 30,
+                    backgroundColor: '#f2f2f2',
+                    borderRadius: 15,
+                    marginRight: 15,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text
                     style={{
-                      width: 25,
-                      height: 25,
-                      borderRadius: 15,
-                      marginRight: 7,
+                      fontSize: 15,
                     }}
-                  />
-                );
-              })}
+                  >
+                    {chore.interval}
+                  </Text>
+                </View>
+              )}
             </View>
           </TouchableOpacity>
         );
