@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { Image, TextInput, View, Text } from 'react-native';
-import { Checkbox } from 'react-native-paper';
+import { Image, TextInput, View, Text, StyleSheet } from 'react-native';
+import { Checkbox, Button } from 'react-native-paper';
 import { ProjectTheme } from '../../theme/theme';
-import Button from '../Component/BottomButtonComponent';
+//import Button from '../Component/BottomButtonComponent';
 import ChooseEmoji from '../Component/ChooseEmoji';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
@@ -17,17 +17,6 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
 
   const handleAvatarSelection = (avatar: string) => {
     setSelectedAvatar(avatar);
-  };
-
-  const placeholderStyle = {
-    width: 300,
-    height: 40,
-    backgroundColor: ProjectTheme.inputBackground,
-    borderRadius: ProjectTheme.borderRadius.medium,
-    paddingLeft: 10,
-    marginBottom: 10,
-    color: ProjectTheme.colors.textcolor,
-    elevation: ProjectTheme.elevation.small,
   };
 
   const saveUserData = async () => {
@@ -67,7 +56,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 200,
+        paddingTop: 40,
       }}
     >
       <View>
@@ -90,9 +79,9 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
 
       <View
         style={{
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginLeft: 5,
+          position: 'absolute',
+          right: 40,
+          bottom: 180
         }}
       >
         <ChooseEmoji
@@ -108,27 +97,66 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
           width: '100%',
         }}
       >
-        <Button
-          title="Spara"
-          onPress={() => {
-            saveUserData();
-            navigation.navigate('MyHouseholds');
-          }}
-        />
-
-        <Button
-          title="Stäng"
-          onPress={() => {
-            navigation.navigate('MyHouseholds');
-          }}
-        />
-        <Button
-          title="Hämta"
-          onPress={() => {
-            retrieveUserData();
-          }}
-        />
+        <View style={styles.footer}>
+          <Button
+            textColor="black"
+            style={styles.button}
+            onPress={() => {
+              saveUserData();
+              navigation.navigate('MyHouseholds');
+            }}
+          >
+            Anslut
+          </Button>
+          <Button
+            textColor="black"
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('MyHouseholds');
+            }}
+          >
+            Stäng
+          </Button>
+          <Button
+            textColor="black"
+            style={styles.button}
+            onPress={() => {
+              retrieveUserData();
+            }}
+          >
+            Hämta
+          </Button>
+        </View>
       </View>
     </View>
   );
 }
+
+const placeholderStyle = {
+  width: 300,
+  height: 40,
+  backgroundColor: ProjectTheme.inputBackground,
+  borderRadius: ProjectTheme.borderRadius.medium,
+  paddingLeft: 10,
+  marginBottom: 10,
+  color: ProjectTheme.colors.textcolor,
+  elevation: ProjectTheme.elevation.small,
+};
+
+const styles = StyleSheet.create({
+  button: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: 0,
+    borderColor: '#ccc',
+    backgroundColor: 'white',
+  },
+  footer: {
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+});
