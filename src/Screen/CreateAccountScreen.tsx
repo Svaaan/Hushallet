@@ -4,13 +4,11 @@ import { ProjectTheme } from '../../theme/theme';
 import { useNavigation } from '@react-navigation/native';
 import Button from '../Component/BottomButtonComponent';
 import { mockedProfile } from '../../data/mockedProfiles';
-import { Account, mockedAccounts } from '../../data/mockedAccount';
 import { useAccountContext } from '../Context/AccountContext';
 
 export default function CreateAccountScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setname] = useState('');
   const { setAccountData, account } = useAccountContext();
   const [isAccountSet, setIsAccountSet] = useState(false);
 
@@ -61,14 +59,6 @@ export default function CreateAccountScreen() {
       }}
     >
       <View style={{ justifyContent: 'flex-start' }}>
-        <TextInput
-          style={placeholderStyle}
-          placeholder="Namn"
-          placeholderTextColor={ProjectTheme.inputPlaceholderColor}
-          onChangeText={(text) => setname(text)}
-          value={name}
-        />
-
         <TextInput
           style={placeholderStyle}
           placeholder="Användarnamn"
