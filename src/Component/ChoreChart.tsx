@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { PieChart } from 'react-native-svg-charts';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { defaultColor, profileColors } from './PieChartWithCenteredLabels ';
@@ -17,7 +16,7 @@ function ChoreChart(props: ChoreChartProps) {
 
   // Check if there are choreEvents available
   if (filteredChoreEvents.length === 0) {
-    return <Text>No event available for chore.</Text>;
+    return null;
   }
 
   const profileChoresCount: Record<string, number> = {};

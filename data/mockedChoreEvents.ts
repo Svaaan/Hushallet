@@ -90,7 +90,7 @@ const mockChoreEvents: ChoreEvent[] = [
     id: 13,
     profile_id: 2,
     chore_id: 1,
-    date: new Date('2023-10-25'),
+    date: new Date('2023-10-24'),
   },
   {
     id: 14,
@@ -99,6 +99,7 @@ const mockChoreEvents: ChoreEvent[] = [
     date: new Date('2023-10-23'),
   },
   {
+    // denna är overdue och bör markeras RÖD.
     id: 15,
     profile_id: 4,
     chore_id: 4,
@@ -112,13 +113,13 @@ const mockChoreEvents: ChoreEvent[] = [
   },
   {
     id: 17,
-    profile_id: 6,
-    chore_id: 6,
-    date: new Date('2023-10-26'),
+    profile_id: 4,
+    chore_id: 3,
+    date: new Date('2023-10-27'),
   },
   {
     id: 18,
-    profile_id: 1,
+    profile_id: 3,
     chore_id: 6,
     date: new Date('2023-10-27'),
   },
