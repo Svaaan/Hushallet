@@ -13,7 +13,7 @@ const mockedProfile: Profile[] = [
     name: 'John',
     avatar: require('../avatars/fox.png'),
     is_paused: false,
-    is_owner: false,
+    is_owner: true,
     account_id: 1,
   },
   {

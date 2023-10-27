@@ -17,13 +17,13 @@ const mockedAccounts: Account[] = [
   },
   {
     id: 3,
-    username: 'BobAccount',
-    password: 'bobPassword',
+    username: 'BobAccount', //Ej kopplat till john home
+    password: 'bobPassword', //Anslut eller skapa home med eller göra till owner
   },
   {
     id: 4,
-    username: 'MayaAccount',
-    password: 'mayaPass',
+    username: 'MayaAccount', //Ej kopplat till johnhome
+    password: 'mayaPass', //Anslut eller skapa home med eller göra till owner
   },
 ];
 
