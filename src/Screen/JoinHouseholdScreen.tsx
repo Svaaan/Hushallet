@@ -77,11 +77,16 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         />
       </View>
 
+      <View style={{position:'absolute', top: 160}}>
+        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+          Välj tillgänglig avatar
+        </Text>
+      </View>
+
       <View
         style={{
           position: 'absolute',
-          right: 40,
-          bottom: 180
+          top: 200
         }}
       >
         <ChooseEmoji

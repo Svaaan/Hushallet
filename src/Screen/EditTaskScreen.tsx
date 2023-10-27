@@ -58,7 +58,7 @@ export default function EditTaskScreen({ navigation }: Props) {
 
       await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
       console.log(Chore);
-      navigation.navigate('Home');
+      navigation.navigate('Household');
     } catch (error) {
       console.log(error);
     }
@@ -124,32 +124,6 @@ export default function EditTaskScreen({ navigation }: Props) {
             value={titel}
             onChangeText={(text) => setTitel(text)}
           />
-          <Text>Bild:</Text>
-          <Button
-            style={{
-              marginBottom: 10,
-              height: 50,
-              justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary,
-            }}
-            icon="image"
-            mode="contained"
-            onPress={pickImage}
-            labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 40 }}
-            rippleColor={ProjectTheme.colors.background}
-            children={undefined}
-          />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{
-                width: 400,
-                height: 225,
-                alignSelf: 'center',
-                marginBottom: 10,
-              }}
-            />
-          )}
           <Text>Beskrivning:</Text>
           <TextInput
             style={{
@@ -195,6 +169,32 @@ export default function EditTaskScreen({ navigation }: Props) {
             onChangeText={(text) => setRating(text)}
             keyboardType="numeric"
           />
+          <Text>Bild:</Text>
+          <Button
+            style={{
+              marginBottom: 10,
+              height: 50,
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="image"
+            mode="contained"
+            onPress={pickImage}
+            labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 40 }}
+            rippleColor={ProjectTheme.colors.background}
+            children={undefined}
+          />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 400,
+                height: 225,
+                alignSelf: 'center',
+                marginBottom: 10,
+              }}
+            />
+          )}
         </ScrollView>
 
         <View

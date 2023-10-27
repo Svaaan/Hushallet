@@ -62,99 +62,95 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
       navigation.navigate('TaskDetails');
     }
   };
+  const nameStyle = {
+    height: 40,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    marginBottom: 20,
+    color: ProjectTheme.colors.textcolor,
+    elevation: ProjectTheme.elevation.small,
+  };
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: ProjectTheme.colors.background,
+        paddingTop: 20,
+      }}
+    >
+      <ScrollView>
+        {Chore ? (
+          <View>
+            <Text style={{ ...nameStyle, width: '100%' }}>ID: {Chore.id}</Text>
+            <Text style={nameStyle}>
+              Selected Home ID: {Chore.slectedHomeId}
+            </Text>
+            <Text style={nameStyle}>Title: {Chore.name}</Text>
+            <Text style={nameStyle}>Description: {Chore.discription}</Text>
+            <Text style={nameStyle}>Interval: {Chore.interval}</Text>
+            <Text style={nameStyle}>Rating: {Chore.task_rating}</Text>
+            {Image && (
+              <Image
+                source={{ uri: Chore.imageUri }}
+                style={{
+                  width: 380,
+                  height: 225,
+                  alignSelf: 'center',
+                  marginBottom: 10,
+                }}
+              />
+            )}
+          </View>
+        ) : (
+          <Text>Loading task data...</Text>
+        )}
+      </ScrollView>
       <View
         style={{
-          flex: 1,
-          flexDirection: 'column',
-          backgroundColor: 'F2F2F2',
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
         }}
       >
-        <ScrollView>
-          {Chore ? (
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'column',
-                backgroundColor: 'F2F2F2',
-                margin: 10,
-                paddingLeft: 10,
-                paddingRight: 10,
-              }}
-            >
-              <Text style={{ paddingBottom: 10 }}>ID: {Chore.id}</Text>
-              <Text style={{ paddingBottom: 10 }}>
-                Selected Home ID: {Chore.slectedHomeId}
-              </Text>
-              <Text style={{ paddingBottom: 10 }}>Title: {Chore.name}</Text>
-              <Text style={{ paddingBottom: 10 }}>
-                Description: {Chore.discription}
-              </Text>
-              <Text style={{ paddingBottom: 10 }}>
-                Interval: {Chore.interval}
-              </Text>
-              <Text style={{ paddingBottom: 10 }}>
-                Rating: {Chore.task_rating}
-              </Text>
-              {Image && (
-                <Image
-                  source={{ uri: Chore.imageUri }}
-                  style={{
-                    width: 380,
-                    height: 225,
-                    alignSelf: 'center',
-                    marginBottom: 10,
-                  }}
-                />
-              )}
-            </View>
-          ) : (
-            <Text>Loading task data...</Text>
-          )}
-        </ScrollView>
-        <View
+        <Button
           style={{
-            flexDirection: 'row',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
+            marginBottom: 5,
+            height: 50,
+            width: '48%',
+            justifyContent: 'center',
+            backgroundColor: ProjectTheme.colors.primary,
           }}
+          icon="archive-plus-outline"
+          mode="contained"
+          onPress={handelTaskAvklarat}
+          labelStyle={{ color: ProjectTheme.colors.secondary }}
+          rippleColor={ProjectTheme.colors.background}
         >
-          <Button
-            style={{
-              marginBottom: 5,
-              height: 50,
-              width: '48%',
-              justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary,
-            }}
-            icon="archive-plus-outline"
-            mode="contained"
-            onPress={handelTaskAvklarat}
-            labelStyle={{ color: ProjectTheme.colors.secondary }}
-            rippleColor={ProjectTheme.colors.background}
-          >
-            Avklarat
-          </Button>
-          <Button
-            style={{
-              elevation: ProjectTheme.elevation.large,
-              marginBottom: 5,
-              height: 50,
-              width: '48%',
-              justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary,
-            }}
-            icon="archive-cog-outline"
-            mode="contained"
-            onPress={handelRedigera}
-            labelStyle={{ color: ProjectTheme.colors.secondary }}
-            rippleColor={ProjectTheme.colors.background}
-          >
-            Redigera
-          </Button>
-        </View>
+          Avklarat
+        </Button>
+        <Button
+          style={{
+            elevation: ProjectTheme.elevation.large,
+            marginBottom: 5,
+            height: 50,
+            width: '48%',
+            justifyContent: 'center',
+            backgroundColor: ProjectTheme.colors.primary,
+          }}
+          icon="archive-cog-outline"
+          mode="contained"
+          onPress={handelRedigera}
+          labelStyle={{ color: ProjectTheme.colors.secondary }}
+          rippleColor={ProjectTheme.colors.background}
+        >
+          Redigera
+        </Button>
       </View>
     </View>
   );

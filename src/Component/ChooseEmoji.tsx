@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 
 interface EmojiSelectionProps {
@@ -21,23 +21,61 @@ export default function EmojiSelection({
   onSelectEmoji,
 }: EmojiSelectionProps) {
   return (
-    <View>
-      {availableEmojis.map((emoji, index) => (
-        <TouchableOpacity key={index} onPress={() => onSelectEmoji(emoji)}>
-          <Image
-            source={{ uri: emoji }}
-            style={{
-              paddingTop: 40,
-              marginTop: 20,
-              width: 40,
-              height: 40,
-              justifyContent: 'space-between',
-              margin: 5,
-              opacity: emoji === selectedEmoji ? 1 : 0.5,
-            }}
-          />
-        </TouchableOpacity>
-      ))}
+    <View style={styles.componentContainer}>
+      <View>
+        {availableEmojis.map((emoji, index) => (
+          <TouchableOpacity key={index} onPress={() => onSelectEmoji(emoji)}
+            style={[
+              styles.emojiButton,
+              { opacity: emoji === selectedEmoji ? 1 : 0.2 },
+            ]}>
+          </TouchableOpacity>
+        ))}
+      </View>
+      <View style={styles.centerspaceContainer}></View>
+      <View>
+        {availableEmojis.map((emoji, index) => (
+          <TouchableOpacity key={index} onPress={() => onSelectEmoji(emoji)}>
+            <Image
+              source={{ uri: emoji }}
+              style={{
+                paddingTop: 40,
+                marginTop: 20,
+                width: 40,
+                height: 40,
+                justifyContent: 'space-between',
+                margin: 5,
+                opacity: emoji === selectedEmoji ? 1 : 0.5,
+              }}
+            />
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  componentContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignContent: 'center',
+    flexWrap: 'wrap',
+    height: 400
+  },
+  centerspaceContainer: {
+    width: 180,
+    height: 400
+  },
+  emojiButton: {
+    backgroundColor: 'grey',
+    borderRadius: 50,
+    paddingTop: 30,
+    marginTop: 20,
+    width: 40,
+    height: 40,
+    justifyContent: 'space-between',
+    margin: 5,
+  }
+});
