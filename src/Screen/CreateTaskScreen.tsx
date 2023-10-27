@@ -52,7 +52,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
 
       await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
       console.log(Chore);
-      navigation.navigate('Home');
+      navigation.navigate('Household');
     } catch (error) {
       console.log(error);
     }
@@ -63,6 +63,19 @@ export default function CreateTaskScreen({ navigation }: Props) {
     setImage(null);
     navigation.navigate('Household');
   };
+  const nameStyle = {
+    width: '100%',
+    height: 40,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    marginBottom: 20,
+    color: ProjectTheme.colors.textcolor,
+    elevation: ProjectTheme.elevation.small,
+  };
+
 
   return (
     <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
@@ -118,32 +131,6 @@ export default function CreateTaskScreen({ navigation }: Props) {
             value={titel}
             onChangeText={(text) => setTitel(text)}
           />
-          <Text>Bild:</Text>
-          <Button
-            style={{
-              marginBottom: 10,
-              height: 50,
-              justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary,
-            }}
-            icon="image"
-            mode="contained"
-            onPress={pickImage}
-            labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 40 }}
-            rippleColor={ProjectTheme.colors.background}
-            children={undefined}
-          />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{
-                width: 400,
-                height: 225,
-                alignSelf: 'center',
-                marginBottom: 10,
-              }}
-            />
-          )}
           <Text>Beskrivning:</Text>
           <TextInput
             style={{
@@ -189,6 +176,32 @@ export default function CreateTaskScreen({ navigation }: Props) {
             onChangeText={(text) => setRating(text)}
             keyboardType="numeric"
           />
+          <Text>Bild:</Text>
+          <Button
+            style={{
+              marginBottom: 10,
+              height: 50,
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="image"
+            mode="contained"
+            onPress={pickImage}
+            labelStyle={{ color: ProjectTheme.colors.secondary, fontSize: 40 }}
+            rippleColor={ProjectTheme.colors.background}
+            children={undefined}
+          />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                width: 400,
+                height: 225,
+                alignSelf: 'center',
+                marginBottom: 10,
+              }}
+            />
+          )}
         </ScrollView>
 
         <View

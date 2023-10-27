@@ -63,7 +63,6 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
   const nameStyle = {
-    width: '100%',
     height: 40,
     backgroundColor: ProjectTheme.inputBackground,
     borderRadius: ProjectTheme.borderRadius.medium,
@@ -88,7 +87,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
       <ScrollView>
         {Chore ? (
           <View>
-            <Text style={nameStyle}>ID: {Chore.id}</Text>
+            <Text style={{ ...nameStyle, width: '100%' }}>ID: {Chore.id}</Text>
             <Text style={nameStyle}>
               Selected Home ID: {Chore.slectedHomeId}
             </Text>
