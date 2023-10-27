@@ -41,7 +41,6 @@ export default function RootNavigator() {
       <Stack.Screen name="Start" component={StartScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
-
       <Stack.Screen name="CreateHousehold" component={CreateHouseholdScreen} />
       <Stack.Screen name="JoinHousehold" component={JoinHouseholdScreen} />
       <Stack.Screen name="MyHouseholds" component={MyHouseholdsScreen} />
