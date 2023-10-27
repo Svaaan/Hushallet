@@ -6,14 +6,14 @@ import CreateTaskScreen from '../Screen/CreateTaskScreen';
 import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
 import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import EditTask from '../Screen/EditTaskScreen';
+import HouseProfileScreen from '../Screen/HouseProfileScreen';
+import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
 import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
 import StartScreen from '../Screen/StartScreen';
 import TaskDetailsScreen from '../Screen/TaskDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
-import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
-import HouseProfileScreen from '../Screen/HouseProfileScreen';
 
 export type RootStackParamList = {
   Start: undefined;
