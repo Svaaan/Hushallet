@@ -16,9 +16,9 @@ G: 20 (50%).
 
 Kravlista (3)
 
-[] En logga, splashscreen och appikon ska designas och användas. *
-[] Applikationen ska byggas med RN, Expo & TS. *
-[] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras med produktägare,
+[x] En logga, splashscreen och appikon ska designas och användas. *
+[x] Applikationen ska byggas med RN, Expo & TS. *
+[x] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras med produktägare,
    godkännas och dokumenteras. *
 
 
@@ -29,16 +29,16 @@ Hushåll (2)
 
 Konto (3)
 
-[] En användare ska kunna registrera och logga in sig. *
-[] En användare ska kunna skapa ett nytt hushåll. *
+[x] En användare ska kunna registrera och logga in sig. *
+[x] En användare ska kunna skapa ett nytt hushåll. *
 [] En användare ska kunna gå med i ett hushåll genom att ange hushållets kod. *
 
 Profil (4)
 
-[] En användare ska kunna ange sitt namn. *
-[] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista. *
+[x] En användare ska kunna ange sitt namn. *
+[x] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista. *
 [] Valda avatarer ska inte kunna väljas av andra användare i hushållet. *
-[] Avataren ska användas i appen för att visa vad användaren har gjort. *
+[x] Avataren ska användas i appen för att visa vad användaren har gjort. *
 
 Sysslor (4)
 
