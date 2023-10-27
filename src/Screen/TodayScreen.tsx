@@ -45,7 +45,7 @@ export default function TodayScreen({ navigation }: Props) {
   function hasCompletedWithinInterval(
     choreEvents: ChoreEvent[],
     chores: Chore[],
-    intervalDate: Date
+    today: Date
   ) {
     if (
       !choreEvents ||
@@ -53,37 +53,38 @@ export default function TodayScreen({ navigation }: Props) {
       !chores ||
       chores.length === 0
     ) {
-      return false; // No completion events or chores
+      return [];
     }
+    // Create a map to store the last completed date for each chore.
+    const lastCompletedMap: Record<number, Date> = {};
 
-    // Check if each chore has been completed within its own interval
-    for (const chore of chores) {
-      const completedChoreEvents = choreEvents.filter(
-        (event) => event.chore_id === chore.id
-      );
+    // Filter and sort choreEvents by date, latest first.
+    choreEvents
+      .filter((event) => chores.some((chore) => chore.id === event.chore_id))
+      .sort((eventA, eventB) => new Date(eventB.date) - new Date(eventA.date))
+      .forEach((event) => {
+        const eventDate = new Date(event.date);
+        const choreId = event.chore_id;
 
-      if (completedChoreEvents.length > 0) {
-        const eventDates = completedChoreEvents.map(
-          (event) => new Date(event.date)
-        );
-
-        // Calculate the start date of the interval based on the chore's interval
-        const startDate = new Date(intervalDate);
-        startDate.setDate(intervalDate.getDate() - chore.interval);
-
-        // Check if any of the completion events are within the interval
+        // Check if the event was done today.
         if (
-          eventDates.some(
-            (eventDate) => eventDate >= startDate && eventDate <= intervalDate
-          )
+          eventDate.toDateString() === today.toDateString() &&
+          (!lastCompletedMap[choreId] || eventDate > lastCompletedMap[choreId])
         ) {
-          return true; // A completion event is within the interval for this chore
+          lastCompletedMap[choreId] = eventDate;
         }
-      }
-    }
+      });
 
-    return false; // No completion events within the interval for any chore
+    return Object.values(lastCompletedMap).some(
+      (lastCompletedDate) =>
+        lastCompletedDate.toDateString() === today.toDateString()
+    );
   }
+
+  // 1. Filtera choreEvents på choreId
+  // 2. Sortera på datum med senaste först
+  // 3. Plocka ut de första om de var gjorde idag.
+  // 4. Spara även lastCompleted från den första.
 
   return (
     <View style={{ flex: 1 }}>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { DefaultTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AccountProvider } from './src/Context/AccountContext';
+import { ChoreEventsProvider } from './src/Context/ChoreEventContext';
 import { ChoresProvider } from './src/Context/ChoressContext';
 import { HomeProvider } from './src/Context/HomeContext';
 import { ProfileProvider } from './src/Context/ProfileContext';
@@ -33,16 +34,18 @@ export default function App() {
     <ProfileProvider>
       <HomeProvider>
         <ChoresProvider>
-          <AccountProvider>
-            <PaperProvider theme={theme}>
-              <SafeAreaProvider>
-                <StatusBar style="auto" />
-                <NavigationContainer>
-                  <RootNavigator />
-                </NavigationContainer>
-              </SafeAreaProvider>
-            </PaperProvider>
-          </AccountProvider>
+          <ChoreEventsProvider>
+            <AccountProvider>
+              <PaperProvider theme={theme}>
+                <SafeAreaProvider>
+                  <StatusBar style="auto" />
+                  <NavigationContainer>
+                    <RootNavigator />
+                  </NavigationContainer>
+                </SafeAreaProvider>
+              </PaperProvider>
+            </AccountProvider>
+          </ChoreEventsProvider>
         </ChoresProvider>
       </HomeProvider>
     </ProfileProvider>
