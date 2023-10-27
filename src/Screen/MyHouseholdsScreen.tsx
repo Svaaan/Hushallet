@@ -20,7 +20,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   const updateAllStates = () => {
     if (profiles) {
-      //alla hem som profiler har till state homes
+      //alla hem som profiler har till state
       setHomesByProfiles(profiles);
     }
   };
@@ -29,8 +29,9 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     updateAllStates();
   }, []);
 
-  const navigateToUserProfile = (owner_id: number) => {
-    navigation.navigate('Profile', { userId: owner_id });
+  const navigateToUserProfile = (profile_id: number) => {
+    console.log('Aktiv profil data: ', profiles);
+    navigation.navigate('Profile', { userId: profile_id });
   };
 
   return (
