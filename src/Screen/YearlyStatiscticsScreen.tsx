@@ -1,27 +1,30 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
+import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { mockChores } from '../../data/mockedChores';
 import ChoreChart from '../Component/ChoreChart';
 import PieChartWithCenteredLabels from '../Component/PieChartWithCenteredLabels ';
+import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
 type Props = HouseholdSwipeScreenProps<'YearlyStatistics'>;
 
 export default function YearlyStatisticsScreen({ navigation }: Props) {
+  const { choreEvents } = useChoreEventsContext();
+
   // Calculate the start and end date for the monthly statistics
   const today = new Date();
   const currentYearStartDate = new Date(today.getFullYear(), 0, 1);
   const currentYearEndDate = new Date(today.getFullYear() + 1, 0, 0);
 
-  const yearlyChoreEvents = mockChoreEvents.filter((event) => {
+  const yearlyChoreEvents = choreEvents.filter((event) => {
     return (
       event.date >= currentYearStartDate && event.date <= currentYearEndDate
     );
   });
 
   const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
-  mockChoreEvents.forEach((event) => {
+  choreEvents.forEach((event) => {
     if (!eventsByChoreId[event.chore_id]) {
       eventsByChoreId[event.chore_id] = [];
     }

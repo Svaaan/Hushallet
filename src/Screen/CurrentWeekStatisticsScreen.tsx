@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Text, View } from 'react-native';
-import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
+import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { mockChores } from '../../data/mockedChores';
 import ChoreChart from '../Component/ChoreChart';
 import PieChartWithCenteredLabels from '../Component/PieChartWithCenteredLabels ';
+import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
-type Props = HouseholdSwipeScreenProps<'Statistics'>;
+type Props = HouseholdSwipeScreenProps<'CurrentWeekStatisticsScreen'>;
 
 function getCurrentWeekDates() {
   const currentDate = new Date();
@@ -22,8 +23,9 @@ function getCurrentWeekDates() {
 
 export default function StatisticsScreen({ navigation }: Props) {
   const { startDate, endDate } = getCurrentWeekDates();
+  const { choreEvents } = useChoreEventsContext();
 
-  const currentWeekEvents = mockChoreEvents.filter((event) => {
+  const currentWeekEvents = choreEvents.filter((event) => {
     const eventDate = new Date(event.date);
     return eventDate >= startDate && eventDate <= endDate;
   });
@@ -42,7 +44,8 @@ export default function StatisticsScreen({ navigation }: Props) {
       <PieChartWithCenteredLabels
         startDate={startDate}
         endDate={endDate}
-        slices={[]} // placeholder
+        choreEvents={currentWeekEvents}
+        slices={[]}
         height={300} // default
         width={300} // default
       />
