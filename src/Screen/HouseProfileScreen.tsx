@@ -4,6 +4,9 @@ import { Text, View } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
+import { useProfileContext } from '../Context/ProfileContext';
+import { Home } from '../../data/mockedHomes';
+import { Profile } from '../../data/mockedProfiles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
@@ -18,7 +21,16 @@ const nameStyle = {
   elevation: ProjectTheme.elevation.small,
 };
 
-export default function ProfileScreen({ navigation }: Props) {
+export default function ProfileScreen({ navigation, route }: Props) {
+  // Retrieve the profile_id from the route parameters
+  const profile_id: number = route.params.userId;
+
+  // Retrieve the profile data based on profile_id
+  const { profiles } = useProfileContext();
+  const profile: Profile | undefined = profiles.find(
+    (p) => p.id === profile_id
+  );
+
   return (
     <View
       style={{
@@ -28,10 +40,17 @@ export default function ProfileScreen({ navigation }: Props) {
         paddingTop: 20,
       }}
     >
-      <Text style={nameStyle}>Hushållets namn</Text>
-      <Text style={nameStyle}>Hushållets kod</Text>
-      <Text style={nameStyle}>Min avatar</Text>
-      <Text style={nameStyle}>Mitt namn</Text>
+      {profile ? (
+        <>
+          <Text>ID: {profile.id}</Text>
+          <Text>Namn: {profile.name}</Text>
+          <Text>Hushålls ägare: {profile.is_owner ? 'Ja' : 'Nej'}</Text>
+          <Text>Aktivt konto: {profile.is_paused ? 'Ja' : 'Nej'}</Text>
+          <Text>Min avatar: {profile.avatar}</Text>
+        </>
+      ) : (
+        <Text>Profile not found</Text>
+      )}
 
       <Button
         title="Mina Sysslor"
