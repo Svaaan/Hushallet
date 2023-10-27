@@ -7,6 +7,7 @@ import { ProjectTheme } from '../../theme/theme';
 //import Button from '../Component/BottomButtonComponent';
 import ChooseEmoji from '../Component/ChooseEmoji';
 import { RootStackParamList } from '../Navigation/RootNavigator';
+import { useHomeContext, HomeProvider } from '../Context/HomeContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'JoinHousehold'>;
 
@@ -14,25 +15,16 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState('');
+  const { joinHome } = useHomeContext();
+  const { searchHome } = useHomeContext();
 
   const handleAvatarSelection = (avatar: string) => {
     setSelectedAvatar(avatar);
   };
 
-  const saveUserData = async () => {
-    const newProfile = {
-      name: name,
-      code: code,
-      avatar: selectedAvatar,
-    };
-    try {
-      const profileString = JSON.stringify(newProfile);
-
-      await AsyncStorage.setItem('userProfile', profileString);
-      console.log('New profile saved to AsyncStorage: ', newProfile);
-    } catch (error) {
-      console.log('Error saving profile to AsyncStorage: ', error);
-    }
+  const connectToHome = async () => {
+    console.log('Start search')
+    await searchHome(parseInt(code));
   };
 
   const retrieveUserData = async () => {
@@ -72,13 +64,17 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
           style={placeholderStyle}
           placeholder="Hushålls kod"
           placeholderTextColor={ProjectTheme.inputPlaceholderColor}
-          onChangeText={(text) => setCode(text)}
+          onChangeText={(text) => {
+            // Use a regular expression to keep only numeric characters
+            const numericText = text.replace(/[^0-9]/g, '');
+            setCode(numericText);
+          }}
           value={code}
         />
       </View>
 
-      <View style={{position:'absolute', top: 160}}>
-        <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+      <View style={{ position: 'absolute', top: 160 }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
           Välj tillgänglig avatar
         </Text>
       </View>
@@ -107,7 +103,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
             textColor="black"
             style={styles.button}
             onPress={() => {
-              saveUserData();
+              connectToHome();
               navigation.navigate('MyHouseholds');
             }}
           >
