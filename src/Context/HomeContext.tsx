@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
 import { Home, mockedHomes } from '../../data/mockedHomes';
 import { Profile } from '../../data/mockedProfiles';
 
@@ -8,12 +8,14 @@ type HomeContextType = {
   setHomesByProfiles: (profiles: Profile[]) => void;
   createHome: (home: Home) => void;
   joinHome: (homeId: number) => void;
+  searchHome: (passcode: number) => Promise<Home | null>;
 };
 
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 export function HomeProvider({ children }: { children: React.ReactNode }) {
   const [homes, setHomes] = useState<Home[]>([]);
+  const [home, setHome] = useState<Home | null>(null);
 
   const setHomesByProfiles = (profiles: Profile[]) => {
     let allMyHomes: Home[] = [];
@@ -48,9 +50,36 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  //Använd en kod för att ansluta
+  const searchHome = useCallback(
+    async (passcode: number) => {
+      console.log('looking')
+      try {
+        const mockedHome = mockedHomes.find(
+          (home) => home.home_code === passcode
+        );
+
+        if (mockedHome) {
+          setHome(mockedHome);
+          console.log('Found home!', mockedHome);
+          if (home && home.id !== undefined) {
+            console.log('Joining ', home.name)
+            joinHome(home.id);
+          }
+          return mockedHome;
+        }
+      } catch (error) {
+        console.error('Did not find a home.', error);
+      }
+
+      return null;
+    },
+    [home]
+  );
+
   return (
     <HomeContext.Provider
-      value={{ homes, setHomes, setHomesByProfiles, createHome, joinHome }}
+      value={{ homes, setHomes, setHomesByProfiles, createHome, joinHome, searchHome }}
     >
       {children}
     </HomeContext.Provider>
