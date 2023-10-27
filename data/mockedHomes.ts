@@ -12,6 +12,12 @@ const mockedHomes: Home[] = [
     profile_id: 1,
     home_code: 123,
   },
+  {
+    id: 1,
+    name: 'Johns home',
+    profile_id: 2,
+    home_code: 123,
+  },
 ];
 
 export { Home, mockedHomes };
