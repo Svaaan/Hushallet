@@ -9,13 +9,14 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 import { useHomeContext } from '../Context/HomeContext';
 import { useProfileContext } from '../Context/ProfileContext';
 
+
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
   const { account } = useAccountContext();
   const { profiles } = useProfileContext();
   const { homes, setHomesByProfiles } = useHomeContext();
-  // const profiles: Profile[] = mockedProfile;
+  // const profiles: Profile[] = mockedProfiles
 
   const updateAllStates = () => {
     if (profiles) {

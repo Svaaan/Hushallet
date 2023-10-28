@@ -7,6 +7,7 @@ type ProfileContextType = {
   setProfilesByAccountId: (accountId: number) => void;
   getProfileById: (profileId: number) => Profile | null;
   getProfileData: () => Profile[];
+  getAllProfiles: () => Profile[];
 };
 
 const ProfileContext = createContext<ProfileContextType | null>(null);
@@ -43,6 +44,11 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const getAllProfiles = () => {
+    const combinedProfiles = mockedProfile.concat(profiles);
+    return Array.from(new Set(combinedProfiles));
+  };
+
   return (
     <ProfileContext.Provider
       value={{
@@ -51,6 +57,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         setProfilesByAccountId: setProfilesByAccountId,
         getProfileById: getProfileById,
         getProfileData: getProfileData,
+        getAllProfiles: getAllProfiles,
       }}
     >
       {children}
