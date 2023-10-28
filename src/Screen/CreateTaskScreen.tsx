@@ -6,8 +6,8 @@ import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import uuid from 'react-native-uuid';
 import { ProjectTheme } from '../../theme/theme';
+import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
 
 export default function CreateTaskScreen({ navigation }: Props) {
@@ -76,16 +76,22 @@ export default function CreateTaskScreen({ navigation }: Props) {
     elevation: ProjectTheme.elevation.small,
   };
 
-
   return (
     <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
       <View
         style={{
+          // paddingLeft: 10,
+          // paddingRight: 10,
+          // flexDirection: 'row',
+          // justifyContent: 'center',
+          // backgroundColor: '#FFFFFF',
+          backgroundColor: ProjectTheme.inputBackground,
+          borderRadius: ProjectTheme.borderRadius.medium,
           paddingLeft: 10,
           paddingRight: 10,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          backgroundColor: '#FFFFFF',
+          paddingTop: 10,
+          marginBottom: 20,
+          elevation: ProjectTheme.elevation.small,
         }}
       >
         <Text
@@ -122,8 +128,8 @@ export default function CreateTaskScreen({ navigation }: Props) {
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 40,
-              borderColor: 'gray',
-              borderWidth: 1,
+
+              elevation: ProjectTheme.elevation.small,
               backgroundColor: '#FFFFFF',
               paddingLeft: 10,
               marginBottom: 10,
@@ -136,8 +142,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 100,
-              borderColor: 'gray',
-              borderWidth: 1,
+              elevation: ProjectTheme.elevation.small,
               backgroundColor: '#FFFFFF',
               paddingLeft: 10,
               marginBottom: 10,
@@ -147,8 +152,9 @@ export default function CreateTaskScreen({ navigation }: Props) {
             multiline
             numberOfLines={4}
           />
-          <Text>Återkommer:</Text>
-          <TextInput
+          {/* <Text>Återkommer:</Text> */}
+          <Intervals />
+          {/* <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 50,
@@ -160,15 +166,15 @@ export default function CreateTaskScreen({ navigation }: Props) {
             value={Interval.toString()}
             onChangeText={(text) => setInterval(text)}
             keyboardType="numeric"
-          />
+          /> */}
           <Text>Värde:</Text>
           <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 50,
-              borderColor: 'gray',
+
               backgroundColor: '#FFFFFF',
-              borderWidth: 1,
+              elevation: ProjectTheme.elevation.small,
               paddingLeft: 10,
               marginBottom: 10,
             }}
