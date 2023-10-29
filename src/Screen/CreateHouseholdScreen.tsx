@@ -7,7 +7,7 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
 import { useAccountContext } from '../Context/AccountContext';
 import { useHomeContext } from '../Context/HomeContext';
-import { ProfileProvider } from '../Context/ProfileContext';
+import ChooseEmoji from '../Component/ChooseEmoji';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
@@ -17,6 +17,12 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
 
   const { account } = useAccountContext();
   const { createHome } = useHomeContext();
+
+  const [selectedAvatar, setSelectedAvatar] = useState('');
+
+  const handleAvatarSelection = (avatar: string) => {
+    setSelectedAvatar(avatar);
+  };
 
   useEffect(() => {
     const uniqueCode = findUniqueCode(
@@ -61,6 +67,26 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         value={generatedCode}
         editable={false}
       />
+
+      <View style={{ position: 'absolute', top: 210, alignSelf: 'center'}}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+          Välj tillgänglig avatar
+        </Text>
+      </View>
+
+      <View
+        style={{
+          position: 'absolute',
+          top: 240,
+          left: 50
+        }}
+      >
+        <ChooseEmoji
+          selectedEmoji={selectedAvatar}
+          onSelectEmoji={handleAvatarSelection}
+        />
+      </View>
+
       <View style={styles.footer}>
         <Button
           textColor="black"
