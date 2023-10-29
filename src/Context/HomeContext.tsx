@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { Home, mockedHomes } from '../../data/mockedHomes';
 import { Profile } from '../../data/mockedProfiles';
+import { Account } from '../../data/mockedAccount';
 
 type HomeContextType = {
   homes: Home[];
@@ -50,32 +51,74 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  //Använd en kod för att ansluta
+  //Use passcode to enter house
   const searchHome = useCallback(
-    async (passcode: number) => {
-      console.log('looking')
+    async (
+      passcode: number,
+      inputName: string,
+      inputAvatar: string,
+      account: Account | null,
+      allProfiles: Profile[]
+    ) => {
+      // Create a temporary profile for the account provided
+      const tempProfile: Profile = {
+        id: account?.id || 0,
+        name: inputName || 'USERNAME_ERROR',
+        avatar: inputAvatar || 'AVATAR_ERROR',
+        is_paused: false,
+        is_owner: false,
+        account_id: account?.id || 0,
+      };
+      let foundDuplicateAvatar = false;
+      console.log('Create temp profile: ', tempProfile);
+      console.log('Looking');
       try {
-        const mockedHome = mockedHomes.find(
-          (home) => home.home_code === passcode
-        );
-
-        if (mockedHome) {
-          setHome(mockedHome);
-          console.log('Found home!', mockedHome);
-          if (home && home.id !== undefined) {
-            console.log('Joining ', home.name)
-            joinHome(home.id);
+        const matchedHomes = mockedHomes.filter((home) => home.home_code === passcode);
+        if (matchedHomes.length > 0) {
+          console.log('Homes with the same passcode:', matchedHomes);
+          matchedHomes.forEach((home) => {
+            // Add all profiles that belong to this home
+            console.log('List all profiles that belong to this home:');
+            allProfiles.forEach((element) => {
+              if (element.id === home.profile_id) {
+                console.log('Profile:', element);
+              }
+            });
+            const matchedProfiles = allProfiles.filter((element) => element.id === home.profile_id);
+  
+            matchedProfiles.forEach((element) => {
+              console.log('Temp:', tempProfile.avatar, 'Checked:', element.avatar);
+              if (element.avatar == tempProfile.avatar) {
+                // A matching avatar is found, set the flag
+                foundDuplicateAvatar = true;
+                console.log('Profile has the same avatar');
+              } else {
+                console.log('Profile does not have the same avatar');
+              }
+            });
+          });
+  
+          // After iterating through all homes, check the flag
+          console.log('Found avatar?:', foundDuplicateAvatar);
+  
+          if (!foundDuplicateAvatar) {
+            // Join the first matching home if no duplicate avatars are found
+            console.log('Joining', matchedHomes[0].name);
+            joinHome(matchedHomes[0].id);
+          } else {
+            console.log('Found homes with duplicate avatars. Not joining.');
           }
-          return mockedHome;
+        } else {
+          console.log('No homes found with the provided passcode.');
         }
       } catch (error) {
         console.error('Did not find a home.', error);
       }
-
       return null;
     },
-    [home]
+    [joinHome]
   );
+  
 
   const updateHomesWithOldName = (oldName: string, newName: string): void => {
     mockedHomes.forEach((home) => {
