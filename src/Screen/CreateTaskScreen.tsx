@@ -153,20 +153,10 @@ export default function CreateTaskScreen({ navigation }: Props) {
             numberOfLines={4}
           />
           {/* <Text>Återkommer:</Text> */}
-          <Intervals />
-          {/* <TextInput
-            style={{
-              borderRadius: ProjectTheme.borderRadius.large,
-              height: 50,
-              borderColor: 'gray',
-              backgroundColor: '#FFFFFF',
-              borderWidth: 1,
-              paddingLeft: 10,
-            }}
-            value={Interval.toString()}
-            onChangeText={(text) => setInterval(text)}
-            keyboardType="numeric"
-          /> */}
+          <Intervals
+            selectedInterval={parseInt(Interval, 10)}
+            onIntervalChange={(value) => setInterval(value.toString())}
+          />
           <Text>Värde:</Text>
           <TextInput
             style={{
