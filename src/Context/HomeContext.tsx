@@ -5,18 +5,27 @@ import { Account } from '../../data/mockedAccount';
 
 type HomeContextType = {
   homes: Home[];
+  enteredHome: Home | null;
+  setEnteredHome: (home: Home | null) => void;
   setHomes: (homes: Home[]) => void;
   setHomesByProfiles: (profiles: Profile[]) => void;
   createHome: (home: Home) => void;
   joinHome: (homeId: number) => void;
-  searchHome: (passcode: number, inputName: string, inputAvatar: string, account: Account | null, allProfiles: Profile[]) => Promise<Home | null>;
+  enterHome: (homeId: number) => void;
+  searchHome: (
+    passcode: number,
+    inputName: string,
+    inputAvatar: string,
+    account: Account | null,
+    allProfiles: Profile[]
+  ) => Promise<Home | null>;
 };
 
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
 
 export function HomeProvider({ children }: { children: React.ReactNode }) {
   const [homes, setHomes] = useState<Home[]>([]);
-  const [home, setHome] = useState<Home | null>(null);
+  const [enteredHome, setEnteredHome] = useState<Home | null>(null);
 
   const setHomesByProfiles = (profiles: Profile[]) => {
     let allMyHomes: Home[] = [];
@@ -36,8 +45,14 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         }
       }
     });
-
     setHomes(allMyHomes);
+  };
+
+  const enterHome = (homeId: number) => {
+    const home = homes.find((h) => h.id === homeId);
+    if (home) {
+      setEnteredHome(home);
+    }
   };
 
   const createHome = (home: Home) => {
@@ -73,7 +88,9 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
       console.log('Create temp profile: ', tempProfile);
       console.log('Looking');
       try {
-        const matchedHomes = mockedHomes.filter((home) => home.home_code === passcode);
+        const matchedHomes = mockedHomes.filter(
+          (home) => home.home_code === passcode
+        );
         if (matchedHomes.length > 0) {
           console.log('Homes with the same passcode:', matchedHomes);
           matchedHomes.forEach((home) => {
@@ -84,10 +101,17 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
                 console.log('Profile:', element);
               }
             });
-            const matchedProfiles = allProfiles.filter((element) => element.id === home.profile_id);
-  
+            const matchedProfiles = allProfiles.filter(
+              (element) => element.id === home.profile_id
+            );
+
             matchedProfiles.forEach((element) => {
-              console.log('Temp:', tempProfile.avatar, 'Checked:', element.avatar);
+              console.log(
+                'Temp:',
+                tempProfile.avatar,
+                'Checked:',
+                element.avatar
+              );
               if (element.avatar == tempProfile.avatar) {
                 // A matching avatar is found, set the flag
                 foundDuplicateAvatar = true;
@@ -97,10 +121,10 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
               }
             });
           });
-  
+
           // After iterating through all homes, check the flag
           console.log('Found avatar?:', foundDuplicateAvatar);
-  
+
           if (!foundDuplicateAvatar) {
             // Join the first matching home if no duplicate avatars are found
             console.log('Joining', matchedHomes[0].name);
@@ -118,11 +142,20 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     },
     [joinHome]
   );
-  
 
   return (
     <HomeContext.Provider
-      value={{ homes, setHomes, setHomesByProfiles, createHome, joinHome, searchHome }}
+      value={{
+        homes,
+        setHomes,
+        setHomesByProfiles,
+        createHome,
+        joinHome,
+        searchHome,
+        enteredHome,
+        setEnteredHome,
+        enterHome,
+      }}
     >
       {children}
     </HomeContext.Provider>

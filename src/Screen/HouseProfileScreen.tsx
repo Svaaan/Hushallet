@@ -1,12 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
 import { useProfileContext } from '../Context/ProfileContext';
 import { Home } from '../../data/mockedHomes';
 import { Profile } from '../../data/mockedProfiles';
+import { useHomeContext } from '../Context/HomeContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
@@ -30,6 +31,7 @@ export default function ProfileScreen({ navigation, route }: Props) {
   const profile: Profile | undefined = profiles.find(
     (p) => p.id === profile_id
   );
+  const { enteredHome } = useHomeContext();
 
   return (
     <View
@@ -44,9 +46,14 @@ export default function ProfileScreen({ navigation, route }: Props) {
         <>
           <Text>ID: {profile.id}</Text>
           <Text>Namn: {profile.name}</Text>
+          <Text>Hushåll: {enteredHome?.name}</Text>
           <Text>Hushålls ägare: {profile.is_owner ? 'Ja' : 'Nej'}</Text>
           <Text>Aktivt konto: {!profile.is_paused ? 'Ja' : 'Nej'}</Text>
-          <Text>Min avatar: {profile.avatar}</Text>
+          <Text>Min avatar:</Text>
+          <Image
+            source={{ uri: profile.avatar }}
+            style={{ width: 100, height: 100 }}
+          />
         </>
       ) : (
         <Text>Profile not found</Text>

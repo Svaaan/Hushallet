@@ -9,13 +9,12 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 import { useHomeContext } from '../Context/HomeContext';
 import { useProfileContext } from '../Context/ProfileContext';
 
-
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
   const { account } = useAccountContext();
   const { profiles } = useProfileContext();
-  const { homes, setHomesByProfiles } = useHomeContext();
+  const { homes, setHomesByProfiles, enterHome } = useHomeContext();
   // const profiles: Profile[] = mockedProfiles
 
   const updateAllStates = () => {
@@ -29,8 +28,9 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     updateAllStates();
   }, [account]);
 
-  const navigateToUserProfile = (profile_id: number) => {
+  const navigateToUserProfile = (profile_id: number, homeId: number) => {
     console.log('Aktiv profil data: ', profiles);
+    enterHome(homeId);
     navigation.navigate('Profile', { userId: profile_id });
   };
 
@@ -53,7 +53,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         homes.map((home: Home) => (
           <View key={home.id}>
             <TouchableOpacity
-              onPress={() => navigateToUserProfile(home.profile_id)}
+              onPress={() => navigateToUserProfile(home.profile_id, home.id)}
             >
               <Text>{home.name}</Text>
             </TouchableOpacity>
