@@ -4,12 +4,17 @@ import React, { useState } from 'react';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
+import { useHomeContext } from '../Context/HomeContext';
+import { useProfileContext } from '../Context/ProfileContext';
+import { mockedHomes } from '../../data/mockedHomes';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditHousehold'>;
 
 export default function EditHouseholdScreen({ navigation }: Props) {
   const [newName, setName] = useState('');
   const [newOwner, setOwner] = useState('');
+  const { updateHomesWithOldName, setHomes, setHomesByProfiles } = useHomeContext();
+  const { profiles } = useProfileContext();
 
   const placeholderStyle = {
     width: 300,
@@ -21,6 +26,14 @@ export default function EditHouseholdScreen({ navigation }: Props) {
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
   };
+
+  const handleSaveButtonPress = () => {
+    // Update homes with oldName to have the name newName
+    console.log('Profile',profiles[0].id);
+    console.log('Connected Home',mockedHomes[profiles[0].id].name);
+    updateHomesWithOldName(mockedHomes[profiles[0].id].name, newName);
+    navigation.goBack();
+  }
 
   return (
     <View
@@ -57,9 +70,10 @@ export default function EditHouseholdScreen({ navigation }: Props) {
           width: '100%',
         }}
       >
-        <Button title="Spara" onPress={() => {}} />
+        <Button title="Spara" onPress={() => { handleSaveButtonPress() }} />
 
-        <Button title="Stäng" onPress={() => {}} />
+        <Button title="Stäng"
+          onPress={() => { navigation.goBack() }} />
       </View>
     </View>
   );
