@@ -37,6 +37,16 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
 
   const handleSaveButtonPress = () => {
     if (householdName !== '' && account) {
+      const newHousehold: Home = {
+        id: Number(generatedCode),
+        name: householdName,
+        home_code: Number(generatedCode),
+      };
+      mockedHomes.push(newHousehold);
+      createHome(newHousehold);
+      console.log('hushåll som ska pushas in: ', newHousehold);
+      const homeId = mockedHomes[mockedHomes.length - 1].id;
+
       const setOwner: Profile = {
         is_owner: true,
         id: Number(generatedCode),
@@ -44,22 +54,12 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         avatar: selectedAvatar,
         is_paused: false,
         account_id: account.id,
+        homeId: homeId,
       };
-
       mockedProfile.push(setOwner);
       createProfile(setOwner);
       console.log('profilen skapades: ', setOwner);
-      const profileId = mockedProfile[mockedProfile.length - 1].id;
 
-      const newHousehold: Home = {
-        id: mockedHomes.length + 1,
-        name: householdName,
-        profile_id: profileId,
-        home_code: Number(generatedCode),
-      };
-      mockedHomes.push(newHousehold);
-      createHome(newHousehold);
-      console.log('hushåll som ska pushas in: ', newHousehold);
       navigation.navigate('MyHouseholds');
     }
   };

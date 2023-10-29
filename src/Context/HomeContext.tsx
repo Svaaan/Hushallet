@@ -7,18 +7,19 @@ type HomeContextType = {
   homes: Home[];
   enteredHome: Home | null;
   setEnteredHome: (home: Home | null) => void;
+  enterHome: (homeId: number) => void;
   setHomes: (homes: Home[]) => void;
   setHomesByProfiles: (profiles: Profile[]) => void;
   createHome: (home: Home) => void;
   joinHome: (homeId: number) => void;
-  enterHome: (homeId: number) => void;
   searchHome: (
     passcode: number,
     inputName: string,
     inputAvatar: string,
-    account: Account | null,
+    account: Account,
     allProfiles: Profile[]
   ) => Promise<Home | null>;
+  updateHomesWithOldName: (oldName: string, newName: string) => void;
 };
 
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
@@ -27,20 +28,22 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
   const [homes, setHomes] = useState<Home[]>([]);
   const [enteredHome, setEnteredHome] = useState<Home | null>(null);
 
+  //en profil har ett homeid och en account id
+
   const setHomesByProfiles = (profiles: Profile[]) => {
     let allMyHomes: Home[] = [];
 
     profiles.forEach((profile) => {
-      const home = mockedHomes.find((home) => home.profile_id === profile.id);
+      const home = mockedHomes.find((home) => home.id === profile.homeId);
       if (home) {
-        if (!allMyHomes.some((h) => h.profile_id === home.profile_id)) {
+        if (!allMyHomes.some((h) => h.id === home.id)) {
           allMyHomes.push(home);
         }
       }
 
-      const homeInState = homes.find((home) => home.profile_id === profile.id);
+      const homeInState = homes.find((home) => home.id === profile.homeId);
       if (homeInState) {
-        if (!allMyHomes.some((h) => h.profile_id === homeInState.profile_id)) {
+        if (!allMyHomes.some((h) => h.id === homeInState.id)) {
           allMyHomes.push(homeInState);
         }
       }
@@ -83,6 +86,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         is_paused: false,
         is_owner: false,
         account_id: account?.id || 0,
+        homeId: 0, //sålänge
       };
       let foundDuplicateAvatar = false;
       console.log('Create temp profile: ', tempProfile);
@@ -97,12 +101,12 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
             // Add all profiles that belong to this home
             console.log('List all profiles that belong to this home:');
             allProfiles.forEach((element) => {
-              if (element.id === home.profile_id) {
+              if (element.homeId === home.id) {
                 console.log('Profile:', element);
               }
             });
             const matchedProfiles = allProfiles.filter(
-              (element) => element.id === home.profile_id
+              (element) => element.homeId === home.id
             );
 
             matchedProfiles.forEach((element) => {
@@ -143,6 +147,16 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     [joinHome]
   );
 
+  const updateHomesWithOldName = (oldName: string, newName: string): void => {
+    mockedHomes.forEach((home) => {
+      // Check if the home's name matches the provided oldName
+      if (home.name === oldName && newName != '') {
+        // Update the name for the matched home
+        home.name = newName;
+      }
+    });
+  };
+
   return (
     <HomeContext.Provider
       value={{
@@ -152,6 +166,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         createHome,
         joinHome,
         searchHome,
+        updateHomesWithOldName,
         enteredHome,
         setEnteredHome,
         enterHome,

@@ -15,12 +15,18 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
   const { account } = useAccountContext();
   const { profiles } = useProfileContext();
   const { homes, setHomesByProfiles, enterHome } = useHomeContext();
-  // const profiles: Profile[] = mockedProfiles
 
   const updateAllStates = () => {
     if (profiles) {
       //alla hem som profiler har till state
       setHomesByProfiles(profiles);
+    }
+  };
+
+  const getProfileId = (homeId: number) => {
+    const profile = profiles.find((p) => p.homeId === homeId);
+    if (profile) {
+      return profile.id;
     }
   };
 
@@ -53,7 +59,12 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         homes.map((home: Home) => (
           <View key={home.id}>
             <TouchableOpacity
-              onPress={() => navigateToUserProfile(home.profile_id, home.id)}
+              onPress={() => {
+                const profileId = getProfileId(home.id);
+                if (profileId) {
+                  navigateToUserProfile(profileId, home.id);
+                }
+              }}
             >
               <Text>{home.name}</Text>
             </TouchableOpacity>
