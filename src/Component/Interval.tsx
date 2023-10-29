@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 // import { red100 } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
-;
 
 interface IntervalsProps {
   selectedInterval: number;
