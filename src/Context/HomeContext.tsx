@@ -9,6 +9,7 @@ type HomeContextType = {
   createHome: (home: Home) => void;
   joinHome: (homeId: number) => void;
   searchHome: (passcode: number) => Promise<Home | null>;
+  updateHomesWithOldName: (oldName: string, newName: string) => void;
 };
 
 const HomeContext = createContext<HomeContextType | undefined>(undefined);
@@ -35,7 +36,6 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         }
       }
     });
-
     setHomes(allMyHomes);
   };
 
@@ -77,9 +77,20 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
     [home]
   );
 
+  const updateHomesWithOldName = (oldName: string, newName: string): void => {
+    mockedHomes.forEach((home) => {
+      // Check if the home's name matches the provided oldName
+      if (home.name === oldName && newName!= '') {
+        // Update the name for the matched home
+        home.name = newName;
+      }
+    });
+  };
+  
+
   return (
     <HomeContext.Provider
-      value={{ homes, setHomes, setHomesByProfiles, createHome, joinHome, searchHome }}
+      value={{ homes, setHomes, setHomesByProfiles, createHome, joinHome, searchHome, updateHomesWithOldName}}
     >
       {children}
     </HomeContext.Provider>
