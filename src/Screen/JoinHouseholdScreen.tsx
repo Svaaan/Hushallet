@@ -1,15 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { Image, TextInput, View, Text, StyleSheet } from 'react-native';
-import { Checkbox, Button } from 'react-native-paper';
+import { TextInput, View, Text, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import { ProjectTheme } from '../../theme/theme';
-//import Button from '../Component/BottomButtonComponent';
 import ChooseEmoji from '../Component/ChooseEmoji';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-import { useHomeContext, HomeProvider } from '../Context/HomeContext';
+import { useHomeContext } from '../Context/HomeContext';
+import { useProfileContext } from '../Context/ProfileContext';
+import { useAccountContext } from '../Context/AccountContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'JoinHousehold'>;
+
+interface Profile {
+  id: number;
+  name: string;
+  avatar: string;
+  is_paused: boolean;
+  is_owner: boolean;
+  account_id: number;
+}
 
 export default function JoinHouseholdScreen({ navigation }: Props) {
   const [name, setName] = useState('');
@@ -17,14 +27,48 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
   const [selectedAvatar, setSelectedAvatar] = useState('');
   const { joinHome } = useHomeContext();
   const { searchHome } = useHomeContext();
+  const { getAllProfiles } = useProfileContext();
+  const { account } = useAccountContext();
 
   const handleAvatarSelection = (avatar: string) => {
+    const convertedAvatar = avatarConverter(avatar);
+    console.log('Selected avatar:', convertedAvatar);
     setSelectedAvatar(avatar);
   };
 
+  const avatarConverter = (avatar: string) => {
+    if(avatar == 'https://i.imgur.com/FsJuOEK.png')
+    {
+      avatar = '2';
+    }
+    if(avatar == 'https://i.imgur.com/mqPUGcs.png')
+    {
+      avatar = '3';
+    }
+    if(avatar == 'https://i.imgur.com/tpoiEFR.png')
+    {
+      avatar = '4';
+    }
+    if(avatar == 'https://i.imgur.com/vM8r642.png')
+    {
+      avatar = '5';
+    }
+    if(avatar == 'https://i.imgur.com/vpITU1P.png')
+    {
+      avatar = '6';
+    }
+    if(avatar == 'https://i.imgur.com/pBldNOp.png')
+    {
+      avatar = '7';
+    }
+    return avatar;
+  }
+
   const connectToHome = async () => {
     console.log('Start search')
-    await searchHome(parseInt(code));
+    const allProfiles = getAllProfiles();
+    const avatar = avatarConverter(selectedAvatar)
+    await searchHome(parseInt(code),name,avatar,account,allProfiles);
   };
 
   const retrieveUserData = async () => {

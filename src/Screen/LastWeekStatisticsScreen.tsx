@@ -1,27 +1,29 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
+import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { mockChores } from '../../data/mockedChores';
 import ChoreChart from '../Component/ChoreChart';
 import PieChartWithCenteredLabels from '../Component/PieChartWithCenteredLabels ';
 
+import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 
 type Props = HouseholdSwipeScreenProps<'LastWeekStatistics'>;
 
 export default function LastWeekStatisticsScreen({ navigation }: Props) {
+  const { choreEvents } = useChoreEventsContext();
   const lastWeekStartDate = new Date();
   lastWeekStartDate.setDate(lastWeekStartDate.getDate() - 7);
 
   const lastWeekEndDate = new Date(lastWeekStartDate);
   lastWeekEndDate.setDate(lastWeekStartDate.getDate() + 6);
 
-  const lastWeekChoreEvents = mockChoreEvents.filter((event) => {
+  const lastWeekChoreEvents = choreEvents.filter((event) => {
     return event.date >= lastWeekStartDate && event.date <= lastWeekEndDate;
   });
 
   const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
-  mockChoreEvents.forEach((event) => {
+  choreEvents.forEach((event) => {
     if (!eventsByChoreId[event.chore_id]) {
       eventsByChoreId[event.chore_id] = [];
     }

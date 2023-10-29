@@ -2,16 +2,16 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import React from 'react';
 import CustomTabBar from '../Component/CustomTabBar';
 import { getCurrentMonthName, getCurrentYear } from '../Hooks/DateUtils';
+import StatisticsScreen from '../Screen/CurrentWeekStatisticsScreen';
 import LastWeekStatisticsScreen from '../Screen/LastWeekStatisticsScreen';
 import MonthlyStatisticsScreen from '../Screen/MonthlyStatisticsScreen';
-import StatisticsScreen from '../Screen/StatisticsScreen';
 import TodayScreen from '../Screen/TodayScreen';
 import YearlyStatisticsScreen from '../Screen/YearlyStatiscticsScreen';
 
 export type HouseholdSwipeParamList = {
   Today: undefined;
-  Statistics: undefined;
   CreateTask: undefined;
+  CurrentWeekStatisticsScreen: undefined;
   LastWeekStatistics: undefined;
   MonthlyStatistics: { monthName: string };
   YearlyStatistics: { year: string };
@@ -31,7 +31,7 @@ export default function HouseholdSwipeNavigator() {
     >
       <Swipe.Screen name="Today" component={TodayScreen} />
       <Swipe.Screen
-        name="Statistics"
+        name="CurrentWeekStatisticsScreen"
         component={StatisticsScreen}
         options={{ title: 'This Week' }}
       />
