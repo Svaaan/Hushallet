@@ -16,7 +16,6 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
   const { account } = useAccountContext();
   const { profiles } = useProfileContext();
   const { homes, setHomesByProfiles } = useHomeContext();
-  // const profiles: Profile[] = mockedProfiles
 
   const updateAllStates = () => {
     if (profiles) {
@@ -53,7 +52,9 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         homes.map((home: Home) => (
           <View key={home.id}>
             <TouchableOpacity
-              onPress={() => navigateToUserProfile(home.profile_id)}
+              onPress={() => {
+                navigateToUserProfile(home.profile_id);
+              }}
             >
               <Text>{home.name}</Text>
             </TouchableOpacity>
