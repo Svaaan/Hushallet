@@ -27,7 +27,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   useEffect(() => {
     updateAllStates();
-  }, []);
+  }, [account]);
 
   const navigateToUserProfile = (profile_id: number) => {
     console.log('Aktiv profil data: ', profiles);

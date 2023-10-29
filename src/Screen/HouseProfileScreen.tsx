@@ -45,7 +45,7 @@ export default function ProfileScreen({ navigation, route }: Props) {
           <Text>ID: {profile.id}</Text>
           <Text>Namn: {profile.name}</Text>
           <Text>Hushålls ägare: {profile.is_owner ? 'Ja' : 'Nej'}</Text>
-          <Text>Aktivt konto: {profile.is_paused ? 'Ja' : 'Nej'}</Text>
+          <Text>Aktivt konto: {!profile.is_paused ? 'Ja' : 'Nej'}</Text>
           <Text>Min avatar: {profile.avatar}</Text>
         </>
       ) : (

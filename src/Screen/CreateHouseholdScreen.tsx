@@ -7,6 +7,8 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 import { Button, TextInput } from 'react-native-paper';
 import { useAccountContext } from '../Context/AccountContext';
 import { useHomeContext } from '../Context/HomeContext';
+import { Profile, mockedProfile } from '../../data/mockedProfiles';
+import { useProfileContext } from '../Context/ProfileContext';
 import ChooseEmoji from '../Component/ChooseEmoji';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
@@ -14,11 +16,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 export default function CreateHouseholdScreen({ navigation }: Props) {
   const [householdName, setHouseholdName] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
+  const [profileName, setProfileName] = useState('');
 
   const { account } = useAccountContext();
   const { createHome } = useHomeContext();
 
   const [selectedAvatar, setSelectedAvatar] = useState('');
+  const { createProfile } = useProfileContext();
 
   const handleAvatarSelection = (avatar: string) => {
     setSelectedAvatar(avatar);
@@ -33,15 +37,29 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
 
   const handleSaveButtonPress = () => {
     if (householdName !== '' && account) {
+      const setOwner: Profile = {
+        is_owner: true,
+        id: Number(generatedCode),
+        name: profileName,
+        avatar: selectedAvatar,
+        is_paused: false,
+        account_id: account.id,
+      };
+
+      mockedProfile.push(setOwner);
+      createProfile(setOwner);
+      console.log('profilen skapades: ', setOwner);
+      const profileId = mockedProfile[mockedProfile.length - 1].id;
+
       const newHousehold: Home = {
         id: mockedHomes.length + 1,
         name: householdName,
-        profile_id: account.id,
-        home_code: parseInt(generatedCode),
+        profile_id: profileId,
+        home_code: Number(generatedCode),
       };
-      console.log('hushåll som ska pushas in: ', newHousehold);
       mockedHomes.push(newHousehold);
       createHome(newHousehold);
+      console.log('hushåll som ska pushas in: ', newHousehold);
       navigation.navigate('MyHouseholds');
     }
   };
@@ -62,13 +80,19 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         value={householdName}
       />
       <TextInput
+        placeholder="Profilnamn"
+        style={styles.input}
+        onChangeText={(text) => setProfileName(text)}
+        value={profileName}
+      />
+      <TextInput
         placeholder="Genererad kod"
         style={styles.input}
         value={generatedCode}
         editable={false}
       />
 
-      <View style={{ position: 'absolute', top: 210, alignSelf: 'center'}}>
+      <View style={{ position: 'absolute', top: 210, alignSelf: 'center' }}>
         <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
           Välj tillgänglig avatar
         </Text>
@@ -78,7 +102,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         style={{
           position: 'absolute',
           top: 240,
-          left: 50
+          left: 50,
         }}
       >
         <ChooseEmoji
