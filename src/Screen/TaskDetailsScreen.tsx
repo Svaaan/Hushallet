@@ -1,10 +1,10 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
+import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
@@ -22,15 +22,14 @@ interface chore {
 
 const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profiles } = useProfileContext();
-  const [Chore, setChore] = useState<chore | null>(null);
-  const slectedUserId = React.useRef<string>('1');
-  const slectedHomeId = React.useRef<string>('1');
-  const slectedoner_id = React.useRef<string>('1');
+  const { getChoreById } = useChoresContext(); // skapa funktionen getChoreById i Context
+  const Chore = getChoreById(route.params.choreId);
 
   const handelTaskAvklarat = async () => {
     try {
       const ChoreEvent = {
         id: mockChores[1].id,
+        // bör använda route.params.profilId
         user_id: slectedUserId.current,
         home_id: slectedHomeId.current,
         Chore_id: Chore?.id.toString(),
@@ -43,12 +42,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
   const handelRedigera = () => {
-    if (slectedUserId.current === slectedoner_id.current) {
-      navigation.navigate('EditTask');
-    } else {
-      console.log('You are not the owner of this task');
-      navigation.navigate('TaskDetails');
-    }
+    navigation.navigate('EditTask');
   };
   const nameStyle = {
     height: 40,
@@ -122,23 +116,25 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
         >
           Avklarat
         </Button>
-        <Button
-          style={{
-            elevation: ProjectTheme.elevation.large,
-            marginBottom: 5,
-            height: 50,
-            width: '48%',
-            justifyContent: 'center',
-            backgroundColor: ProjectTheme.colors.primary,
-          }}
-          icon="archive-cog-outline"
-          mode="contained"
-          onPress={handelRedigera}
-          labelStyle={{ color: ProjectTheme.colors.secondary }}
-          rippleColor={ProjectTheme.colors.background}
-        >
-          Redigera
-        </Button>
+        {activeProfile.isOwner && (
+          <Button
+            style={{
+              elevation: ProjectTheme.elevation.large,
+              marginBottom: 5,
+              height: 50,
+              width: '48%',
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="archive-cog-outline"
+            mode="contained"
+            onPress={handelRedigera}
+            labelStyle={{ color: ProjectTheme.colors.secondary }}
+            rippleColor={ProjectTheme.colors.background}
+          >
+            Redigera
+          </Button>
+        )}
       </View>
     </View>
   );

@@ -16,7 +16,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
 
     if (activeRoute.name === 'Today') {
       // Navigate to the "MyHouseholds" screen when on the "Today" tab
-      navigation.navigate('MyHouseholds', {
+      navigation.navigate('Profile', {
         screen: 'Household',
         params: { screen: 'Today' },
       });
