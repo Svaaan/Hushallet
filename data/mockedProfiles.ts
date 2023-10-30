@@ -54,15 +54,15 @@ const mockedProfile: Profile[] = [
     account_id: 5,
     homeId: 1,
   },
-  {
-    id: 6,
-    name: 'Michael',
-    avatar: 'https://i.imgur.com/vpITU1P.png', // pig
-    is_paused: false,
-    is_owner: true,
-    account_id: 6,
-    homeId: 1,
-  },
+  // {
+  //   id: 6,
+  //   name: 'Michael',
+  //   avatar: 'https://i.imgur.com/vpITU1P.png', // pig
+  //   is_paused: false,
+  //   is_owner: true,
+  //   account_id: 6, //Avmarkera en så man testa joina homeId 1 med pig avatar
+  //   homeId: 1,
+  // },
 ];
 
 export { Profile, mockedProfile };
