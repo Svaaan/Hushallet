@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { TextInput, View, Text, StyleSheet } from 'react-native';
+import { TextInput, View, Text } from 'react-native';
 import Button from '../Component/BottomButtonComponent';
 import { ProjectTheme } from '../../theme/theme';
 import ChooseEmoji from '../Component/ChooseEmoji';
