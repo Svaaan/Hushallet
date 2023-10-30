@@ -8,6 +8,7 @@ import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
+import { mockedProfile } from '../../data/mockedProfiles';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
