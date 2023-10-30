@@ -42,10 +42,10 @@ Profil (4)
 
 Sysslor (4)
 
-[] En ägare ska kunna lägga till sysslor att göra i hemmet(Kolla issue 118. När den är fixad så ska det funka). *
+[x] En ägare ska kunna lägga till sysslor att göra i hemmet. *
 [x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
     vikt som beskriver hur energikrävande den är. *
-[] En ägare ska kunna redigera en syssla(Kolla issue 118. När den är fixad så ska det funka). *
+[] En ägare ska kunna redigera en syssla(Funkar inte). *
 
 
 Dagsvyn (3)
@@ -54,13 +54,13 @@ Dagsvyn (3)
 [x] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar
    sedan sysslan gjordes senast samt om den är försenad. *
 [] När en användare väljer en syssla ska beskrivningen av sysslan visas och det ska även
-   med ett enkelt tryck gå att markera sysslan(markeringen uppdateras inte) som gjord. *
+   med ett enkelt tryck gå att markera syssla som gjord(Visar inget just nu). *
 
 Statistik (3)
 
 [x] En användare ska kunna se fördelningen av gjorda sysslor mellan användarna i sitt hushåll. *
-[] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt
-   fördelning av varje enskild syssla(Saknas profiler se issue 119). *
+[x] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt
+   fördelning av varje enskild syssla. *
 [x] Det ska finnas en statistikvy över ”nuvarande vecka”. *
 
 ---------------------------------------------------------------------
