@@ -50,8 +50,6 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
     // Check to see if any chores are in AsyncStorage, Otherwise use the mockData
     if (fetchedChores.length === 0) {
       setChores(mockChores);
-    } else {
-      setChores(fetchedChores);
     }
   };
 
