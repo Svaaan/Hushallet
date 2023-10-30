@@ -8,14 +8,15 @@ import { ProjectTheme } from '../../theme/theme';
 import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { useChoresContext } from '../Context/ChoressContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
+import { useProfileContext } from '../Context/ProfileContext';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
-  // const { profiles } = useProfileContext();
-  const profiles = mockedProfile;
+  const { profiles } = useProfileContext();
+  //const profiles = mockedProfile;
 
   const handleGoToTaskDetails = () => {
     // Pass the chore data to the TaskDetails screen.
@@ -152,8 +153,9 @@ export default function TodayScreen({ navigation }: Props) {
             elevation: ProjectTheme.elevation.medium,
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: 5,
-            marginVertical: 220,
+            position: 'absolute',
+            bottom: -50,
+            right: 0,
           }}
           onPress={handleGoToCreateChore}
         >
@@ -170,8 +172,10 @@ export default function TodayScreen({ navigation }: Props) {
             elevation: ProjectTheme.elevation.medium,
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: 5,
-            marginVertical: 220,
+            position: 'absolute',
+            bottom: -50,
+            left: 0,
+            right: 0,
           }}
           onPress={handleGoToEditTask}
         >
