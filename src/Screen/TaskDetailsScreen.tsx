@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import uuid from 'react-native-uuid';
+import { mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
+import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
@@ -20,34 +21,21 @@ interface chore {
 }
 
 const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
+  const { profiles } = useProfileContext();
   const [Chore, setChore] = useState<chore | null>(null);
   const slectedUserId = React.useRef<string>('1');
   const slectedHomeId = React.useRef<string>('1');
   const slectedoner_id = React.useRef<string>('1');
-  async function getChoreFromAsyncStorage() {
-    try {
-      const storedChore = await AsyncStorage.getItem('ChoreKey');
-      if (storedChore !== null) {
-        setChore(JSON.parse(storedChore));
-        console.log('Task data retrieved from AsyncStorage:', storedChore);
-      }
-    } catch (error) {
-      console.error('Error retrieving chore:', error);
-    }
-  }
-  useEffect(() => {
-    getChoreFromAsyncStorage();
-  }, []);
+
   const handelTaskAvklarat = async () => {
     try {
       const ChoreEvent = {
-        id: uuid.v4(),
+        id: mockChores[1].id,
         user_id: slectedUserId.current,
         home_id: slectedHomeId.current,
         Chore_id: Chore?.id.toString(),
         date: new Date(),
       };
-      await AsyncStorage.setItem('ChoreEventKey', JSON.stringify(ChoreEvent));
       console.log('ChoreEvent', ChoreEvent);
       navigation.navigate('Household');
     } catch (error) {
