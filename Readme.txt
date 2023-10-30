@@ -24,7 +24,7 @@ Kravlista (3)
 
 Hushåll (2)
 
-[] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet, namnet ska gå att ändra(Gick inte att testa). *
+[x] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet, namnet ska gå att ändra. *
 
 
 Konto (3)
@@ -35,9 +35,9 @@ Konto (3)
 
 Profil (4)
 
-[] En användare ska kunna ange sitt namn(Kunde inte testa). *
-[] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista(Kunde inte testa). *
-[] Valda avatarer ska inte kunna väljas av andra användare i hushållet(Kunde inte testa). *
+[x] En användare ska kunna ange sitt namn. *
+[x] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista. *
+[x] Valda avatarer ska inte kunna väljas av andra användare i hushållet. *
 [x] Avataren ska användas i appen för att visa vad användaren har gjort. *
 
 Sysslor (4)
