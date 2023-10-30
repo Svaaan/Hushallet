@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import { Home, mockedHomes } from '../../data/mockedHomes';
 import { Profile } from '../../data/mockedProfiles';
 import { Account } from '../../data/mockedAccount';
+import { useProfileContext } from '../Context/ProfileContext';
 
 type HomeContextType = {
   homes: Home[];
@@ -12,7 +13,7 @@ type HomeContextType = {
   setHomesByProfiles: (profiles: Profile[]) => void;
   createHome: (home: Home) => void;
   joinHome: (homeId: number) => void;
-  searchHome: (
+  connectToHome: (
     passcode: number,
     inputName: string,
     inputAvatar: string,
@@ -27,7 +28,7 @@ const HomeContext = createContext<HomeContextType | undefined>(undefined);
 export function HomeProvider({ children }: { children: React.ReactNode }) {
   const [homes, setHomes] = useState<Home[]>([]);
   const [enteredHome, setEnteredHome] = useState<Home | null>(null);
-
+  const { createProfile } = useProfileContext();
   //en profil har ett homeid och en account id
 
   const setHomesByProfiles = (profiles: Profile[]) => {
@@ -70,7 +71,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
   };
 
   //Use passcode to enter house
-  const searchHome = useCallback(
+  const connectToHome = useCallback(
     async (
       passcode: number,
       inputName: string,
@@ -86,7 +87,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         is_paused: false,
         is_owner: false,
         account_id: account?.id || 0,
-        homeId: 0, //sålänge
+        homeId: 0
       };
       let foundDuplicateAvatar = false;
       console.log('Create temp profile: ', tempProfile);
@@ -132,7 +133,9 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
           if (!foundDuplicateAvatar) {
             // Join the first matching home if no duplicate avatars are found
             console.log('Joining', matchedHomes[0].name);
+            tempProfile.homeId = matchedHomes[0].id;
             joinHome(matchedHomes[0].id);
+            createProfile(tempProfile);
           } else {
             console.log('Found homes with duplicate avatars. Not joining.');
           }
@@ -165,7 +168,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         setHomesByProfiles,
         createHome,
         joinHome,
-        searchHome,
+        connectToHome,
         updateHomesWithOldName,
         enteredHome,
         setEnteredHome,
