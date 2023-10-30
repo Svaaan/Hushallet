@@ -63,8 +63,6 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
                 const profileId = getProfileId(home.id);
                 if (profileId) {
                   navigateToUserProfile(profileId, home.id);
-                  console.log('ProfileID', profileId);
-                  console.log('HomeId',home.id);
                 }
               }}
             >
