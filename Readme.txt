@@ -16,7 +16,7 @@ G: 20 (50%).
 
 Kravlista (3)
 
-[] En logga, splashscreen och appikon(SAKNAS) ska designas och användas. *
+[x] En logga, splashscreen och appikon ska designas och användas. *
 [x] Applikationen ska byggas med RN, Expo & TS. *
 [x] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras med produktägare,
    godkännas och dokumenteras(Dokumentera detta). *
