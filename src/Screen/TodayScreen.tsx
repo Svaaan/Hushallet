@@ -8,15 +8,14 @@ import { ProjectTheme } from '../../theme/theme';
 import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { useChoresContext } from '../Context/ChoressContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
-import { useProfileContext } from '../Context/ProfileContext';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
-  const { profiles } = useProfileContext();
-  //const profiles = mockedProfile;
+  // const { profiles } = useProfileContext();
+  const profiles = mockedProfile;
 
   const handleGoToTaskDetails = () => {
     // Pass the chore data to the TaskDetails screen.

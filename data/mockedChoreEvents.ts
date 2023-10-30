@@ -115,13 +115,13 @@ const mockChoreEvents: ChoreEvent[] = [
     id: 17,
     profile_id: 4,
     chore_id: 3,
-    date: new Date('2023-10-27'),
+    date: new Date('2023-10-30'),
   },
   {
     id: 18,
     profile_id: 3,
     chore_id: 6,
-    date: new Date('2023-10-27'),
+    date: new Date('2023-10-30'),
   },
   // Month
   {
