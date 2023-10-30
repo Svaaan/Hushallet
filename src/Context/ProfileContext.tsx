@@ -8,6 +8,7 @@ type ProfileContextType = {
   getProfileById: (profileId: number) => Profile | null;
   getProfileData: () => Profile[];
   getAllProfiles: () => Profile[];
+  createProfile: (profile: Profile) => void;
 };
 
 const ProfileContext = createContext<ProfileContextType | null>(null);
@@ -26,6 +27,10 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
     const uniqueProfiles = Array.from(new Set(combinedProfiles));
 
     setProfiles(uniqueProfiles);
+  };
+
+  const createProfile = (profile: Profile) => {
+    setProfiles([...profiles, profile]);
   };
 
   const getProfileData = () => {
@@ -58,6 +63,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
         getProfileById: getProfileById,
         getProfileData: getProfileData,
         getAllProfiles: getAllProfiles,
+        createProfile: createProfile,
       }}
     >
       {children}

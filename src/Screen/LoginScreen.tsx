@@ -19,6 +19,7 @@ export default function LoginScreen({ navigation }: Props) {
       console.log('kontot som loggades in: ', account);
       //alla profiler som account har sätts till state profiles
       setProfilesByAccountId(account.id);
+      // sedan sätta home by profiles
       navigation.navigate('MyHouseholds');
     }
   }

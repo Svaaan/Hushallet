@@ -9,13 +9,12 @@ import { RootStackParamList } from '../Navigation/RootNavigator';
 import { useHomeContext } from '../Context/HomeContext';
 import { useProfileContext } from '../Context/ProfileContext';
 
-
 type Props = NativeStackScreenProps<RootStackParamList, 'MyHouseholds'>;
 
 export default function MyHouseholdsScreen({ navigation }: Props) {
   const { account } = useAccountContext();
   const { profiles } = useProfileContext();
-  const { homes, setHomesByProfiles } = useHomeContext();
+  const { homes, setHomesByProfiles, enterHome } = useHomeContext();
 
   const updateAllStates = () => {
     if (profiles) {
@@ -24,12 +23,20 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     }
   };
 
+  const getProfileId = (homeId: number) => {
+    const profile = profiles.find((p) => p.homeId === homeId);
+    if (profile) {
+      return profile.id;
+    }
+  };
+
   useEffect(() => {
     updateAllStates();
-  }, []);
+  }, [account]);
 
-  const navigateToUserProfile = (profile_id: number) => {
+  const navigateToUserProfile = (profile_id: number, homeId: number) => {
     console.log('Aktiv profil data: ', profiles);
+    enterHome(homeId);
     navigation.navigate('Profile', { userId: profile_id });
   };
 
@@ -53,7 +60,10 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
           <View key={home.id}>
             <TouchableOpacity
               onPress={() => {
-                navigateToUserProfile(home.profile_id);
+                const profileId = getProfileId(home.id);
+                if (profileId) {
+                  navigateToUserProfile(profileId, home.id);
+                }
               }}
             >
               <Text>{home.name}</Text>

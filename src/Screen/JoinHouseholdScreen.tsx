@@ -37,38 +37,34 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
   };
 
   const avatarConverter = (avatar: string) => {
-    if(avatar == 'https://i.imgur.com/FsJuOEK.png')
-    {
+    if (avatar == 'https://i.imgur.com/FsJuOEK.png') {
       avatar = '2';
     }
-    if(avatar == 'https://i.imgur.com/mqPUGcs.png')
-    {
+    if (avatar == 'https://i.imgur.com/mqPUGcs.png') {
       avatar = '3';
     }
-    if(avatar == 'https://i.imgur.com/tpoiEFR.png')
-    {
+    if (avatar == 'https://i.imgur.com/tpoiEFR.png') {
       avatar = '4';
     }
-    if(avatar == 'https://i.imgur.com/vM8r642.png')
-    {
+    if (avatar == 'https://i.imgur.com/vM8r642.png') {
       avatar = '5';
     }
-    if(avatar == 'https://i.imgur.com/vpITU1P.png')
-    {
+    if (avatar == 'https://i.imgur.com/vpITU1P.png') {
       avatar = '6';
     }
-    if(avatar == 'https://i.imgur.com/pBldNOp.png')
-    {
+    if (avatar == 'https://i.imgur.com/pBldNOp.png') {
       avatar = '7';
     }
     return avatar;
-  }
+  };
 
   const connectToHome = async () => {
-    console.log('Start search')
+    console.log('Start search');
     const allProfiles = getAllProfiles();
-    const avatar = avatarConverter(selectedAvatar)
-    await searchHome(parseInt(code),name,avatar,account,allProfiles);
+    const avatar = avatarConverter(selectedAvatar);
+    if (account) {
+      await searchHome(parseInt(code), name, avatar, account, allProfiles);
+    }
   };
 
   const retrieveUserData = async () => {
@@ -126,7 +122,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
       <View
         style={{
           position: 'absolute',
-          top: 200
+          top: 200,
         }}
       >
         <ChooseEmoji
