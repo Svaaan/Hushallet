@@ -15,8 +15,8 @@ export default function TodayScreen({ navigation }: Props) {
   const [isNewChoreAdded, setIsNewChoreAdded] = useState(false);
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
-  const { profiles } = useProfileContext();
-  //const profiles = mockedProfile;
+  // const { profiles } = useProfileContext();
+  const profiles = mockedProfile;
 
   const handleGoToTaskDetails = () => {
     // Pass the chore data to the TaskDetails screen.

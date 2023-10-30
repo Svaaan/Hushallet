@@ -12,58 +12,24 @@ import { useAccountContext } from '../Context/AccountContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'JoinHousehold'>;
 
-interface Profile {
-  id: number;
-  name: string;
-  avatar: string;
-  is_paused: boolean;
-  is_owner: boolean;
-  account_id: number;
-}
-
 export default function JoinHouseholdScreen({ navigation }: Props) {
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState('');
-  const { joinHome } = useHomeContext();
-  const { searchHome } = useHomeContext();
+  const { connectToHome } = useHomeContext();
   const { getAllProfiles } = useProfileContext();
   const { account } = useAccountContext();
 
   const handleAvatarSelection = (avatar: string) => {
-    const convertedAvatar = avatarConverter(avatar);
-    console.log('Selected avatar:', convertedAvatar);
+    console.log('Selected avatar:', avatar);
     setSelectedAvatar(avatar);
   };
 
-  const avatarConverter = (avatar: string) => {
-    if (avatar == 'https://i.imgur.com/FsJuOEK.png') {
-      avatar = '2';
-    }
-    if (avatar == 'https://i.imgur.com/mqPUGcs.png') {
-      avatar = '3';
-    }
-    if (avatar == 'https://i.imgur.com/tpoiEFR.png') {
-      avatar = '4';
-    }
-    if (avatar == 'https://i.imgur.com/vM8r642.png') {
-      avatar = '5';
-    }
-    if (avatar == 'https://i.imgur.com/vpITU1P.png') {
-      avatar = '6';
-    }
-    if (avatar == 'https://i.imgur.com/pBldNOp.png') {
-      avatar = '7';
-    }
-    return avatar;
-  };
-
-  const connectToHome = async () => {
+  const connectToHomeFunction = async () => {
     console.log('Start search');
     const allProfiles = getAllProfiles();
-    const avatar = avatarConverter(selectedAvatar);
     if (account) {
-      await searchHome(parseInt(code), name, avatar, account, allProfiles);
+      await connectToHome(parseInt(code), name, selectedAvatar, account, allProfiles);
     }
   };
 
@@ -143,7 +109,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
             textColor="black"
             style={styles.button}
             onPress={() => {
-              connectToHome();
+              connectToHomeFunction();
               navigation.navigate('MyHouseholds');
             }}
           >

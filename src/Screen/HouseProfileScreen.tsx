@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TextInput } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
@@ -43,18 +43,39 @@ export default function ProfileScreen({ navigation, route }: Props) {
       }}
     >
       {profile ? (
-        <>
-          <Text>ID: {profile.id}</Text>
-          <Text>Namn: {profile.name}</Text>
-          <Text>Hushåll: {enteredHome?.name}</Text>
-          <Text>Hushålls ägare: {profile.is_owner ? 'Ja' : 'Nej'}</Text>
-          <Text>Aktivt konto: {!profile.is_paused ? 'Ja' : 'Nej'}</Text>
+        <View>
           <Text>Min avatar:</Text>
           <Image
             source={{ uri: profile.avatar }}
-            style={{ width: 100, height: 100 }}
+            style={{ width: 35, height: 35, flexDirection: 'row' }}
           />
-        </>
+
+          <TextInput
+            placeholder="Namn"
+            style={nameStyle}
+            value={`Namn: ${profile.name}`}
+            editable={false}
+          />
+
+          <TextInput
+            placeholder="Hushållsnamn"
+            style={nameStyle}
+            value={`Hushålls namn: ${enteredHome?.name}`}
+            editable={false}
+          />
+          <TextInput
+            placeholder="Hushållsägare"
+            style={nameStyle}
+            value={`Hushålls ägare: ${profile.is_owner ? 'Ja' : 'Nej'}`}
+            editable={false}
+          />
+          <TextInput
+            placeholder="Pausatkonto"
+            style={nameStyle}
+            value={`Pausat konto: ${!profile.is_paused ? 'Ja' : 'Nej'}`}
+            editable={false}
+          />
+        </View>
       ) : (
         <Text>Profile not found</Text>
       )}

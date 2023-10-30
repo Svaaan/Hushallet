@@ -16,7 +16,7 @@ G: 20 (50%).
 
 Kravlista (3)
 
-[] En logga, splashscreen och appikon(SAKNAS) ska designas och användas. *
+[x] En logga, splashscreen och appikon ska designas och användas. *
 [x] Applikationen ska byggas med RN, Expo & TS. *
 [x] Designen av appen ska utgå ifrån befintliga skisser, undantag kan ges men ska diskuteras med produktägare,
    godkännas och dokumenteras(Dokumentera detta). *
@@ -24,7 +24,7 @@ Kravlista (3)
 
 Hushåll (2)
 
-[] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet, namnet ska gå att ändra(Gick inte att testa). *
+[x] Ett hushåll ska ha ett namn och en genererad (enkel) kod så andra kan gå med i hushållet, namnet ska gå att ändra. *
 
 
 Konto (3)
@@ -35,32 +35,32 @@ Konto (3)
 
 Profil (4)
 
-[] En användare ska kunna ange sitt namn(Kunde inte testa). *
-[] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista(Kunde inte testa). *
-[] Valda avatarer ska inte kunna väljas av andra användare i hushållet(Kunde inte testa). *
+[x] En användare ska kunna ange sitt namn. *
+[x] En användare ska kunna välja en avatar (emoji-djur + färg) från en fördefinierad lista. *
+[x] Valda avatarer ska inte kunna väljas av andra användare i hushållet. *
 [x] Avataren ska användas i appen för att visa vad användaren har gjort. *
 
 Sysslor (4)
 
-[] En ägare ska kunna lägga till sysslor att göra i hemmet(Kolla issue 118. När den är fixad så ska det funka). *
+[x] En ägare ska kunna lägga till sysslor att göra i hemmet. *
 [x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
     vikt som beskriver hur energikrävande den är. *
-[] En ägare ska kunna redigera en syssla(Kolla issue 118. När den är fixad så ska det funka). *
+[] En ägare ska kunna redigera en syssla(Funkar inte). *
 
 
 Dagsvyn (3)
 
 [x] Alla sysslor ska listas i en dagsvy och ge en översikt kring vad som behöver göras. *
-[] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas(Avatar saknas), hur många dagar
+[x] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar
    sedan sysslan gjordes senast samt om den är försenad. *
 [] När en användare väljer en syssla ska beskrivningen av sysslan visas och det ska även
-   med ett enkelt tryck gå att markera sysslan(markeringen uppdateras inte) som gjord. *
+   med ett enkelt tryck gå att markera syssla som gjord(Visar inget just nu). *
 
 Statistik (3)
 
 [x] En användare ska kunna se fördelningen av gjorda sysslor mellan användarna i sitt hushåll. *
-[] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt
-   fördelning av varje enskild syssla(Saknas profiler se issue 119). *
+[x] Varje statistikvy ska visa den totala fördelningen (inräknat vikterna för sysslorna) samt
+   fördelning av varje enskild syssla. *
 [x] Det ska finnas en statistikvy över ”nuvarande vecka”. *
 
 ---------------------------------------------------------------------
