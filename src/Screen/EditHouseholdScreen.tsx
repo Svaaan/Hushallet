@@ -31,8 +31,8 @@ export default function EditHouseholdScreen({ navigation }: Props) {
   const handleSaveButtonPress = () => {
     // Update homes with oldName to have the name newName
     console.log('Profile', profiles[0].id);
-    console.log('Connected Home', mockedHomes[profiles[0].id].name);
-    updateHomesWithOldName(mockedHomes[profiles[0].id].name, newName);
+    console.log('Connected Home', mockedHomes[0]);
+    updateHomesWithOldName(mockedHomes[0].name, newName);
     navigation.goBack();
   };
 
