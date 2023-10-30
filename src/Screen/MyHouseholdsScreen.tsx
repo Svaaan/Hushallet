@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
 import { Home } from '../../data/mockedHomes';
@@ -40,6 +40,16 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     navigation.navigate('Profile', { userId: profile_id });
   };
 
+  const placeholderStyle = {
+    width: 300,
+    height: 45,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    paddingLeft: 10,
+    color: ProjectTheme.colors.textcolor,
+    elevation: ProjectTheme.elevation.small,
+  };
+
   return (
     <View
       style={{
@@ -47,30 +57,41 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 200,
       }}
     >
-      {account && homes.length === 0 ? (
-        <View style={{ alignItems: 'center' }}>
-          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
-          <Text> Skapa ett hem nedan!</Text>
-        </View>
-      ) : (
-        homes.map((home: Home) => (
-          <View key={home.id}>
+      <View
+        style={{
+          padding: 80,
+        }}
+      >
+        {account && homes.length === 0 ? (
+          <View style={{ alignItems: 'center' }}>
+            <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+            <Text> Skapa ett hem nedan!</Text>
+          </View>
+        ) : (
+          homes.map((home: Home) => (
+            // <View key={home.id}>
             <TouchableOpacity
+              key={home.id}
               onPress={() => {
                 const profileId = getProfileId(home.id);
                 if (profileId) {
                   navigateToUserProfile(profileId, home.id);
                 }
               }}
+              style={{ marginVertical: 25 }}
             >
-              <Text>{home.name}</Text>
+              <TextInput
+                style={placeholderStyle}
+                placeholder="Hushålls namn"
+                value={`Hushåll: ${home.name}`}
+                editable={false}
+              />
             </TouchableOpacity>
-          </View>
-        ))
-      )}
+          ))
+        )}
+      </View>
       <View
         style={{
           flexDirection: 'row',
@@ -79,13 +100,13 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         }}
       >
         <Button
-          title="Gå med i hushåll"
+          title="Skapa hushåll"
           onPress={() => {
             navigation.navigate('JoinHousehold');
           }}
         />
         <Button
-          title="Skapa hushåll"
+          title="Gå med i hushåll"
           onPress={() => {
             navigation.navigate('CreateHousehold');
           }}

@@ -19,6 +19,17 @@ export default function ProfileScreen({ navigation, route }: Props) {
   );
   const { enteredHome } = useHomeContext();
 
+  const placeholderStyle = {
+    width: 300,
+    height: 45,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    paddingLeft: 10,
+    marginBottom: 25,
+    color: ProjectTheme.colors.textcolor,
+    elevation: ProjectTheme.elevation.small,
+  };
+
   return (
     <View
       style={{
@@ -44,17 +55,28 @@ export default function ProfileScreen({ navigation, route }: Props) {
             />
           </View>
 
-          <TextInput value={`Namn: ${profile.name}`} editable={false} />
+          <TextInput
+            style={placeholderStyle}
+            placeholder="Namn"
+            value={`Namn: ${profile.name}`}
+            editable={false}
+          />
 
           <TextInput
+            style={placeholderStyle}
+            placeholder="Hushålls namn"
             value={`Hushålls namn: ${enteredHome?.name}`}
             editable={false}
           />
           <TextInput
+            style={placeholderStyle}
+            placeholder="Hushålls ägare"
             value={`Hushålls ägare: ${profile.is_owner ? 'Ja' : 'Nej'}`}
             editable={false}
           />
           <TextInput
+            style={placeholderStyle}
+            placeholder="Pausat konto"
             value={`Pausat konto: ${!profile.is_paused ? 'Ja' : 'Nej'}`}
             editable={false}
           />
@@ -63,12 +85,18 @@ export default function ProfileScreen({ navigation, route }: Props) {
         <Text>Profile not found</Text>
       )}
 
-      <Button
-        title="Mina Sysslor"
-        onPress={() => {
-          navigation.navigate('SwipeNav');
+      <View
+        style={{
+          marginBottom: 230,
         }}
-      />
+      >
+        <Button
+          title="Mina Sysslor"
+          onPress={() => {
+            navigation.navigate('SwipeNav');
+          }}
+        />
+      </View>
 
       <View
         style={{
