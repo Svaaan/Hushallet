@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { Text, View, Image, TextInput } from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
@@ -30,6 +30,22 @@ export default function ProfileScreen({ navigation, route }: Props) {
     elevation: ProjectTheme.elevation.small,
   };
 
+  const imageContainerStyle = {
+    width: 300,
+    height: 45,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    elevation: ProjectTheme.elevation.small,
+    color: ProjectTheme.colors.textcolor,
+    paddingLeft: 10,
+    marginBottom: 25,
+  };
+
+  const avatarImageStyle = {
+    width: 35,
+    height: 35,
+  };
+
   return (
     <View
       style={{
@@ -42,17 +58,29 @@ export default function ProfileScreen({ navigation, route }: Props) {
     >
       {profile ? (
         <View>
-          <View>
-            <Image
-              source={{ uri: profile.avatar }}
+          <View style={imageContainerStyle}>
+            <View
               style={{
-                width: 35,
-                height: 35,
+                flexDirection: 'row',
                 alignItems: 'center',
-                paddingRight: 10,
-                marginBottom: 5,
               }}
-            />
+            >
+              <Text
+                style={{
+                  color: ProjectTheme.colors.textcolor,
+                  textAlign: 'center',
+                }}
+              >
+                Min emoji:
+              </Text>
+              <Image
+                style={{
+                  ...avatarImageStyle,
+                  marginLeft: 10,
+                }}
+                source={{ uri: profile.avatar }}
+              />
+            </View>
           </View>
 
           <TextInput
@@ -90,14 +118,30 @@ export default function ProfileScreen({ navigation, route }: Props) {
       <View
         style={{
           marginBottom: 230,
+          elevation: ProjectTheme.elevation.small,
+          width: 300,
+          height: 45,
+          backgroundColor: ProjectTheme.inputBackground,
+          borderRadius: ProjectTheme.borderRadius.medium,
         }}
       >
-        <Button
-          title="Mina Sysslor"
+        <TouchableOpacity
           onPress={() => {
             navigation.navigate('SwipeNav');
           }}
-        />
+          style={{ flex: 1, width: '100%' }}
+        >
+          <Text
+            style={{
+              color: ProjectTheme.colors.textcolor,
+              paddingLeft: 109,
+              marginTop: 10,
+              fontWeight: 'bold',
+            }}
+          >
+            Mina Sysslor
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View
