@@ -49,19 +49,20 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
 
   const handleSaveButtonPress = () => {
     if (householdName !== '' && account) {
+      console.log(mockedHomes[mockedHomes.length - 1].id);
+      const homeId = mockedHomes[mockedHomes.length - 1].id + 1;
       const newHousehold: Home = {
-        id: Number(generatedCode),
+        id: homeId,
         name: householdName,
         home_code: Number(generatedCode),
       };
       mockedHomes.push(newHousehold);
       createHome(newHousehold);
       console.log('hushåll som ska pushas in: ', newHousehold);
-      const homeId = mockedHomes[mockedHomes.length - 1].id;
-
+      const profileId = mockedProfile[mockedProfile.length - 1].id + 1;
       const setOwner: Profile = {
         is_owner: true,
-        id: Number(generatedCode),
+        id: profileId,
         name: profileName,
         avatar: selectedAvatar,
         is_paused: false,
