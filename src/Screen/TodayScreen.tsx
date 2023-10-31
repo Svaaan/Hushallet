@@ -1,5 +1,6 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { Image } from 'expo-image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
@@ -28,12 +29,19 @@ export default function TodayScreen({ navigation }: Props) {
   const handleGoToEditTask = () => {
     navigation.navigate('EditTask');
   };
+  useFocusEffect(
+    React.useCallback(() => {
+      setIsNewChoreAdded((prevValue) => !prevValue);
+    }, [])
+  );
 
-  useEffect(() => {
-    if (isNewChoreAdded) {
-      setIsNewChoreAdded(false);
-    }
-  }, [isNewChoreAdded]);
+  // Vet inte om denna behövs längre då FocusEffect hanterar det med genom navigation?
+  // useEffect(() => {
+  //   if (isNewChoreAdded) {
+  //     setIsNewChoreAdded(false);
+  //   }
+  //   console.log(isNewChoreAdded);
+  // }, [isNewChoreAdded]);
 
   // Define a function to check if a chore has been completed within a specific date interval
   function getCompletedEventsData(choreEvents: ChoreEvent[], chore: Chore) {
@@ -57,11 +65,6 @@ export default function TodayScreen({ navigation }: Props) {
       overdue,
     };
   }
-
-  // 1. Filtera choreEvents på choreId
-  // 2. Sortera på datum med senaste först
-  // 3. Plocka ut de första om de var gjorde idag.
-  // 4. Spara även lastCompleted från den första.
 
   return (
     <View style={{ flex: 1 }}>
@@ -102,8 +105,9 @@ export default function TodayScreen({ navigation }: Props) {
                   const profile = profiles.find(
                     (p) => p.id === event.profile_id
                   );
-                  console.log('EVENT', event);
-                  if (!profile) return null;
+                  if (!profile) {
+                    return null;
+                  }
                   return (
                     <Image
                       key={profile.id}
@@ -135,8 +139,8 @@ export default function TodayScreen({ navigation }: Props) {
                       fontWeight: 'bold',
                     }}
                   >
-                    {getDaysBetween(new Date(), lastCompleted)}
-                    {/* {chore.interval} */}
+                    {/* {getDaysBetween(new Date(), lastCompleted)} */}
+                    {chore.interval}
                   </Text>
                 </View>
               )}

@@ -33,19 +33,20 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
 
       if (isAlreadyCompleted) {
         setShowChoreCompletedMessage(true);
-        return; // Exit early if the chore is already completed
+        return;
       }
       const newChoreEvent: ChoreEvent = {
         id: getNextChoreEventId(),
         // bör använda route.params.profilId
         profile_id: profileId,
-        chore_id: Chore?.id || 0,
+        chore_id: Chore?.id,
         date: new Date(),
       };
       mockChoreEvents.push(newChoreEvent);
       console.log('ChoreEvent', newChoreEvent);
 
       navigation.navigate('Household');
+      console.log('Navigated back to houshold');
     } catch (error) {
       console.log(error);
     }

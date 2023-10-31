@@ -17,8 +17,6 @@ export default function CreateTaskScreen({ navigation }: Props) {
   const [Interval, setInterval] = React.useState(0);
   const [Rating, setRating] = React.useState('');
   const [image, setImage] = useState<string | null>(null);
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const { addChore } = useChoresContext();
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -62,6 +60,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
     setRating('');
     setImage(null);
     navigation.navigate('Household');
+    //Loggar ut alla chores för att se att den nya Chore/Task är skapad
     console.log(mockChores);
   };
   const nameStyle = {
