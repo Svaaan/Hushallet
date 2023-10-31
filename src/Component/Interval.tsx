@@ -39,18 +39,62 @@ const Intervals: React.FC<IntervalsProps> = ({
                 onIntervalChange(number);
               }}
             >
-              <Text style={{ margin: 10 }}>{number}</Text>
+              <Text style={{ margin: 10, fontSize: 15, fontWeight: 'bold' }}>
+                {number}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
       ) : (
         <View>
           <TouchableOpacity onPress={() => setScrollViewOpen(true)}>
-            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-              <Text>Återkommer</Text>
-              <Text style={{ paddingLeft: 200 }}>var</Text>
-              <Text style={{ paddingLeft: 10 }}>{selectedInterval}</Text>
-              <Text style={{ paddingLeft: 10 }}>dag</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingTop: 7,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                }}
+              >
+                Återkommer
+              </Text>
+              <Text
+                style={{
+                  paddingLeft: 180,
+                  paddingRight: 8,
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                }}
+              >
+                var
+              </Text>
+              <Text
+                style={{
+                  paddingLeft: 10,
+                  backgroundColor: 'red',
+                  borderRadius: 14,
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  width: 28,
+                  height: 28,
+                  paddingTop: 5,
+                }}
+              >
+                {selectedInterval}
+              </Text>
+              <Text
+                style={{
+                  paddingLeft: 10,
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                }}
+              >
+                dag
+              </Text>
             </View>
           </TouchableOpacity>
         </View>

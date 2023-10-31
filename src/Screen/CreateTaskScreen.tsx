@@ -6,7 +6,6 @@ import { Button } from 'react-native-paper';
 import { Chore, mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import Intervals from '../Component/Interval';
-import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
 
@@ -18,7 +17,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
   const [Rating, setRating] = React.useState('');
   const [image, setImage] = useState<string | null>(null);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-  const { addChore } = useChoresContext();
+
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -81,11 +80,6 @@ export default function CreateTaskScreen({ navigation }: Props) {
     <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
       <View
         style={{
-          // paddingLeft: 10,
-          // paddingRight: 10,
-          // flexDirection: 'row',
-          // justifyContent: 'center',
-          // backgroundColor: '#FFFFFF',
           backgroundColor: ProjectTheme.inputBackground,
           borderRadius: ProjectTheme.borderRadius.medium,
           paddingLeft: 10,
@@ -124,7 +118,14 @@ export default function CreateTaskScreen({ navigation }: Props) {
             paddingTop: 20,
           }}
         >
-          <Text>Titel:</Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Titel:
+          </Text>
           <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
@@ -138,7 +139,14 @@ export default function CreateTaskScreen({ navigation }: Props) {
             value={titel}
             onChangeText={(text) => setTitel(text)}
           />
-          <Text>Beskrivning:</Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Beskrivning:
+          </Text>
           <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
@@ -158,7 +166,14 @@ export default function CreateTaskScreen({ navigation }: Props) {
             selectedInterval={parseInt(Interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
           />
-          <Text>Värde:</Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Värde:
+          </Text>
           <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
@@ -173,7 +188,14 @@ export default function CreateTaskScreen({ navigation }: Props) {
             onChangeText={(text) => setRating(text)}
             keyboardType="numeric"
           />
-          <Text>Bild:</Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Bild:
+          </Text>
           <Button
             style={{
               marginBottom: 10,
