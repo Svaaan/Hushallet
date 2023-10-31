@@ -17,6 +17,7 @@ interface ChoresContextType {
   chores: Chore[];
   initializeChores: () => void;
   createChore: (chore: Chore) => void;
+  getChoreById: (choreId: number) => Chore | undefined;
 }
 
 // Creating the context
@@ -53,6 +54,10 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const getChoreById = (choreId: number): Chore | undefined => {
+    return chores.find((chore) => chore.id === choreId);
+  };
+
   // Function to create and save a chore to AsyncStorage
   const createChore = async (newChore: Chore) => {
     try {
@@ -76,7 +81,9 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <ChoresContext.Provider value={{ chores, initializeChores, createChore }}>
+    <ChoresContext.Provider
+      value={{ chores, initializeChores, createChore, getChoreById }}
+    >
       {children}
     </ChoresContext.Provider>
   );

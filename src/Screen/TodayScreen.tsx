@@ -15,12 +15,12 @@ export default function TodayScreen({ navigation }: Props) {
   const [isNewChoreAdded, setIsNewChoreAdded] = useState(false);
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
-  // const { profiles } = useProfileContext();
-  const profiles = mockedProfile;
+  const { profiles } = useProfileContext();
+  // const profiles = mockedProfile;
 
-  const handleGoToTaskDetails = () => {
+  const handleGoToTaskDetails = (choreId: number) => {
     // Pass the chore data to the TaskDetails screen.
-    navigation.navigate('TaskDetails');
+    navigation.navigate('TaskDetails', { choreId });
   };
   const handleGoToCreateChore = () => {
     navigation.navigate('CreateTask');
@@ -72,7 +72,7 @@ export default function TodayScreen({ navigation }: Props) {
         return (
           <TouchableOpacity
             key={chore.id}
-            onPress={() => handleGoToTaskDetails()}
+            onPress={() => handleGoToTaskDetails(chore.id)}
             style={{
               width: 390,
               height: 65,
