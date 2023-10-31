@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
 import { Home } from '../../data/mockedHomes';
@@ -28,6 +28,12 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     if (profile) {
       return profile.id;
     }
+    return 500;
+  };
+
+  const getProfileAvatar = (profileId: number) => {
+    const profile = profiles.find((p) => p.id === profileId);
+    return profile?.avatar;
   };
 
   useEffect(() => {
@@ -49,6 +55,14 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
   };
+
+  const avatarImageStyle = {
+    width: 35,
+    height: 35,
+    marginLeft: 260,
+    bottom: 40
+  };
+
   return (
     <View
       style={{
@@ -69,7 +83,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
             <View
               key={home.id}
               style={{
-                marginVertical: 10,
+                marginVertical: 1,
               }}
             >
               <TouchableOpacity
@@ -87,6 +101,14 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
                   placeholder="Hushålls namn"
                   value={`Hushåll: ${home.name}`}
                   editable={false}
+                />
+                <Image
+                  style={{
+                    ...avatarImageStyle,
+                  }}
+                  source={{
+                    uri: getProfileAvatar(getProfileId(home.id))
+                  }}
                 />
               </TouchableOpacity>
             </View>
