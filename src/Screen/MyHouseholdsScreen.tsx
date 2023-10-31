@@ -18,7 +18,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   const updateAllStates = () => {
     if (profiles) {
-      //alla hem som profiler har till state
+      // alla hem som profiler har till state
       setHomesByProfiles(profiles);
     }
   };
@@ -49,7 +49,6 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
   };
-
   return (
     <View
       style={{
@@ -59,8 +58,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         backgroundColor: ProjectTheme.colors.background,
       }}
     >
-      <View style={{ paddingTop: 20, flex: 1, width: '97%' }}>
-
+      <View style={{ paddingTop: 40 }}>
         {account && homes.length === 0 ? (
           <View style={{ alignItems: 'center' }}>
             <Text>Få ordning och reda i hemmet med hela familjen.</Text>
@@ -68,7 +66,12 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
           </View>
         ) : (
           homes.map((home: Home) => (
-            <View key={home.id} style={{ borderWidth: 1, borderColor: 'black', borderRadius: 5, padding: 10, marginVertical: 10 }}>
+            <View
+              key={home.id}
+              style={{
+                marginVertical: 10,
+              }}
+            >
               <TouchableOpacity
                 key={home.id}
                 onPress={() => {
@@ -77,7 +80,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
                     navigateToUserProfile(profileId, home.id);
                   }
                 }}
-                style={{ marginVertical: 25 }}
+                style={{ marginVertical: 20 }}
               >
                 <TextInput
                   style={placeholderStyle}

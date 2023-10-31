@@ -68,16 +68,18 @@ export default function ProfileScreen({ navigation, route }: Props) {
             value={`Hushålls namn: ${enteredHome?.name}`}
             editable={false}
           />
+
+          <TextInput
+            style={placeholderStyle}
+            placeholder="Husshålls kod"
+            value={`Hushålls kod: ${enteredHome?.home_code}`}
+            editable={false}
+          />
+
           <TextInput
             style={placeholderStyle}
             placeholder="Hushålls ägare"
             value={`Hushålls ägare: ${profile.is_owner ? 'Ja' : 'Nej'}`}
-            editable={false}
-          />
-          <TextInput
-            style={placeholderStyle}
-            placeholder="Pausat konto"
-            value={`Pausat konto: ${!profile.is_paused ? 'Ja' : 'Nej'}`}
             editable={false}
           />
         </View>
