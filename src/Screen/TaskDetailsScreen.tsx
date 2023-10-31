@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
@@ -7,6 +7,7 @@ import { ProjectTheme } from '../../theme/theme';
 import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
+import { sameDay } from './TodayScreen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
 
@@ -16,9 +17,24 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const Chore = getChoreById(route.params.choreId);
 
   const profileId: number | undefined = profiles[0]?.id;
+  const [showChoreCompletedMessage, setShowChoreCompletedMessage] =
+    useState(false);
 
   const handleCompleteTask = async () => {
     try {
+      // Check if the profile has already completed this chore today
+      const isAlreadyCompleted = mockChoreEvents.some((event) => {
+        return (
+          event.profile_id === profileId &&
+          event.chore_id === Chore?.id &&
+          sameDay(event.date, new Date())
+        );
+      });
+
+      if (isAlreadyCompleted) {
+        setShowChoreCompletedMessage(true);
+        return; // Exit early if the chore is already completed
+      }
       const newChoreEvent: ChoreEvent = {
         id: getNextChoreEventId(),
         // bör använda route.params.profilId
@@ -41,7 +57,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     // Increment the maximum ID to get the new ID
     return maxId + 1;
   };
-  const handelRedigera = () => {
+  const handleEdit = () => {
     navigation.navigate('EditTask');
   };
   const nameStyle = {
@@ -90,49 +106,87 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
           <Text>Loading task data...</Text>
         )}
       </ScrollView>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'flex-end',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Button
+
+      {showChoreCompletedMessage ? (
+        <>
+          <View>
+            <Text style={{ color: 'red' }}>Chore already completed today</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <View
+              style={{
+                width: '48%',
+              }}
+            >
+              <Button
+                style={{
+                  marginBottom: 5,
+                  height: 50,
+                  justifyContent: 'center',
+                  backgroundColor: ProjectTheme.colors.error,
+                }}
+                icon="archive-plus-outline"
+                mode="contained"
+                onPress={handleCompleteTask}
+                labelStyle={{ color: ProjectTheme.colors.secondary }}
+                rippleColor={ProjectTheme.colors.background}
+              >
+                Avklarat
+              </Button>
+            </View>
+          </View>
+        </>
+      ) : (
+        <View
           style={{
-            marginBottom: 5,
-            height: 50,
-            width: '48%',
-            justifyContent: 'center',
-            backgroundColor: ProjectTheme.colors.primary,
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            justifyContent: 'space-between',
           }}
-          icon="archive-plus-outline"
-          mode="contained"
-          onPress={handleCompleteTask}
-          labelStyle={{ color: ProjectTheme.colors.secondary }}
-          rippleColor={ProjectTheme.colors.background}
         >
-          Avklarat
-        </Button>
-        {profiles[0].is_owner && (
           <Button
             style={{
-              elevation: ProjectTheme.elevation.large,
               marginBottom: 5,
               height: 50,
               width: '48%',
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
-            icon="archive-cog-outline"
+            icon="archive-plus-outline"
             mode="contained"
-            onPress={handelRedigera}
+            onPress={handleCompleteTask}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
-            Redigera
+            Avklarat
           </Button>
-        )}
-      </View>
+          {profiles[0].is_owner && (
+            <Button
+              style={{
+                elevation: ProjectTheme.elevation.large,
+                marginBottom: 5,
+                height: 50,
+                width: '48%',
+                justifyContent: 'center',
+                backgroundColor: ProjectTheme.colors.primary,
+              }}
+              icon="archive-cog-outline"
+              mode="contained"
+              onPress={handleEdit}
+              labelStyle={{ color: ProjectTheme.colors.secondary }}
+              rippleColor={ProjectTheme.colors.background}
+            >
+              Redigera
+            </Button>
+          )}
+        </View>
+      )}
     </View>
   );
 };
