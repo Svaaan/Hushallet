@@ -22,7 +22,7 @@ export type RootStackParamList = {
   CreateAccount: undefined;
   Profile: { userId: number };
   Login: undefined;
-  TaskDetails: undefined;
+  TaskDetails: { choreId: number };
   ProfileSettings: undefined;
   Household: undefined;
   CreateTask: undefined;
