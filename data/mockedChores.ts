@@ -3,7 +3,7 @@ interface Chore {
   home_id: number;
   name: string;
   description: string;
-  task_rating: number;
+  chore_rating: number;
   interval: number;
 }
 
@@ -13,7 +13,7 @@ const mockChores: Chore[] = [
     home_id: 1,
     name: 'Wash Dishes',
     description: 'Wash all the dirty dishes in the kitchen',
-    task_rating: 2,
+    chore_rating: 2,
     interval: 2,
   },
   {
@@ -21,7 +21,7 @@ const mockChores: Chore[] = [
     home_id: 1,
     name: 'Mow the Lawn',
     description: 'Mow the front and backyard lawns',
-    task_rating: 4,
+    chore_rating: 4,
     interval: 7,
   },
   {
@@ -29,7 +29,7 @@ const mockChores: Chore[] = [
     home_id: 1,
     name: 'Laundry',
     description: 'Do a load of laundry',
-    task_rating: 2,
+    chore_rating: 2,
     interval: 4,
   },
   {
@@ -37,7 +37,7 @@ const mockChores: Chore[] = [
     home_id: 1,
     name: 'Cook Dinner',
     description: 'Cook todays dinner',
-    task_rating: 1,
+    chore_rating: 1,
     interval: 1,
   },
   {
@@ -45,7 +45,7 @@ const mockChores: Chore[] = [
     home_id: 1,
     name: 'Dusting',
     description: 'Dust the furnitures',
-    task_rating: 8,
+    chore_rating: 8,
     interval: 5,
   },
   {
@@ -53,7 +53,7 @@ const mockChores: Chore[] = [
     home_id: 1,
     name: 'Mopping',
     description: 'Mop the floor',
-    task_rating: 6,
+    chore_rating: 6,
     interval: 6,
   },
 ];

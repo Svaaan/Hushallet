@@ -127,7 +127,7 @@ export default function ProfileScreen({ navigation, route }: Props) {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('SwipeNav');
+            navigation.navigate('Chores');
           }}
           style={{ flex: 1, width: '100%' }}
         >

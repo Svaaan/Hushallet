@@ -10,7 +10,7 @@ import YearlyStatisticsScreen from '../Screen/YearlyStatiscticsScreen';
 
 export type HouseholdSwipeParamList = {
   Today: undefined;
-  CreateTask: undefined;
+  CreateChore: undefined;
   CurrentWeekStatisticsScreen: undefined;
   LastWeekStatistics: undefined;
   MonthlyStatistics: { monthName: string };

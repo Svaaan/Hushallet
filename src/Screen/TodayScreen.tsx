@@ -6,7 +6,7 @@ import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import { useChoreEventsContext } from '../Context/ChoreEventContext';
-import { useChoresContext } from '../Context/ChoressContext';
+import { useChoresContext } from '../Context/ChoresContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 import Button from '../Component/BottomButtonComponent';
@@ -20,15 +20,15 @@ export default function TodayScreen({ navigation }: Props) {
   const { profiles } = useProfileContext();
   // const profiles = mockedProfile;
 
-  const handleGoToTaskDetails = (choreId: number) => {
-    // Pass the chore data to the TaskDetails screen.
-    navigation.navigate('TaskDetails', { choreId });
+  const handleGoToChoreDetails = (choreId: number) => {
+    // Pass the chore data to the ChoreDetails screen.
+    navigation.navigate('ChoreDetails', { choreId });
   };
   const handleGoToCreateChore = () => {
-    navigation.navigate('CreateTask');
+    navigation.navigate('CreateChore');
   };
-  const handleGoToEditTask = () => {
-    navigation.navigate('EditTask');
+  const handleGoToEditChore = () => {
+    navigation.navigate('EditChore');
   };
   useFocusEffect(
     React.useCallback(() => {
@@ -87,7 +87,7 @@ export default function TodayScreen({ navigation }: Props) {
           return (
             <TouchableOpacity
               key={chore.id}
-              onPress={() => handleGoToTaskDetails(chore.id)}
+              onPress={() => handleGoToChoreDetails(chore.id)}
               style={{
                 width: 390,
                 height: 65,
@@ -170,7 +170,7 @@ export default function TodayScreen({ navigation }: Props) {
       >
         <Button title="Skapa syssla" onPress={() => handleGoToCreateChore()} />
 
-        <Button title="Redigera syssla" onPress={() => handleGoToEditTask()} />
+        <Button title="Redigera syssla" onPress={() => handleGoToEditChore()} />
       </View>
     </View>
   );

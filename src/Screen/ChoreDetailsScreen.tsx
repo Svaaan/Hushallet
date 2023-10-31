@@ -4,14 +4,14 @@ import { ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { ProjectTheme } from '../../theme/theme';
-import { useChoresContext } from '../Context/ChoressContext';
+import { useChoresContext } from '../Context/ChoresContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { sameDay } from './TodayScreen';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChoreDetails'>;
 
-const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
+const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profiles } = useProfileContext();
   const { getChoreById } = useChoresContext();
   const Chore = getChoreById(route.params.choreId);
@@ -20,7 +20,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [showChoreCompletedMessage, setShowChoreCompletedMessage] =
     useState(false);
 
-  const handleCompleteTask = async () => {
+  const handleCompleteChore = async () => {
     try {
       // Check if the profile has already completed this chore today
       const isAlreadyCompleted = mockChoreEvents.some((event) => {
@@ -59,7 +59,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     return maxId + 1;
   };
   const handleEdit = () => {
-    navigation.navigate('EditTask');
+    navigation.navigate('EditChore');
   };
   const nameStyle = {
     height: 40,
@@ -90,7 +90,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             <Text style={nameStyle}>Title: {Chore.name}</Text>
             <Text style={nameStyle}>Description: {Chore.description}</Text>
             <Text style={nameStyle}>Interval: {Chore.interval}</Text>
-            <Text style={nameStyle}>Rating: {Chore.task_rating}</Text>
+            <Text style={nameStyle}>Rating: {Chore.chore_rating}</Text>
             {/* {Image && (
               <Image
                 source={{ uri: Chore.imageUri }}
@@ -104,7 +104,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             )} */}
           </View>
         ) : (
-          <Text>Loading task data...</Text>
+          <Text>Loading chore data...</Text>
         )}
       </ScrollView>
 
@@ -134,7 +134,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
                 }}
                 icon="archive-plus-outline"
                 mode="contained"
-                onPress={handleCompleteTask}
+                onPress={handleCompleteChore}
                 labelStyle={{ color: ProjectTheme.colors.secondary }}
                 rippleColor={ProjectTheme.colors.background}
               >
@@ -161,7 +161,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             }}
             icon="archive-plus-outline"
             mode="contained"
-            onPress={handleCompleteTask}
+            onPress={handleCompleteChore}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
@@ -191,4 +191,4 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     </View>
   );
 };
-export default TaskDetailsScreen;
+export default ChoreDetailsScreen;

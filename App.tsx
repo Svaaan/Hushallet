@@ -5,7 +5,7 @@ import { DefaultTheme, PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AccountProvider } from './src/Context/AccountContext';
 import { ChoreEventsProvider } from './src/Context/ChoreEventContext';
-import { ChoresProvider } from './src/Context/ChoressContext';
+import { ChoresProvider } from './src/Context/ChoresContext';
 import { HomeProvider } from './src/Context/HomeContext';
 import { ProfileProvider } from './src/Context/ProfileContext';
 import RootNavigator from './src/Navigation/RootNavigator';

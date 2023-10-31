@@ -1,21 +1,23 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Chore, mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
 
-export default function CreateTaskScreen({ navigation }: Props) {
+type Props = NativeStackScreenProps<RootStackParamList, 'EditChore'>;
+
+export default function EditChoreScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
   const [Discription, setDiscription] = React.useState('');
-  const [Interval, setInterval] = React.useState(0);
+  const [Interval, setInterval] = React.useState('');
   const [Rating, setRating] = React.useState('');
   const [image, setImage] = useState<string | null>(null);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -23,6 +25,13 @@ export default function CreateTaskScreen({ navigation }: Props) {
       alert('Sorry, we need camera roll permissions to make this work!');
       return;
     }
+    // {Chore? (
+    //   titel: Chore.name,
+    //   image: Chore.imageUri,
+    //   Discription: Chore.discription,
+    //   Interval: Chore.interval,
+    //   Rating: Chore.chore_rating,
+    // } : null)
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -36,43 +45,30 @@ export default function CreateTaskScreen({ navigation }: Props) {
     }
   };
 
-  const handelAddTask = async () => {
+  const handelEditChore = async () => {
     try {
-      const newChore: Chore = {
-        id: mockChores.length + 1,
-        home_id: parseInt(slectedHomeId.current, 10), // Convert to integer (radix)
+      const Chore = {
+        // id:slrctedChoreId.current,
+        home_id: slectedHomeId.current,
         name: titel,
-        description: Discription,
-        task_rating: parseInt(Rating, 10),
-        interval: Interval,
+        imageUri: image,
+        discription: Discription,
+        interval: parseInt(Interval, 10),
+        chore_rating: parseInt(Rating, 10),
       };
 
-      // push the chore to mockChores array
-      mockChores.push(newChore);
+      await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
+      console.log(Chore);
       navigation.navigate('Household');
     } catch (error) {
       console.log(error);
     }
     setTitel('');
     setDiscription('');
-    setInterval(parseInt('', 10));
+    setInterval('');
     setRating('');
     setImage(null);
     navigation.navigate('Household');
-    //Loggar ut alla chores för att se att den nya Chore/Task är skapad
-    console.log(mockChores);
-  };
-  const nameStyle = {
-    width: '100%',
-    height: 40,
-    backgroundColor: ProjectTheme.inputBackground,
-    borderRadius: ProjectTheme.borderRadius.medium,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
-    marginBottom: 20,
-    color: ProjectTheme.colors.textcolor,
-    elevation: ProjectTheme.elevation.small,
   };
 
   return (
@@ -239,7 +235,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             }}
             icon="content-save-outline"
             mode="contained"
-            onPress={handelAddTask}
+            onPress={handelEditChore}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
