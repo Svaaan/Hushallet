@@ -9,6 +9,7 @@ import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
 import { mockedProfile } from '../../data/mockedProfiles';
+import Button from '../Component/BottomButtonComponent';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
@@ -22,12 +23,6 @@ export default function TodayScreen({ navigation }: Props) {
   const handleGoToTaskDetails = () => {
     // Pass the chore data to the TaskDetails screen.
     navigation.navigate('TaskDetails');
-  };
-  const handleGoToCreateChore = () => {
-    navigation.navigate('CreateTask');
-  };
-  const handleGoToEditTask = () => {
-    navigation.navigate('EditTask');
   };
 
   useEffect(() => {
@@ -65,130 +60,116 @@ export default function TodayScreen({ navigation }: Props) {
   // 4. Spara även lastCompleted från den första.
 
   return (
-    <View style={{ flex: 1 }}>
-      {chores.map((chore) => {
-        const { completedToday, lastCompleted, overdue } =
-          getCompletedEventsData(choreEvents, chore);
-
-        return (
-          <TouchableOpacity
-            key={chore.id}
-            onPress={() => handleGoToTaskDetails()}
-            style={{
-              width: 390,
-              height: 65,
-              backgroundColor: ProjectTheme.buttonPrimary.color,
-              borderRadius: ProjectTheme.borderRadius.medium,
-              elevation: ProjectTheme.elevation.medium,
-              alignItems: 'center',
-              marginLeft: 10,
-              marginRight: 10,
-              marginTop: 10,
-              paddingLeft: 15,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}
+    >
+      <View
+        style={{
+          marginTop: 5,
+        }}
+      >
+        {chores.map((chore) => {
+          const { completedToday, lastCompleted, overdue } =
+            getCompletedEventsData(choreEvents, chore);
+          return (
+            <TouchableOpacity
+              key={chore.id}
+              onPress={() => handleGoToTaskDetails()}
               style={{
-                fontSize: 17,
-                fontWeight: 'bold',
+                width: 390,
+                height: 65,
+                backgroundColor: ProjectTheme.buttonPrimary.color,
+                borderRadius: ProjectTheme.borderRadius.medium,
+                elevation: ProjectTheme.elevation.medium,
+                alignItems: 'center',
+                marginLeft: 10,
+                marginRight: 10,
+                marginTop: 10,
+                paddingLeft: 15,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
               }}
             >
-              {chore.name}
-            </Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {completedToday.length > 0 ? (
-                completedToday.map((event) => {
-                  const profile = profiles.find(
-                    (p) => p.id === event.profile_id
-                  );
-                  console.log('EVENT', event);
-                  if (!profile) return null;
-                  return (
-                    <Image
-                      key={profile.id}
-                      source={profile.avatar}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        borderRadius: 15,
-                        marginRight: 15,
-                      }}
-                    />
-                  );
-                })
-              ) : (
-                <View
-                  style={{
-                    width: 30,
-                    height: 30,
-                    backgroundColor: overdue ? 'red' : '#f2f2f2',
-                    borderRadius: 15,
-                    marginRight: 15,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Text
+              <Text
+                style={{
+                  fontSize: 17,
+                  fontWeight: 'bold',
+                }}
+              >
+                {chore.name}
+              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {completedToday.length > 0 ? (
+                  completedToday.map((event) => {
+                    const profile = profiles.find(
+                      (p) => p.id === event.profile_id
+                    );
+                    console.log('EVENT', event);
+                    if (!profile) return null;
+                    return (
+                      <Image
+                        key={profile.id}
+                        source={profile.avatar}
+                        style={{
+                          width: 30,
+                          height: 30,
+                          borderRadius: 15,
+                          marginRight: 15,
+                        }}
+                      />
+                    );
+                  })
+                ) : (
+                  <View
                     style={{
-                      fontSize: 15,
-                      fontWeight: 'bold',
+                      width: 30,
+                      height: 30,
+                      backgroundColor: overdue ? 'red' : '#f2f2f2',
+                      borderRadius: 15,
+                      marginRight: 15,
+                      justifyContent: 'center',
+                      alignItems: 'center',
                     }}
                   >
-                    {getDaysBetween(new Date(), lastCompleted)}
-                    {/* {chore.interval} */}
-                  </Text>
-                </View>
-              )}
-            </View>
-          </TouchableOpacity>
-        );
-      })}
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {getDaysBetween(new Date(), lastCompleted)}
+                      {/* {chore.interval} */}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignContent: 'flex-end',
+          justifyContent: 'space-evenly',
+          width: '100%',
         }}
       >
-        <TouchableOpacity
-          style={{
-            width: 200,
-            height: 40,
-            backgroundColor: ProjectTheme.buttonPrimary.color,
-            borderRadius: ProjectTheme.borderRadius.medium,
-            elevation: ProjectTheme.elevation.medium,
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: -50,
-            right: 0,
+        <Button
+          title="Skapa syssla"
+          onPress={() => {
+            navigation.navigate('CreateTask');
           }}
-          onPress={handleGoToCreateChore}
-        >
-          <Text style={{ color: ProjectTheme.colors.textcolor }}>
-            Skapa syssla
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            width: 200,
-            height: 40,
-            backgroundColor: ProjectTheme.buttonPrimary.color,
-            borderRadius: ProjectTheme.borderRadius.medium,
-            elevation: ProjectTheme.elevation.medium,
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'absolute',
-            bottom: -50,
-            left: 0,
-            right: 0,
+        />
+        <Button
+          title="Ändra"
+          onPress={() => {
+            navigation.navigate('TaskDetails');
           }}
-          onPress={handleGoToEditTask}
-        >
-          <Text style={{ color: ProjectTheme.colors.textcolor }}>Ändra</Text>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );
