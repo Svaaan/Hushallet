@@ -5,6 +5,7 @@ import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Chore, mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
+import ChoresRating from '../Component/ChoresRating';
 import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
@@ -13,7 +14,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
   const [Discription, setDiscription] = React.useState('');
-  const [Interval, setInterval] = React.useState(0);
+  const [Interval, setInterval] = React.useState('');
   const [Rating, setRating] = React.useState('');
   const [image, setImage] = useState<string | null>(null);
 
@@ -55,7 +56,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
     }
     setTitel('');
     setDiscription('');
-    setInterval(parseInt('', 10));
+    setInterval('');
     setRating('');
     setImage(null);
     navigation.navigate('Household');
@@ -165,15 +166,11 @@ export default function CreateTaskScreen({ navigation }: Props) {
             selectedInterval={parseInt(Interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
           />
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-            }}
-          >
-            Värde:
-          </Text>
-          <TextInput
+          <ChoresRating
+            selectedRating={parseInt(Rating, 10)}
+            onRatingChange={(value) => setRating(value.toString())}
+          />
+          {/* <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 50,
@@ -186,7 +183,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             value={Rating.toString()}
             onChangeText={(text) => setRating(text)}
             keyboardType="numeric"
-          />
+          /> */}
           <Text
             style={{
               fontSize: 15,

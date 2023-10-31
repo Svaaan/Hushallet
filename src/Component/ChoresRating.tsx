@@ -9,8 +9,8 @@ interface RaingsProps {
 }
 
 const ChoresRating: React.FC<RaingsProps> = ({
-  selectedRating: selectedInterval = 0,
-  onRatingChange: onIntervalChange,
+  selectedRating = 0,
+  onRatingChange,
 }) => {
   const numbers = [1, 2, 4, 6, 7, 8];
   const [scrollViewOpen, setScrollViewOpen] = useState(false);
@@ -36,7 +36,7 @@ const ChoresRating: React.FC<RaingsProps> = ({
               key={number}
               onPress={() => {
                 setScrollViewOpen(false);
-                onIntervalChange(number);
+                onRatingChange(number);
               }}
             >
               <Text style={{ margin: 10, fontSize: 15, fontWeight: 'bold' }}>
@@ -60,9 +60,9 @@ const ChoresRating: React.FC<RaingsProps> = ({
                   fontWeight: 'bold',
                 }}
               >
-                Återkommer
+                Värde:
               </Text>
-              <Text
+              {/* <Text
                 style={{
                   paddingLeft: 180,
                   paddingRight: 8,
@@ -71,11 +71,20 @@ const ChoresRating: React.FC<RaingsProps> = ({
                 }}
               >
                 var
+              </Text> */}
+
+              <Text
+                style={{
+                  paddingLeft: 10,
+                  fontSize: 15,
+                }}
+              >
+                Hur energikrävande är sysslan?
               </Text>
               <Text
                 style={{
                   paddingLeft: 10,
-                  backgroundColor: 'red',
+                  backgroundColor: ProjectTheme.colors.secondaryContainer,
                   borderRadius: 14,
                   justifyContent: 'center',
                   alignContent: 'center',
@@ -84,16 +93,7 @@ const ChoresRating: React.FC<RaingsProps> = ({
                   paddingTop: 5,
                 }}
               >
-                {selectedInterval}
-              </Text>
-              <Text
-                style={{
-                  paddingLeft: 10,
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                dag
+                {selectedRating}
               </Text>
             </View>
           </TouchableOpacity>
