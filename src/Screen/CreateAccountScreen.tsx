@@ -14,11 +14,11 @@ export default function CreateAccountScreen() {
 
   const placeholderStyle = {
     width: 300,
-    height: 40,
+    height: 45,
     backgroundColor: ProjectTheme.inputBackground,
     borderRadius: ProjectTheme.borderRadius.medium,
     paddingLeft: 10,
-    marginBottom: 20,
+    marginBottom: 45,
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
   };

@@ -24,12 +24,14 @@ export default function EmojiSelection({
     <View style={styles.componentContainer}>
       <View>
         {availableEmojis.map((emoji, index) => (
-          <TouchableOpacity key={index} onPress={() => onSelectEmoji(emoji)}
+          <TouchableOpacity
+            key={index}
+            onPress={() => onSelectEmoji(emoji)}
             style={[
               styles.emojiButton,
               { opacity: emoji === selectedEmoji ? 1 : 0.2 },
-            ]}>
-          </TouchableOpacity>
+            ]}
+          />
         ))}
       </View>
       <View style={styles.centerspaceContainer}></View>
@@ -42,7 +44,7 @@ export default function EmojiSelection({
                 paddingTop: 40,
                 marginTop: 20,
                 width: 40,
-                height: 40,
+                height: 35,
                 justifyContent: 'space-between',
                 margin: 5,
                 opacity: emoji === selectedEmoji ? 1 : 0.5,
@@ -62,11 +64,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     flexWrap: 'wrap',
-    height: 400
+    height: 400,
   },
   centerspaceContainer: {
     width: 180,
-    height: 400
+    height: 400,
   },
   emojiButton: {
     backgroundColor: 'grey',
@@ -77,5 +79,5 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'space-between',
     margin: 5,
-  }
+  },
 });

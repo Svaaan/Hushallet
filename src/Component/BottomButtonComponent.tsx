@@ -11,11 +11,9 @@ const Button = ({ title, onPress }: ButtonProps) => {
   return (
     <TouchableOpacity
       style={{
-        width: 160,
-        height: 40,
-        marginVertical: 50,
+        width: 200,
+        height: 45,
         backgroundColor: ProjectTheme.buttonPrimary.color,
-        borderRadius: ProjectTheme.borderRadius.medium,
         elevation: ProjectTheme.elevation.medium,
         justifyContent: 'center',
         alignItems: 'center',

@@ -87,7 +87,7 @@ export function HomeProvider({ children }: { children: React.ReactNode }) {
         is_paused: false,
         is_owner: false,
         account_id: account?.id || 0,
-        homeId: 0
+        homeId: 0,
       };
       let foundDuplicateAvatar = false;
       console.log('Create temp profile: ', tempProfile);
