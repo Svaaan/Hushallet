@@ -1,8 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
-import { TextInput, View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { TextInput, View, Text } from 'react-native';
+import Button from '../Component/BottomButtonComponent';
 import { ProjectTheme } from '../../theme/theme';
 import ChooseEmoji from '../Component/ChooseEmoji';
 import { RootStackParamList } from '../Navigation/RootNavigator';
@@ -29,21 +28,13 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
     console.log('Start search');
     const allProfiles = getAllProfiles();
     if (account) {
-      await connectToHome(parseInt(code), name, selectedAvatar, account, allProfiles);
-    }
-  };
-
-  const retrieveUserData = async () => {
-    try {
-      const profileString = await AsyncStorage.getItem('userProfile');
-      if (profileString !== null) {
-        const userProfile = JSON.parse(profileString);
-        console.log('Retrieved profile from AsyncStorage: ', userProfile);
-      } else {
-        console.log('No profile found in AsyncStorage.');
-      }
-    } catch (error) {
-      console.log('Error retrieving profile from AsyncStorage: ', error);
+      await connectToHome(
+        parseInt(code),
+        name,
+        selectedAvatar,
+        account,
+        allProfiles
+      );
     }
   };
 
@@ -79,8 +70,8 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
         />
       </View>
 
-      <View style={{ position: 'absolute', top: 160 }}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+      <View style={{ position: 'absolute', top: 180 }}>
+        <Text style={{ fontSize: 17, fontWeight: 'bold' }}>
           Välj tillgänglig avatar
         </Text>
       </View>
@@ -88,7 +79,7 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
       <View
         style={{
           position: 'absolute',
-          top: 200,
+          top: 230,
         }}
       >
         <ChooseEmoji
@@ -104,36 +95,19 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
           width: '100%',
         }}
       >
-        <View style={styles.footer}>
-          <Button
-            textColor="black"
-            style={styles.button}
-            onPress={() => {
-              connectToHomeFunction();
-              navigation.navigate('MyHouseholds');
-            }}
-          >
-            Anslut
-          </Button>
-          <Button
-            textColor="black"
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate('MyHouseholds');
-            }}
-          >
-            Stäng
-          </Button>
-          <Button
-            textColor="black"
-            style={styles.button}
-            onPress={() => {
-              retrieveUserData();
-            }}
-          >
-            Hämta
-          </Button>
-        </View>
+        <Button
+          title="Anslut"
+          onPress={() => {
+            connectToHomeFunction();
+            navigation.navigate('MyHouseholds');
+          }}
+        />
+        <Button
+          title="Stäng"
+          onPress={() => {
+            navigation.navigate('MyHouseholds');
+          }}
+        />
       </View>
     </View>
   );
@@ -141,29 +115,11 @@ export default function JoinHouseholdScreen({ navigation }: Props) {
 
 const placeholderStyle = {
   width: 300,
-  height: 40,
+  height: 45,
   backgroundColor: ProjectTheme.inputBackground,
   borderRadius: ProjectTheme.borderRadius.medium,
   paddingLeft: 10,
-  marginBottom: 10,
+  marginBottom: 15,
   color: ProjectTheme.colors.textcolor,
   elevation: ProjectTheme.elevation.small,
 };
-
-const styles = StyleSheet.create({
-  button: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 0,
-    borderColor: '#ccc',
-    backgroundColor: 'white',
-  },
-  footer: {
-    position: 'absolute',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-});

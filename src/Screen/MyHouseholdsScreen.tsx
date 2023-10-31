@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import Button from '../Component/BottomButtonComponent';
 import { Home } from '../../data/mockedHomes';
@@ -18,7 +18,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   const updateAllStates = () => {
     if (profiles) {
-      //alla hem som profiler har till state
+      // alla hem som profiler har till state
       setHomesByProfiles(profiles);
     }
   };
@@ -40,6 +40,15 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
     navigation.navigate('Profile', { userId: profile_id });
   };
 
+  const placeholderStyle = {
+    width: 300,
+    height: 45,
+    backgroundColor: ProjectTheme.inputBackground,
+    borderRadius: ProjectTheme.borderRadius.medium,
+    paddingLeft: 10,
+    color: ProjectTheme.colors.textcolor,
+    elevation: ProjectTheme.elevation.small,
+  };
   return (
     <View
       style={{
@@ -49,29 +58,40 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         backgroundColor: ProjectTheme.colors.background,
       }}
     >
-      <View style={{ paddingTop: 20, flex: 1, width: '97%'}}>
-
-      {account && homes.length === 0 ? (
-        <View style={{ alignItems: 'center'}}>
-          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
-          <Text> Skapa ett hem nedan!</Text>
-        </View>
-      ) : (
-        homes.map((home: Home) => (
-          <View key={home.id} style={{ borderWidth: 1, borderColor: 'black', borderRadius: 5, padding: 10, marginVertical: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                const profileId = getProfileId(home.id);
-                if (profileId) {
-                  navigateToUserProfile(profileId, home.id);
-                }
+      <View style={{ paddingTop: 40 }}>
+        {account && homes.length === 0 ? (
+          <View style={{ alignItems: 'center' }}>
+            <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+            <Text> Skapa ett hem nedan!</Text>
+          </View>
+        ) : (
+          homes.map((home: Home) => (
+            <View
+              key={home.id}
+              style={{
+                marginVertical: 10,
               }}
             >
-              <Text>{home.name}</Text>
-            </TouchableOpacity>
-          </View>
-        ))
-      )}
+              <TouchableOpacity
+                key={home.id}
+                onPress={() => {
+                  const profileId = getProfileId(home.id);
+                  if (profileId) {
+                    navigateToUserProfile(profileId, home.id);
+                  }
+                }}
+                style={{ marginVertical: 20 }}
+              >
+                <TextInput
+                  style={placeholderStyle}
+                  placeholder="Hushålls namn"
+                  value={`Hushåll: ${home.name}`}
+                  editable={false}
+                />
+              </TouchableOpacity>
+            </View>
+          ))
+        )}
       </View>
       <View
         style={{
