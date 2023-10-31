@@ -59,6 +59,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         backgroundColor: ProjectTheme.colors.background,
       }}
     >
+
       <View style={{ paddingTop: 40 }}>
         {account && homes.length === 0 ? (
           <View style={{ alignItems: 'center' }}>
