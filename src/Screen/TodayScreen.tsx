@@ -1,17 +1,19 @@
 import { Image } from 'expo-image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
-import { mockedProfile } from '../../data/mockedProfiles';
 import { ProjectTheme } from '../../theme/theme';
 import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { useChoresContext } from '../Context/ChoressContext';
+import { useProfileContext } from '../Context/ProfileContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
+import { mockedProfile } from '../../data/mockedProfiles';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
 export default function TodayScreen({ navigation }: Props) {
+  const [isNewChoreAdded, setIsNewChoreAdded] = useState(false);
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
   // const { profiles } = useProfileContext();
@@ -27,6 +29,12 @@ export default function TodayScreen({ navigation }: Props) {
   const handleGoToEditTask = () => {
     navigation.navigate('EditTask');
   };
+
+  useEffect(() => {
+    if (isNewChoreAdded) {
+      setIsNewChoreAdded(false);
+    }
+  }, [isNewChoreAdded]);
 
   // Define a function to check if a chore has been completed within a specific date interval
   function getCompletedEventsData(choreEvents: ChoreEvent[], chore: Chore) {
@@ -129,6 +137,7 @@ export default function TodayScreen({ navigation }: Props) {
                     }}
                   >
                     {getDaysBetween(new Date(), lastCompleted)}
+                    {/* {chore.interval} */}
                   </Text>
                 </View>
               )}
@@ -152,8 +161,9 @@ export default function TodayScreen({ navigation }: Props) {
             elevation: ProjectTheme.elevation.medium,
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: 5,
-            marginVertical: 220,
+            position: 'absolute',
+            bottom: -50,
+            right: 0,
           }}
           onPress={handleGoToCreateChore}
         >
@@ -170,8 +180,10 @@ export default function TodayScreen({ navigation }: Props) {
             elevation: ProjectTheme.elevation.medium,
             justifyContent: 'center',
             alignItems: 'center',
-            marginRight: 5,
-            marginVertical: 220,
+            position: 'absolute',
+            bottom: -50,
+            left: 0,
+            right: 0,
           }}
           onPress={handleGoToEditTask}
         >

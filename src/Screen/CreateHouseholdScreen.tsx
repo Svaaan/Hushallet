@@ -1,24 +1,40 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
 import { Home, mockedHomes } from '../../data/mockedHomes';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-import { Button, TextInput } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import { useAccountContext } from '../Context/AccountContext';
 import { useHomeContext } from '../Context/HomeContext';
+import { Profile, mockedProfile } from '../../data/mockedProfiles';
+import { useProfileContext } from '../Context/ProfileContext';
+import Button from '../Component/BottomButtonComponent';
 import ChooseEmoji from '../Component/ChooseEmoji';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateHousehold'>;
 
+const placeholderStyle = {
+  width: 300,
+  height: 45,
+  backgroundColor: ProjectTheme.inputBackground,
+  borderRadius: ProjectTheme.borderRadius.small,
+  paddingLeft: 10,
+  marginTop: 20,
+  color: ProjectTheme.colors.textcolor,
+  elevation: ProjectTheme.elevation.small,
+};
+
 export default function CreateHouseholdScreen({ navigation }: Props) {
   const [householdName, setHouseholdName] = useState('');
   const [generatedCode, setGeneratedCode] = useState('');
+  const [profileName, setProfileName] = useState('');
 
   const { account } = useAccountContext();
   const { createHome } = useHomeContext();
 
   const [selectedAvatar, setSelectedAvatar] = useState('');
+  const { createProfile } = useProfileContext();
 
   const handleAvatarSelection = (avatar: string) => {
     setSelectedAvatar(avatar);
@@ -34,14 +50,28 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
   const handleSaveButtonPress = () => {
     if (householdName !== '' && account) {
       const newHousehold: Home = {
-        id: mockedHomes.length + 1,
+        id: Number(generatedCode),
         name: householdName,
-        profile_id: account.id,
-        home_code: parseInt(generatedCode),
+        home_code: Number(generatedCode),
       };
-      console.log('hushåll som ska pushas in: ', newHousehold);
       mockedHomes.push(newHousehold);
       createHome(newHousehold);
+      console.log('hushåll som ska pushas in: ', newHousehold);
+      const homeId = mockedHomes[mockedHomes.length - 1].id;
+
+      const setOwner: Profile = {
+        is_owner: true,
+        id: Number(generatedCode),
+        name: profileName,
+        avatar: selectedAvatar,
+        is_paused: false,
+        account_id: account.id,
+        homeId: homeId,
+      };
+      mockedProfile.push(setOwner);
+      createProfile(setOwner);
+      console.log('profilen skapades: ', setOwner);
+
       navigation.navigate('MyHouseholds');
     }
   };
@@ -51,25 +81,36 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Skapa Hushåll</Text>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: ProjectTheme.colors.background,
+        justifyContent: 'space-between',
+      }}
+    >
+      <View>
+        <TextInput
+          placeholder="Namn på hushåll"
+          style={placeholderStyle}
+          onChangeText={(text) => setHouseholdName(text)}
+          value={householdName}
+        />
+        <TextInput
+          placeholder="Profilnamn"
+          style={placeholderStyle}
+          onChangeText={(text) => setProfileName(text)}
+          value={profileName}
+        />
+        <TextInput
+          placeholder="Genererad kod"
+          style={placeholderStyle}
+          value={generatedCode}
+          editable={false}
+        />
       </View>
-      <TextInput
-        placeholder="Namn på hushåll"
-        style={styles.input}
-        onChangeText={(text) => setHouseholdName(text)}
-        value={householdName}
-      />
-      <TextInput
-        placeholder="Genererad kod"
-        style={styles.input}
-        value={generatedCode}
-        editable={false}
-      />
-
-      <View style={{ position: 'absolute', top: 210, alignSelf: 'center'}}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+      <View style={{ position: 'absolute', top: 210, alignSelf: 'center' }}>
+        <Text style={{ fontSize: 15, fontWeight: 'bold' }}>
           Välj tillgänglig avatar
         </Text>
       </View>
@@ -78,7 +119,7 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         style={{
           position: 'absolute',
           top: 240,
-          left: 50
+          left: 50,
         }}
       >
         <ChooseEmoji
@@ -87,23 +128,15 @@ export default function CreateHouseholdScreen({ navigation }: Props) {
         />
       </View>
 
-      <View style={styles.footer}>
-        <Button
-          textColor="black"
-          style={styles.button}
-          mode="contained"
-          onPress={() => handleSaveButtonPress()}
-        >
-          Spara
-        </Button>
-        <Button
-          textColor="black"
-          style={styles.button}
-          mode="contained"
-          onPress={() => handleBackButtonPress()}
-        >
-          Tillbaka
-        </Button>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-evenly',
+          width: '100%',
+        }}
+      >
+        <Button title="Spara" onPress={() => handleSaveButtonPress()} />
+        <Button title="Stäng" onPress={() => handleBackButtonPress()} />
       </View>
     </View>
   );
@@ -127,47 +160,3 @@ function findUniqueCode(existingCodes: number[]): number {
   } while (existingCodes.includes(uniqueCode));
   return uniqueCode;
 }
-
-const theme = ProjectTheme;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: theme.containerStyle.flex,
-  },
-  header: {
-    padding: 10,
-    backgroundColor: theme.headerBackgroundColor,
-    elevation: 10,
-  },
-  headerText: {
-    color: theme.headerTitleColor,
-    fontSize: theme.typography.header.fontSize,
-    fontWeight: theme.typography.header.fontWeight,
-    textAlign: 'center',
-  },
-  input: {
-    backgroundColor: theme.inputBackground,
-    color: theme.inputPlaceholderColor,
-    borderRadius: 10,
-    height: 55,
-    width: 350,
-    marginLeft: 20,
-    marginTop: 15,
-    elevation: 5,
-  },
-  footer: {
-    position: 'absolute',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  button: {
-    flex: 1,
-    borderWidth: 1,
-    borderRadius: 0,
-    borderColor: '#ccc',
-    backgroundColor: 'white',
-  },
-});

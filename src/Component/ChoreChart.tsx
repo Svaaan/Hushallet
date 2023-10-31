@@ -10,13 +10,15 @@ interface ChoreChartProps {
 }
 
 function ChoreChart(props: ChoreChartProps) {
+  if (!props || !props.choreEvents) {
+    return null; // Return null if props or props.choreEvents are undefined
+  }
   const filteredChoreEvents = props.choreEvents.filter((event) => {
     return event.date >= props.startDate && event.date <= props.endDate;
   });
 
-  // Check if there are choreEvents available
   if (filteredChoreEvents.length === 0) {
-    return null;
+    return null; // Return null if there are no filtered chore events
   }
 
   const profileChoresCount: Record<string, number> = {};

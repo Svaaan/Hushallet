@@ -19,17 +19,18 @@ export default function LoginScreen({ navigation }: Props) {
       console.log('kontot som loggades in: ', account);
       //alla profiler som account har sätts till state profiles
       setProfilesByAccountId(account.id);
+      // sedan sätta home by profiles
       navigation.navigate('MyHouseholds');
     }
   }
 
   const placeholderStyle = {
     width: 300,
-    height: 40,
+    height: 45,
     backgroundColor: ProjectTheme.inputBackground,
     borderRadius: ProjectTheme.borderRadius.medium,
     paddingLeft: 10,
-    marginBottom: 20,
+    marginBottom: 30,
     color: ProjectTheme.colors.textcolor,
     elevation: ProjectTheme.elevation.small,
   };
@@ -41,7 +42,7 @@ export default function LoginScreen({ navigation }: Props) {
         alignItems: 'center',
         justifyContent: 'flex-start',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 270,
+        paddingTop: 170,
       }}
     >
       <TextInput
@@ -64,13 +65,13 @@ export default function LoginScreen({ navigation }: Props) {
       <TouchableOpacity
         style={{
           width: 300,
-          height: 40,
+          height: 45,
           backgroundColor: ProjectTheme.buttonPrimary.color,
           borderRadius: ProjectTheme.borderRadius.medium,
           elevation: ProjectTheme.elevation.medium,
           justifyContent: 'center',
           alignItems: 'center',
-          marginVertical: 20,
+          marginVertical: 40,
         }}
         onPress={handleLogin}
       >

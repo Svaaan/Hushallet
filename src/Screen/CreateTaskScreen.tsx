@@ -1,12 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from 'react';
 import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import uuid from 'react-native-uuid';
+import { Chore, mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import Intervals from '../Component/Interval';
+import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
 
@@ -14,10 +14,11 @@ export default function CreateTaskScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
   const [Discription, setDiscription] = React.useState('');
-  const [Interval, setInterval] = React.useState('');
+  const [Interval, setInterval] = React.useState(0);
   const [Rating, setRating] = React.useState('');
   const [image, setImage] = useState<string | null>(null);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const { addChore } = useChoresContext();
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -40,28 +41,28 @@ export default function CreateTaskScreen({ navigation }: Props) {
 
   const handelAddTask = async () => {
     try {
-      const Chore = {
-        id: uuid.v4(),
-        home_id: slectedHomeId.current,
+      const newChore: Chore = {
+        id: mockChores.length + 1,
+        home_id: parseInt(slectedHomeId.current, 10), // Convert to integer (radix)
         name: titel,
-        imageUri: image,
-        discription: Discription,
-        interval: parseInt(Interval, 10),
+        description: Discription,
         task_rating: parseInt(Rating, 10),
+        interval: Interval,
       };
 
-      await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
-      console.log(Chore);
+      // push the chore to mockChores array
+      mockChores.push(newChore);
       navigation.navigate('Household');
     } catch (error) {
       console.log(error);
     }
     setTitel('');
     setDiscription('');
-    setInterval('');
+    setInterval(parseInt('', 10));
     setRating('');
     setImage(null);
     navigation.navigate('Household');
+    console.log(mockChores);
   };
   const nameStyle = {
     width: '100%',
