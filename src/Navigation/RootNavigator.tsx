@@ -37,7 +37,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   return (
-    <Stack.Navigator initialRouteName="CreateTask">
+    <Stack.Navigator initialRouteName="Start">
       <Stack.Screen name="Start" component={StartScreen} />
       <Stack.Screen name="CreateAccount" component={CreateAccountScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
