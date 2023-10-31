@@ -60,7 +60,6 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
       }}
     >
       <View style={{ paddingTop: 20, flex: 1, width: '97%' }}>
-
         {account && homes.length === 0 ? (
           <View style={{ alignItems: 'center' }}>
             <Text>Få ordning och reda i hemmet med hela familjen.</Text>
