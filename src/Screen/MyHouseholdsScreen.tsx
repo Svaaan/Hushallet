@@ -18,7 +18,7 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
 
   const updateAllStates = () => {
     if (profiles) {
-      //alla hem som profiler har till state
+      // alla hem som profiler har till state
       setHomesByProfiles(profiles);
     }
   };
@@ -59,38 +59,40 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         backgroundColor: ProjectTheme.colors.background,
       }}
     >
-      <View style={{ paddingTop: 20, flex: 1, width: '97%'}}>
-
-      {account && homes.length === 0 ? (
-        <View style={{ alignItems: 'center'}}>
-          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
-          <Text> Skapa ett hem nedan!</Text>
-        </View>
-      ) : (
-        homes.map((home: Home) => (
-          <View key={home.id} style={{ borderWidth: 1, borderColor: 'black', borderRadius: 5, padding: 10, marginVertical: 10 }}>
-            <TouchableOpacity
+      <View style={{ paddingTop: 40 }}>
+        {account && homes.length === 0 ? (
+          <View style={{ alignItems: 'center' }}>
+            <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+            <Text> Skapa ett hem nedan!</Text>
+          </View>
+        ) : (
+          homes.map((home: Home) => (
+            <View
               key={home.id}
-              onPress={() => {
-                const profileId = getProfileId(home.id);
-                if (profileId) {
-                  navigateToUserProfile(profileId, home.id);
-                }
+              style={{
+                marginVertical: 10,
               }}
-              style={{ marginVertical: 25 }}
             >
-              <TextInput
-                style={placeholderStyle}
-                placeholder="Hushålls namn"
-                value={`Hushåll: ${home.name}`}
-                editable={false}
-              />
-            </TouchableOpacity>
+              <TouchableOpacity
+                key={home.id}
+                onPress={() => {
+                  const profileId = getProfileId(home.id);
+                  if (profileId) {
+                    navigateToUserProfile(profileId, home.id);
+                  }
+                }}
+                style={{ marginVertical: 20 }}
+              >
+                <TextInput
+                  style={placeholderStyle}
+                  placeholder="Hushålls namn"
+                  value={`Hushåll: ${home.name}`}
+                  editable={false}
+                />
+              </TouchableOpacity>
+            </View>
           ))
         )}
-          </View>
-        ))
-      )}
       </View>
       <View
         style={{
@@ -100,13 +102,13 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         }}
       >
         <Button
-          title="Skapa hushåll"
+          title="Gå med i hushåll"
           onPress={() => {
             navigation.navigate('JoinHousehold');
           }}
         />
         <Button
-          title="Gå med i hushåll"
+          title="Skapa hushåll"
           onPress={() => {
             navigation.navigate('CreateHousehold');
           }}
