@@ -59,19 +59,16 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
         backgroundColor: ProjectTheme.colors.background,
       }}
     >
-      <View
-        style={{
-          padding: 80,
-        }}
-      >
-        {account && homes.length === 0 ? (
-          <View style={{ alignItems: 'center' }}>
-            <Text>Få ordning och reda i hemmet med hela familjen.</Text>
-            <Text> Skapa ett hem nedan!</Text>
-          </View>
-        ) : (
-          homes.map((home: Home) => (
-            // <View key={home.id}>
+      <View style={{ paddingTop: 20, flex: 1, width: '97%'}}>
+
+      {account && homes.length === 0 ? (
+        <View style={{ alignItems: 'center'}}>
+          <Text>Få ordning och reda i hemmet med hela familjen.</Text>
+          <Text> Skapa ett hem nedan!</Text>
+        </View>
+      ) : (
+        homes.map((home: Home) => (
+          <View key={home.id} style={{ borderWidth: 1, borderColor: 'black', borderRadius: 5, padding: 10, marginVertical: 10 }}>
             <TouchableOpacity
               key={home.id}
               onPress={() => {
@@ -91,6 +88,9 @@ export default function MyHouseholdsScreen({ navigation }: Props) {
             </TouchableOpacity>
           ))
         )}
+          </View>
+        ))
+      )}
       </View>
       <View
         style={{
