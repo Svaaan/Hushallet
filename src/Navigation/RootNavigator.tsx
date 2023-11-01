@@ -69,11 +69,6 @@ export default function RootNavigator() {
         options={{ title: 'Mina Hushåll' }}
       />
       <Stack.Screen
-        name="ProfileSettings"
-        component={ProfileSettingScreen}
-        options={{ title: 'Profil Inställningar' }}
-      />
-      <Stack.Screen
         name="EditHousehold"
         component={EditHouseholdScreen}
         options={{ title: 'Redigera Hushåll' }}
@@ -96,7 +91,7 @@ export default function RootNavigator() {
       <Stack.Screen
         name="SwipeNav"
         component={HouseholdSwipeNavigator}
-        options={{ title: 'Hushållet' }}
+        options={{ title: 'Sysslorna' }}
       />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
