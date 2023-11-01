@@ -37,9 +37,9 @@ export default function YearlyStatisticsScreen({ navigation }: Props) {
         startDate={currentYearStartDate}
         endDate={currentYearEndDate}
         choreEvents={yearlyChoreEvents}
-        slices={[]} // placeholder
-        height={300} // default
-        width={300} // default
+        slices={[]}
+        height={300}
+        width={300}
       />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {
