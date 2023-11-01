@@ -10,7 +10,7 @@ import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'CreateChore'>;
 
-export default function CreateTaskScreen({ navigation }: Props) {
+export default function CreateChoreScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
   const [Discription, setDiscription] = React.useState('');
@@ -37,7 +37,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
     }
   };
 
-  const handelAddTask = async () => {
+  const handelAddChore = async () => {
     try {
       const newChore: Chore = {
         id: mockChores.length + 1,
@@ -60,7 +60,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
     setRating('');
     setImage(null);
     navigation.navigate('Household');
-    //Loggar ut alla chores för att se att den nya Chore/Task är skapad
+    //Loggar ut alla chores för att se att den nya Chore är skapad
     console.log(mockChores);
   };
   const nameStyle = {
@@ -179,7 +179,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             }}
             icon="content-save-outline"
             mode="contained"
-            onPress={handelAddTask}
+            onPress={handelAddChore}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
