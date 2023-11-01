@@ -39,30 +39,38 @@ export default function CreateChoreScreen({ navigation }: Props) {
 
   const handelAddChore = async () => {
     try {
+      const intervalValue = parseInt(Interval, 10);
+
+      if (isNaN(intervalValue)) {
+        console.error('Interval is not a valid number');
+        return;
+      }
+
       const newChore: Chore = {
         id: mockChores.length + 1,
-        home_id: parseInt(slectedHomeId.current, 10), // Convert to integer (radix)
+        home_id: parseInt(slectedHomeId.current, 10),
         name: titel,
         description: Discription,
         chore_rating: parseInt(Rating, 10),
-        interval: Interval,
+        interval: intervalValue,
       };
 
-      // push the chore to mockChores array
       mockChores.push(newChore);
+
+      setTitel('');
+      setDiscription('');
+      setInterval('');
+      setRating('');
+      setImage(null);
+
       navigation.navigate('Household');
+
+      console.log(mockChores);
     } catch (error) {
       console.log(error);
     }
-    setTitel('');
-    setDiscription('');
-    setInterval('');
-    setRating('');
-    setImage(null);
-    navigation.navigate('Household');
-    //Loggar ut alla chores för att se att den nya Chore är skapad
-    console.log(mockChores);
   };
+
   const nameStyle = {
     width: '100%',
     height: 40,
