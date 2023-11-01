@@ -18,7 +18,6 @@ export default function TodayScreen({ navigation }: Props) {
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
   const { profiles } = useProfileContext();
-  // const profiles = mockedProfile;
 
   const handleGoToTaskDetails = (choreId: number) => {
     // Pass the chore data to the TaskDetails screen.
@@ -36,14 +35,6 @@ export default function TodayScreen({ navigation }: Props) {
       setIsNewChoreAdded((prevValue) => !prevValue);
     }, [])
   );
-
-  // Vet inte om denna behövs längre då FocusEffect hanterar det med genom navigation?
-  // useEffect(() => {
-  //   if (isNewChoreAdded) {
-  //     setIsNewChoreAdded(false);
-  //   }
-  //   console.log(isNewChoreAdded);
-  // }, [isNewChoreAdded]);
 
   // Define a function to check if a chore has been completed within a specific date interval
   function getCompletedEventsData(choreEvents: ChoreEvent[], chore: Chore) {
@@ -152,7 +143,6 @@ export default function TodayScreen({ navigation }: Props) {
                         fontWeight: 'bold',
                       }}
                     >
-                      {/* {getDaysBetween(new Date(), lastCompleted)} */}
                       {chore.interval}
                     </Text>
                   </View>
@@ -170,11 +160,6 @@ export default function TodayScreen({ navigation }: Props) {
         }}
       >
         <Button title="Skapa syssla" onPress={() => handleGoToCreateChore()} />
-
-        {/* <Button
-          title="Redigera syssla"
-          onPress={() => handleGoToEditTask(chore.id)}
-        /> */}
       </View>
     </View>
   );
