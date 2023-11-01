@@ -5,11 +5,11 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
+import Button from '../Component/BottomButtonComponent';
 import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
-import Button from '../Component/BottomButtonComponent';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
@@ -18,31 +18,23 @@ export default function TodayScreen({ navigation }: Props) {
   const { chores } = useChoresContext();
   const { choreEvents } = useChoreEventsContext();
   const { profiles } = useProfileContext();
-  // const profiles = mockedProfile;
 
   const handleGoToTaskDetails = (choreId: number) => {
     // Pass the chore data to the TaskDetails screen.
-    navigation.navigate('TaskDetails', { choreId });
+    navigation.navigate('ChoreDetails', { choreId });
   };
   const handleGoToCreateChore = () => {
     navigation.navigate('CreateTask');
   };
-  const handleGoToEditTask = () => {
-    navigation.navigate('EditTask');
+  // denna används inte då jag kommenterade ut knappen för den. bara fått Edit att fungera genom att klicka på en Chore först sen edit.
+  const handleGoToEditTask = (choreId: number) => {
+    navigation.navigate('EditChore', { choreId });
   };
   useFocusEffect(
     React.useCallback(() => {
       setIsNewChoreAdded((prevValue) => !prevValue);
     }, [])
   );
-
-  // Vet inte om denna behövs längre då FocusEffect hanterar det med genom navigation?
-  // useEffect(() => {
-  //   if (isNewChoreAdded) {
-  //     setIsNewChoreAdded(false);
-  //   }
-  //   console.log(isNewChoreAdded);
-  // }, [isNewChoreAdded]);
 
   // Define a function to check if a chore has been completed within a specific date interval
   function getCompletedEventsData(choreEvents: ChoreEvent[], chore: Chore) {
@@ -151,7 +143,6 @@ export default function TodayScreen({ navigation }: Props) {
                         fontWeight: 'bold',
                       }}
                     >
-                      {/* {getDaysBetween(new Date(), lastCompleted)} */}
                       {chore.interval}
                     </Text>
                   </View>
@@ -169,8 +160,6 @@ export default function TodayScreen({ navigation }: Props) {
         }}
       >
         <Button title="Skapa syssla" onPress={() => handleGoToCreateChore()} />
-
-        <Button title="Redigera syssla" onPress={() => handleGoToEditTask()} />
       </View>
     </View>
   );

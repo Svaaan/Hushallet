@@ -45,7 +45,7 @@ Sysslor (4)
 [x] En ägare ska kunna lägga till sysslor att göra i hemmet. *
 [x] En syssla ska ha ett namn, en beskrivning (text), hur ofta den ska göras (dagar), och en
     vikt som beskriver hur energikrävande den är. *
-[] En ägare ska kunna redigera en syssla(Funkar inte). *
+[x] En ägare ska kunna redigera en syssla. *
 
 
 Dagsvyn (3)
@@ -53,8 +53,8 @@ Dagsvyn (3)
 [x] Alla sysslor ska listas i en dagsvy och ge en översikt kring vad som behöver göras. *
 [x] Utöver sysslans namn ska även vem/vilka som har gjort sysslan visas, hur många dagar
    sedan sysslan gjordes senast samt om den är försenad. *
-[] När en användare väljer en syssla ska beskrivningen av sysslan visas och det ska även
-   med ett enkelt tryck gå att markera syssla som gjord(Visar inget just nu). *
+[x] När en användare väljer en syssla ska beskrivningen av sysslan visas och det ska även
+   med ett enkelt tryck gå att markera syssla som gjord. *
 
 Statistik (3)
 
@@ -96,8 +96,8 @@ Sysslor (3)
 
 Statistik (2)
 
-[] Det ska finnas en statistikvy över ”förra vecka”.
-[] Det ska finnas en statistikvy över ”förra månaden”.
+[x] Det ska finnas en statistikvy över ”förra vecka”.
+[x] Det ska finnas en statistikvy över ”förra månaden”.
 
 Schemaläggning (3)
 

@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { ProjectTheme } from '../../theme/theme';
@@ -9,12 +9,20 @@ import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { sameDay } from './TodayScreen';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChoreDetails'>;
 
 const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profiles } = useProfileContext();
   const { getChoreById } = useChoresContext();
   const Chore = getChoreById(route.params.choreId);
+  const [image, setImage] = useState<string | null>(Chore?.imageUri || null);
+
+  useEffect(() => {
+    if (Chore) {
+      const imageUri = Chore.imageUri;
+      setImage(imageUri ?? null);
+    }
+  }, [Chore]);
 
   const profileId: number | undefined = profiles[0]?.id;
   const [showChoreCompletedMessage, setShowChoreCompletedMessage] =
@@ -58,8 +66,15 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     // Increment the maximum ID to get the new ID
     return maxId + 1;
   };
-  const handleEdit = () => {
-    navigation.navigate('EditTask');
+  const handleEdit = (choreId: number) => {
+    navigation.navigate('EditChore', { choreId });
+  };
+
+  // Wrap handleEdit in a function that takes no arguments
+  const handleEditButtonPress = () => {
+    if (Chore) {
+      handleEdit(Chore.id);
+    }
   };
   const nameStyle = {
     height: 40,
@@ -91,9 +106,9 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             <Text style={nameStyle}>Description: {Chore.description}</Text>
             <Text style={nameStyle}>Interval: {Chore.interval}</Text>
             <Text style={nameStyle}>Rating: {Chore.task_rating}</Text>
-            {/* {Image && (
+            {image && (
               <Image
-                source={{ uri: Chore.imageUri }}
+                source={{ uri: image }}
                 style={{
                   width: 380,
                   height: 225,
@@ -101,7 +116,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
                   marginBottom: 10,
                 }}
               />
-            )} */}
+            )}
           </View>
         ) : (
           <Text>Loading task data...</Text>
@@ -179,7 +194,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
               }}
               icon="archive-cog-outline"
               mode="contained"
-              onPress={handleEdit}
+              onPress={handleEditButtonPress}
               labelStyle={{ color: ProjectTheme.colors.secondary }}
               rippleColor={ProjectTheme.colors.background}
             >

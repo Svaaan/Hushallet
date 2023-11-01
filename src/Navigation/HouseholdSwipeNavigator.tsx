@@ -19,8 +19,6 @@ export type HouseholdSwipeParamList = {
 
 const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
 
-// https://reactnavigation.org/docs/material-top-tab-navigator#tabbar
-
 export default function HouseholdSwipeNavigator() {
   const currentMonth = getCurrentMonthName();
   const currentYear = getCurrentYear();
@@ -29,16 +27,20 @@ export default function HouseholdSwipeNavigator() {
       initialRouteName="Today"
       tabBar={(props) => <CustomTabBar {...props} />}
     >
-      <Swipe.Screen name="Today" component={TodayScreen} />
+      <Swipe.Screen
+        name="Today"
+        component={TodayScreen}
+        options={{ title: 'Idag' }}
+      />
       <Swipe.Screen
         name="CurrentWeekStatisticsScreen"
         component={StatisticsScreen}
-        options={{ title: 'This Week' }}
+        options={{ title: 'Denna Vecka' }}
       />
       <Swipe.Screen
         name="LastWeekStatistics"
         component={LastWeekStatisticsScreen}
-        options={{ title: 'Last Week' }}
+        options={{ title: 'Förra veckan' }}
       />
       <Swipe.Screen
         name="MonthlyStatistics"

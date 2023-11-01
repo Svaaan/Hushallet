@@ -5,6 +5,7 @@ interface Chore {
   description: string;
   task_rating: number;
   interval: number;
+  imageUri?: string | null;
 }
 
 const mockChores: Chore[] = [

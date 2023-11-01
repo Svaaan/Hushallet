@@ -1,22 +1,40 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Chore, mockChores } from '../../data/mockedChores';
+import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
-import ChoresRating from '../Component/ChoresRating';
-import Intervals from '../Component/Interval';
+import {
+  default as Interval,
+  default as Intervals,
+} from '../Component/Interval';
+import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
 
-export default function CreateTaskScreen({ navigation }: Props) {
-  const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
-  const [titel, setTitel] = React.useState('');
-  const [Discription, setDiscription] = React.useState('');
-  const [Interval, setInterval] = React.useState('');
-  const [Rating, setRating] = React.useState('');
+type Props = NativeStackScreenProps<RootStackParamList, 'EditChore'>;
+
+export default function EditTaskScreen({ route, navigation }: Props) {
+  const { getChoreById, editChore } = useChoresContext();
+  const choreId: number = route.params.choreId;
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [interval, setInterval] = useState('');
+  const [rating, setRating] = useState('');
   const [image, setImage] = useState<string | null>(null);
+  const [chore, setChore] = useState<Chore | null>(null);
+
+  useEffect(() => {
+    if (choreId) {
+      const fetchedChore = getChoreById(choreId);
+      setChore(fetchedChore);
+      setTitle(fetchedChore.name);
+      setDescription(fetchedChore.description);
+      setInterval(fetchedChore.interval.toString());
+      setRating(fetchedChore.task_rating.toString());
+      setImage(fetchedChore.imageUri || null);
+    }
+  }, [choreId]);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -37,47 +55,51 @@ export default function CreateTaskScreen({ navigation }: Props) {
     }
   };
 
-  const handelAddTask = async () => {
-    try {
-      const newChore: Chore = {
-        id: mockChores.length + 1,
-        home_id: parseInt(slectedHomeId.current, 10), // Convert to integer (radix)
-        name: titel,
-        description: Discription,
-        task_rating: parseInt(Rating, 10),
-        interval: Interval,
-      };
-
-      // push the chore to mockChores array
-      mockChores.push(newChore);
-      navigation.navigate('Household');
-    } catch (error) {
-      console.log(error);
+  const handleEditTask = async () => {
+    if (!chore) {
+      return;
     }
-    setTitel('');
-    setDiscription('');
-    setInterval('');
-    setRating('');
-    setImage(null);
+
+    const editedChore: Chore = {
+      ...chore,
+      name: title,
+      description,
+      interval: parseInt(interval, 10),
+      task_rating: parseInt(rating, 10),
+    };
+
+    editChore(editedChore);
+
     navigation.navigate('Household');
-    //Loggar ut alla chores för att se att den nya Chore/Task är skapad
-    console.log(mockChores);
-  };
-  const nameStyle = {
-    width: '100%',
-    height: 40,
-    backgroundColor: ProjectTheme.inputBackground,
-    borderRadius: ProjectTheme.borderRadius.medium,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
-    marginBottom: 20,
-    color: ProjectTheme.colors.textcolor,
-    elevation: ProjectTheme.elevation.small,
+    console.log(chore);
   };
 
   return (
     <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
+      <View
+        style={{
+          backgroundColor: ProjectTheme.inputBackground,
+          borderRadius: ProjectTheme.borderRadius.medium,
+          paddingLeft: 10,
+          paddingRight: 10,
+          paddingTop: 10,
+          marginBottom: 20,
+          elevation: ProjectTheme.elevation.small,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            paddingTop: 14,
+            justifyContent: 'center',
+            alignContent: 'center',
+            height: 66,
+          }}
+        >
+          Skapa en ny syssla
+        </Text>
+      </View>
       <View
         style={{
           flex: 1,
@@ -94,14 +116,14 @@ export default function CreateTaskScreen({ navigation }: Props) {
             paddingTop: 20,
           }}
         >
-          {/* <Text
+          <Text
             style={{
               fontSize: 15,
               fontWeight: 'bold',
             }}
           >
             Titel:
-          </Text> */}
+          </Text>
           <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
@@ -112,13 +134,18 @@ export default function CreateTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={titel}
-            placeholder="Titel"
-            onChangeText={(text) => setTitel(text)}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
           />
-          <Text> </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Beskrivning:
+          </Text>
           <TextInput
-            placeholder="Beskrivning"
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 100,
@@ -127,22 +154,45 @@ export default function CreateTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={Discription}
-            onChangeText={(text) => setDiscription(text)}
+            value={description}
+            onChangeText={(text) => setDescription(text)}
             multiline
             numberOfLines={4}
           />
-          <Text></Text>
           <Intervals
-            selectedInterval={parseInt(Interval, 10)}
+            selectedInterval={parseInt(interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
           />
-          <Text></Text>
-          <ChoresRating
-            selectedRating={parseInt(Rating, 10)}
-            onRatingChange={(value) => setRating(value.toString())}
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Värde:
+          </Text>
+          <TextInput
+            style={{
+              borderRadius: ProjectTheme.borderRadius.large,
+              height: 50,
+
+              backgroundColor: '#FFFFFF',
+              elevation: ProjectTheme.elevation.small,
+              paddingLeft: 10,
+              marginBottom: 10,
+            }}
+            value={rating.toString()}
+            onChangeText={(text) => setRating(text)}
+            keyboardType="numeric"
           />
-          <Text> </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+            }}
+          >
+            Bild:
+          </Text>
           <Button
             style={{
               marginBottom: 10,
@@ -187,7 +237,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             }}
             icon="content-save-outline"
             mode="contained"
-            onPress={handelAddTask}
+            onPress={handleEditTask}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
@@ -198,7 +248,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
               elevation: ProjectTheme.elevation.large,
               marginBottom: 5,
               height: 50,
-              width: '48%', // Make sure there is enough space for both buttons
+              width: '48%',
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}
