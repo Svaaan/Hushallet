@@ -1,17 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import ChoreDetailsScreen from '../Screen/ChoreDetailsScreen';
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
-import CreateHouseholdScreen from '../Screen/CreateHouseholdScreen';
 import CreateChoreScreen from '../Screen/CreateChoreScreen';
+import CreateHouseholdScreen from '../Screen/CreateHouseholdScreen';
 import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
-import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import EditChore from '../Screen/EditChoreScreen';
+import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
 import HouseProfileScreen from '../Screen/HouseProfileScreen';
 import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
 import StartScreen from '../Screen/StartScreen';
-import ChoreDetailsScreen from '../Screen/ChoreDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
 
 export type RootStackParamList = {
@@ -93,7 +93,7 @@ export default function RootNavigator() {
         component={HouseholdSwipeNavigator}
         options={{ title: 'Hushållet' }}
       />
-      
+
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
           name="ChoreDetails"

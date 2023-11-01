@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
+// import { red100 } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
-interface IntervalsProps {
-  selectedInterval: number;
-  onIntervalChange: (value: number) => void;
+interface RaingsProps {
+  selectedRating: number;
+  onRatingChange: (value: number) => void;
 }
 
-const Intervals: React.FC<IntervalsProps> = ({
-  selectedInterval = 0,
-  onIntervalChange,
+const ChoresRating: React.FC<RaingsProps> = ({
+  selectedRating = 0,
+  onRatingChange,
 }) => {
-  const numbers = Array.from({ length: 20 }, (_, i) => i + 1);
+  const numbers = [1, 2, 4, 6, 7, 8];
   const [scrollViewOpen, setScrollViewOpen] = useState(false);
 
   return (
@@ -35,12 +36,24 @@ const Intervals: React.FC<IntervalsProps> = ({
               key={number}
               onPress={() => {
                 setScrollViewOpen(false);
-                onIntervalChange(number);
+                onRatingChange(number);
               }}
             >
-              <Text style={{ margin: 10, fontSize: 15, fontWeight: 'bold' }}>
-                {number}
-              </Text>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  backgroundColor: ProjectTheme.colors.secondaryContainer,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 10,
+                }}
+              >
+                <Text style={{ margin: 10, fontSize: 15, fontWeight: 'bold' }}>
+                  {number}
+                </Text>
+              </View>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -57,47 +70,36 @@ const Intervals: React.FC<IntervalsProps> = ({
                 style={{
                   fontSize: 15,
                   fontWeight: 'bold',
+                  paddingRight: 250,
                 }}
               >
-                Återkommer
+                Värde:
               </Text>
-              <Text
-                style={{
-                  paddingLeft: 180,
-                  paddingRight: 8,
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                var
-              </Text>
+
               <Text
                 style={{
                   paddingLeft: 10,
-                  backgroundColor: 'red',
+                  backgroundColor: ProjectTheme.colors.secondaryContainer,
                   borderRadius: 14,
                   justifyContent: 'center',
                   alignContent: 'center',
                   width: 28,
+                  paddingTop: 2,
                   height: 28,
-                  paddingTop: 5,
-                  fontSize: 15,
-                  color: 'white',
-                  fontWeight: 'bold',
-                }}
-              >
-                {selectedInterval}
-              </Text>
-              <Text
-                style={{
-                  paddingLeft: 10,
                   fontSize: 15,
                   fontWeight: 'bold',
                 }}
               >
-                dag
+                {selectedRating}
               </Text>
             </View>
+            <Text
+              style={{
+                fontSize: 12,
+              }}
+            >
+              Hur energikrävande är sysslan?
+            </Text>
           </TouchableOpacity>
         </View>
       )}
@@ -105,4 +107,4 @@ const Intervals: React.FC<IntervalsProps> = ({
   );
 };
 
-export default Intervals;
+export default ChoresRating;

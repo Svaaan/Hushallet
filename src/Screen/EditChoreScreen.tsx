@@ -5,9 +5,9 @@ import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
+import ChoresRating from '../Component/ChoresRating';
 import {
-  default as Interval,
-  default as Intervals,
+  default as Intervals
 } from '../Component/Interval';
 import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
@@ -78,30 +78,6 @@ export default function EditTaskScreen({ route, navigation }: Props) {
     <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
       <View
         style={{
-          backgroundColor: ProjectTheme.inputBackground,
-          borderRadius: ProjectTheme.borderRadius.medium,
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingTop: 10,
-          marginBottom: 20,
-          elevation: ProjectTheme.elevation.small,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: 'bold',
-            paddingTop: 14,
-            justifyContent: 'center',
-            alignContent: 'center',
-            height: 66,
-          }}
-        >
-          Skapa en ny syssla
-        </Text>
-      </View>
-      <View
-        style={{
           flex: 1,
           flexDirection: 'column',
           backgroundColor: 'F2F2F2',
@@ -163,36 +139,12 @@ export default function EditTaskScreen({ route, navigation }: Props) {
             selectedInterval={parseInt(interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
           />
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-            }}
-          >
-            Värde:
-          </Text>
-          <TextInput
-            style={{
-              borderRadius: ProjectTheme.borderRadius.large,
-              height: 50,
-
-              backgroundColor: '#FFFFFF',
-              elevation: ProjectTheme.elevation.small,
-              paddingLeft: 10,
-              marginBottom: 10,
-            }}
-            value={rating.toString()}
-            onChangeText={(text) => setRating(text)}
-            keyboardType="numeric"
+          <Text></Text>
+          <ChoresRating
+            selectedRating={parseInt(rating, 10)}
+            onRatingChange={(value) => setRating(value.toString())}
           />
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-            }}
-          >
-            Bild:
-          </Text>
+          <Text> </Text>
           <Button
             style={{
               marginBottom: 10,
