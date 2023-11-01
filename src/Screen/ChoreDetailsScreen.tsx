@@ -105,7 +105,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             <Text style={nameStyle}>Title: {Chore.name}</Text>
             <Text style={nameStyle}>Description: {Chore.description}</Text>
             <Text style={nameStyle}>Interval: {Chore.interval}</Text>
-            <Text style={nameStyle}>Rating: {Chore.task_rating}</Text>
+            <Text style={nameStyle}>Rating: {Chore.chore_rating}</Text>
             {image && (
               <Image
                 source={{ uri: image }}

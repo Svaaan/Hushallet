@@ -6,15 +6,13 @@ import { Button } from 'react-native-paper';
 import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import ChoresRating from '../Component/ChoresRating';
-import {
-  default as Intervals
-} from '../Component/Interval';
+import { default as Intervals } from '../Component/Interval';
 import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditChore'>;
 
-export default function EditTaskScreen({ route, navigation }: Props) {
+export default function EditChoreScreen({ route, navigation }: Props) {
   const { getChoreById, editChore } = useChoresContext();
   const choreId: number = route.params.choreId;
   const [title, setTitle] = useState('');
@@ -31,7 +29,7 @@ export default function EditTaskScreen({ route, navigation }: Props) {
       setTitle(fetchedChore.name);
       setDescription(fetchedChore.description);
       setInterval(fetchedChore.interval.toString());
-      setRating(fetchedChore.task_rating.toString());
+      setRating(fetchedChore.chore_rating.toString());
       setImage(fetchedChore.imageUri || null);
     }
   }, [choreId]);
@@ -55,7 +53,7 @@ export default function EditTaskScreen({ route, navigation }: Props) {
     }
   };
 
-  const handleEditTask = async () => {
+  const handleEditChore = async () => {
     if (!chore) {
       return;
     }
@@ -65,7 +63,7 @@ export default function EditTaskScreen({ route, navigation }: Props) {
       name: title,
       description,
       interval: parseInt(interval, 10),
-      task_rating: parseInt(rating, 10),
+      chore_rating: parseInt(rating, 10),
     };
 
     editChore(editedChore);
@@ -189,7 +187,7 @@ export default function EditTaskScreen({ route, navigation }: Props) {
             }}
             icon="content-save-outline"
             mode="contained"
-            onPress={handleEditTask}
+            onPress={handleEditChore}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >

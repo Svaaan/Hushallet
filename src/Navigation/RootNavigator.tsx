@@ -24,7 +24,7 @@ export type RootStackParamList = {
   ChoreDetails: { choreId: number };
   ProfileSettings: undefined;
   Household: undefined;
-  CreateChores: undefined;
+  CreateChore: undefined;
   JoinHousehold: undefined;
   EditHousehold: undefined;
   Users: undefined;
@@ -101,7 +101,7 @@ export default function RootNavigator() {
           options={{ title: 'Syssla detaljer' }}
         />
         <Stack.Screen
-          name="CreateChores"
+          name="CreateChore"
           component={CreateChoreScreen}
           options={{ title: 'Skapa Syssla' }}
         />

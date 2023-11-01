@@ -8,9 +8,9 @@ import { ProjectTheme } from '../../theme/theme';
 import ChoresRating from '../Component/ChoresRating';
 import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'CreateChore'>;
 
-export default function CreateTaskScreen({ navigation }: Props) {
+export default function CreateChoreScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
   const [titel, setTitel] = React.useState('');
   const [Discription, setDiscription] = React.useState('');
@@ -37,32 +37,40 @@ export default function CreateTaskScreen({ navigation }: Props) {
     }
   };
 
-  const handelAddTask = async () => {
+  const handelAddChore = async () => {
     try {
+      const intervalValue = parseInt(Interval, 10);
+
+      if (isNaN(intervalValue)) {
+        console.error('Interval is not a valid number');
+        return;
+      }
+
       const newChore: Chore = {
         id: mockChores.length + 1,
-        home_id: parseInt(slectedHomeId.current, 10), // Convert to integer (radix)
+        home_id: parseInt(slectedHomeId.current, 10),
         name: titel,
         description: Discription,
-        task_rating: parseInt(Rating, 10),
-        interval: Interval,
+        chore_rating: parseInt(Rating, 10),
+        interval: intervalValue,
       };
 
-      // push the chore to mockChores array
       mockChores.push(newChore);
+
+      setTitel('');
+      setDiscription('');
+      setInterval('');
+      setRating('');
+      setImage(null);
+
       navigation.navigate('Household');
+
+      console.log(mockChores);
     } catch (error) {
       console.log(error);
     }
-    setTitel('');
-    setDiscription('');
-    setInterval('');
-    setRating('');
-    setImage(null);
-    navigation.navigate('Household');
-    //Loggar ut alla chores för att se att den nya Chore/Task är skapad
-    console.log(mockChores);
   };
+
   const nameStyle = {
     width: '100%',
     height: 40,
@@ -179,7 +187,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
             }}
             icon="content-save-outline"
             mode="contained"
-            onPress={handelAddTask}
+            onPress={handelAddChore}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
