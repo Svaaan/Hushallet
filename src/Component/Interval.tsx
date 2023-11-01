@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { ProjectTheme } from '../../theme/theme';
-// import { red100 } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 interface IntervalsProps {
   selectedInterval: number;
@@ -82,6 +81,9 @@ const Intervals: React.FC<IntervalsProps> = ({
                   width: 28,
                   height: 28,
                   paddingTop: 5,
+                  fontSize: 15,
+                  color: 'white',
+                  fontWeight: 'bold',
                 }}
               >
                 {selectedInterval}
@@ -104,6 +106,3 @@ const Intervals: React.FC<IntervalsProps> = ({
 };
 
 export default Intervals;
-{
-  /* <Text style={{ paddingLeft: 10, backgroundColor: red100 }}></Text> */
-}

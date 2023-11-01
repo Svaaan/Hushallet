@@ -80,30 +80,6 @@ export default function CreateTaskScreen({ navigation }: Props) {
     <View style={{ flex: 1, backgroundColor: 'F2F2F2' }}>
       <View
         style={{
-          backgroundColor: ProjectTheme.inputBackground,
-          borderRadius: ProjectTheme.borderRadius.medium,
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingTop: 10,
-          marginBottom: 20,
-          elevation: ProjectTheme.elevation.small,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: 'bold',
-            paddingTop: 14,
-            justifyContent: 'center',
-            alignContent: 'center',
-            height: 66,
-          }}
-        >
-          Skapa en ny syssla
-        </Text>
-      </View>
-      <View
-        style={{
           flex: 1,
           flexDirection: 'column',
           backgroundColor: 'F2F2F2',
@@ -118,14 +94,14 @@ export default function CreateTaskScreen({ navigation }: Props) {
             paddingTop: 20,
           }}
         >
-          <Text
+          {/* <Text
             style={{
               fontSize: 15,
               fontWeight: 'bold',
             }}
           >
             Titel:
-          </Text>
+          </Text> */}
           <TextInput
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
@@ -137,17 +113,12 @@ export default function CreateTaskScreen({ navigation }: Props) {
               marginBottom: 10,
             }}
             value={titel}
+            placeholder="Titel"
             onChangeText={(text) => setTitel(text)}
           />
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-            }}
-          >
-            Beskrivning:
-          </Text>
+          <Text> </Text>
           <TextInput
+            placeholder="Beskrivning"
             style={{
               borderRadius: ProjectTheme.borderRadius.large,
               height: 100,
@@ -161,37 +132,17 @@ export default function CreateTaskScreen({ navigation }: Props) {
             multiline
             numberOfLines={4}
           />
-          {/* <Text>Återkommer:</Text> */}
+          <Text></Text>
           <Intervals
             selectedInterval={parseInt(Interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
           />
+          <Text></Text>
           <ChoresRating
             selectedRating={parseInt(Rating, 10)}
             onRatingChange={(value) => setRating(value.toString())}
           />
-          {/* <TextInput
-            style={{
-              borderRadius: ProjectTheme.borderRadius.large,
-              height: 50,
-
-              backgroundColor: '#FFFFFF',
-              elevation: ProjectTheme.elevation.small,
-              paddingLeft: 10,
-              marginBottom: 10,
-            }}
-            value={Rating.toString()}
-            onChangeText={(text) => setRating(text)}
-            keyboardType="numeric"
-          /> */}
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: 'bold',
-            }}
-          >
-            Bild:
-          </Text>
+          <Text> </Text>
           <Button
             style={{
               marginBottom: 10,

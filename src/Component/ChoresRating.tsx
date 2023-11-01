@@ -39,9 +39,21 @@ const ChoresRating: React.FC<RaingsProps> = ({
                 onRatingChange(number);
               }}
             >
-              <Text style={{ margin: 10, fontSize: 15, fontWeight: 'bold' }}>
-                {number}
-              </Text>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20,
+                  backgroundColor: ProjectTheme.colors.secondaryContainer,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  margin: 10,
+                }}
+              >
+                <Text style={{ margin: 10, fontSize: 15, fontWeight: 'bold' }}>
+                  {number}
+                </Text>
+              </View>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -58,29 +70,12 @@ const ChoresRating: React.FC<RaingsProps> = ({
                 style={{
                   fontSize: 15,
                   fontWeight: 'bold',
+                  paddingRight: 250,
                 }}
               >
                 Värde:
               </Text>
-              {/* <Text
-                style={{
-                  paddingLeft: 180,
-                  paddingRight: 8,
-                  fontSize: 15,
-                  fontWeight: 'bold',
-                }}
-              >
-                var
-              </Text> */}
 
-              <Text
-                style={{
-                  paddingLeft: 10,
-                  fontSize: 15,
-                }}
-              >
-                Hur energikrävande är sysslan?
-              </Text>
               <Text
                 style={{
                   paddingLeft: 10,
@@ -89,13 +84,22 @@ const ChoresRating: React.FC<RaingsProps> = ({
                   justifyContent: 'center',
                   alignContent: 'center',
                   width: 28,
+                  paddingTop: 2,
                   height: 28,
-                  paddingTop: 5,
+                  fontSize: 15,
+                  fontWeight: 'bold',
                 }}
               >
                 {selectedRating}
               </Text>
             </View>
+            <Text
+              style={{
+                fontSize: 12,
+              }}
+            >
+              Hur energikrävande är sysslan?
+            </Text>
           </TouchableOpacity>
         </View>
       )}
