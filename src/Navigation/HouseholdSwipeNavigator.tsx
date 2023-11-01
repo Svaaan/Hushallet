@@ -19,8 +19,6 @@ export type HouseholdSwipeParamList = {
 
 const Swipe = createMaterialTopTabNavigator<HouseholdSwipeParamList>();
 
-// https://reactnavigation.org/docs/material-top-tab-navigator#tabbar
-
 export default function HouseholdSwipeNavigator() {
   const currentMonth = getCurrentMonthName();
   const currentYear = getCurrentYear();

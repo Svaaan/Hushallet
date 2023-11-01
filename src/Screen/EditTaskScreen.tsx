@@ -159,7 +159,6 @@ export default function EditTaskScreen({ route, navigation }: Props) {
             multiline
             numberOfLines={4}
           />
-          {/* <Text>Återkommer:</Text> */}
           <Intervals
             selectedInterval={parseInt(interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
@@ -249,7 +248,7 @@ export default function EditTaskScreen({ route, navigation }: Props) {
               elevation: ProjectTheme.elevation.large,
               marginBottom: 5,
               height: 50,
-              width: '48%', // Make sure there is enough space for both buttons
+              width: '48%',
               justifyContent: 'center',
               backgroundColor: ProjectTheme.colors.primary,
             }}

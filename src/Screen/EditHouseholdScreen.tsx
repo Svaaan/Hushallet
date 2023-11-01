@@ -48,7 +48,7 @@ export default function EditHouseholdScreen({ navigation }: Props) {
     >
       <View style={{}}>
         <TextInput
-          style={placeholderStyle} // Apply the placeholderStyle here
+          style={placeholderStyle}
           placeholder="Nytt namn"
           placeholderTextColor={ProjectTheme.inputPlaceholderColor}
           onChangeText={(text) => setName(text)}
@@ -56,7 +56,7 @@ export default function EditHouseholdScreen({ navigation }: Props) {
         />
 
         <TextInput
-          style={placeholderStyle} // Apply the placeholderStyle here
+          style={placeholderStyle}
           placeholder="Nytt ägar namn"
           placeholderTextColor={ProjectTheme.inputPlaceholderColor}
           onChangeText={(text) => setOwner(text)}

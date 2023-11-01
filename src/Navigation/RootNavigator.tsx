@@ -10,7 +10,6 @@ import HouseProfileScreen from '../Screen/HouseProfileScreen';
 import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
-import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
 import StartScreen from '../Screen/StartScreen';
 import TaskDetailsScreen from '../Screen/TaskDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
@@ -99,6 +98,7 @@ export default function RootNavigator() {
         component={HouseholdSwipeNavigator}
         options={{ title: 'Hushållet' }}
       />
+
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
           name="TaskDetails"

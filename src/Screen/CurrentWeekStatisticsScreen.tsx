@@ -46,8 +46,8 @@ export default function StatisticsScreen({ navigation }: Props) {
         endDate={endDate}
         choreEvents={currentWeekEvents}
         slices={[]}
-        height={300} // default
-        width={300} // default
+        height={300}
+        width={300}
       />
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
         {mockChores.map((chore) => {
