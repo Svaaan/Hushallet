@@ -8,7 +8,7 @@ import { ProjectTheme } from '../../theme/theme';
 import ChoresRating from '../Component/ChoresRating';
 import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'CreateChore'>;
 
 export default function CreateTaskScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
@@ -44,7 +44,7 @@ export default function CreateTaskScreen({ navigation }: Props) {
         home_id: parseInt(slectedHomeId.current, 10), // Convert to integer (radix)
         name: titel,
         description: Discription,
-        task_rating: parseInt(Rating, 10),
+        chore_rating: parseInt(Rating, 10),
         interval: Interval,
       };
 

@@ -6,9 +6,7 @@ import { Button } from 'react-native-paper';
 import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import ChoresRating from '../Component/ChoresRating';
-import {
-  default as Intervals
-} from '../Component/Interval';
+import { default as Intervals } from '../Component/Interval';
 import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
@@ -65,7 +63,7 @@ export default function EditTaskScreen({ route, navigation }: Props) {
       name: title,
       description,
       interval: parseInt(interval, 10),
-      task_rating: parseInt(rating, 10),
+      chore_rating: parseInt(rating, 10),
     };
 
     editChore(editedChore);
