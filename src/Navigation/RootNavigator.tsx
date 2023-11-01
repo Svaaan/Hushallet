@@ -91,7 +91,7 @@ export default function RootNavigator() {
       <Stack.Screen
         name="SwipeNav"
         component={HouseholdSwipeNavigator}
-        options={{ title: 'Sysslorna' }}
+        options={{ title: 'Hushållet' }}
       />
 
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
