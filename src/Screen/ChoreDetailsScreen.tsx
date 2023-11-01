@@ -9,7 +9,7 @@ import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { sameDay } from './TodayScreen';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'TaskDetails'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'ChoreDetails'>;
 
 const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profiles } = useProfileContext();
@@ -67,7 +67,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     return maxId + 1;
   };
   const handleEdit = (choreId: number) => {
-    navigation.navigate('EditTask', { choreId });
+    navigation.navigate('EditChore', { choreId });
   };
 
   // Wrap handleEdit in a function that takes no arguments
