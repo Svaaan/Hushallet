@@ -10,6 +10,7 @@ interface Chore {
   description: string;
   task_rating: number;
   interval: number;
+  imageUri?: string | null;
 }
 
 // Define context type
@@ -18,6 +19,7 @@ interface ChoresContextType {
   initializeChores: () => void;
   createChore: (chore: Chore) => void;
   getChoreById: (choreId: number) => Chore;
+  editChore: (editedChore: Chore) => void;
 }
 
 // Creating the context
@@ -80,6 +82,29 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
       throw error;
     }
   };
+  // Function to edit an existing chore
+  const editChore = async (editedChore: Chore) => {
+    try {
+      // Find the index of the chore to be edited
+      const choreIndex = chores.findIndex(
+        (chore) => chore.id === editedChore.id
+      );
+
+      if (choreIndex === -1) {
+        throw new Error(`Chore with ID ${editedChore.id} not found`);
+      }
+
+      // Create a copy of the chores array with the edited chore
+      const updatedChores = [...chores];
+      updatedChores[choreIndex] = editedChore;
+
+      // Update the state
+      setChores(updatedChores);
+    } catch (error) {
+      console.error('Error editing chore: ', error);
+      throw error;
+    }
+  };
 
   // Initialize chores when the app starts with useEffect
   useEffect(() => {
@@ -88,7 +113,7 @@ export function ChoresProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ChoresContext.Provider
-      value={{ chores, initializeChores, createChore, getChoreById }}
+      value={{ chores, initializeChores, createChore, getChoreById, editChore }}
     >
       {children}
     </ChoresContext.Provider>
