@@ -24,7 +24,7 @@ export default function TodayScreen({ navigation }: Props) {
     navigation.navigate('ChoreDetails', { choreId });
   };
   const handleGoToCreateChore = () => {
-    navigation.navigate('CreateTask');
+    navigation.navigate('CreateChores');
   };
   // denna används inte då jag kommenterade ut knappen för den. bara fått Edit att fungera genom att klicka på en Chore först sen edit.
   const handleGoToEditTask = (choreId: number) => {
