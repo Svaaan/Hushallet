@@ -8,7 +8,7 @@ interface Chore {
   home_id: number;
   name: string;
   description: string;
-  task_rating: number;
+  chore_rating: number;
   interval: number;
   imageUri?: string | null;
 }
