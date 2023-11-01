@@ -29,7 +29,7 @@ export type RootStackParamList = {
   JoinHousehold: undefined;
   EditHousehold: undefined;
   Users: undefined;
-  EditTask: undefined;
+  EditTask: { choreId: number };
   SwipeNav: undefined;
 };
 

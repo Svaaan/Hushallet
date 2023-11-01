@@ -5,11 +5,11 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { ChoreEvent } from '../../data/mockedChoreEvents';
 import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
+import Button from '../Component/BottomButtonComponent';
 import { useChoreEventsContext } from '../Context/ChoreEventContext';
 import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { HouseholdSwipeScreenProps } from '../Navigation/types';
-import Button from '../Component/BottomButtonComponent';
 
 type Props = HouseholdSwipeScreenProps<'Today'>;
 
@@ -27,8 +27,9 @@ export default function TodayScreen({ navigation }: Props) {
   const handleGoToCreateChore = () => {
     navigation.navigate('CreateTask');
   };
-  const handleGoToEditTask = () => {
-    navigation.navigate('EditTask');
+  // denna används inte då jag kommenterade ut knappen för den. bara fått Edit att fungera genom att klicka på en Chore först sen edit.
+  const handleGoToEditTask = (choreId: number) => {
+    navigation.navigate('EditTask', { choreId });
   };
   useFocusEffect(
     React.useCallback(() => {
@@ -170,7 +171,10 @@ export default function TodayScreen({ navigation }: Props) {
       >
         <Button title="Skapa syssla" onPress={() => handleGoToCreateChore()} />
 
-        <Button title="Redigera syssla" onPress={() => handleGoToEditTask()} />
+        {/* <Button
+          title="Redigera syssla"
+          onPress={() => handleGoToEditTask(chore.id)}
+        /> */}
       </View>
     </View>
   );

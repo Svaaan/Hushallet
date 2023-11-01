@@ -1,23 +1,40 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Chore } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
-import Intervals from '../Component/Interval';
+import {
+  default as Interval,
+  default as Intervals,
+} from '../Component/Interval';
+import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'EditTask'>;
 
-export default function EditTaskScreen({ navigation }: Props) {
-  const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
-  const [titel, setTitel] = React.useState('');
-  const [Discription, setDiscription] = React.useState('');
-  const [Interval, setInterval] = React.useState('');
-  const [Rating, setRating] = React.useState('');
+export default function EditTaskScreen({ route, navigation }: Props) {
+  const { getChoreById, editChore } = useChoresContext();
+  const choreId: number = route.params.choreId;
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [interval, setInterval] = useState('');
+  const [rating, setRating] = useState('');
   const [image, setImage] = useState<string | null>(null);
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [chore, setChore] = useState<Chore | null>(null);
+
+  useEffect(() => {
+    if (choreId) {
+      const fetchedChore = getChoreById(choreId);
+      setChore(fetchedChore);
+      setTitle(fetchedChore.name);
+      setDescription(fetchedChore.description);
+      setInterval(fetchedChore.interval.toString());
+      setRating(fetchedChore.task_rating.toString());
+      setImage(fetchedChore.imageUri || null);
+    }
+  }, [choreId]);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -25,13 +42,6 @@ export default function EditTaskScreen({ navigation }: Props) {
       alert('Sorry, we need camera roll permissions to make this work!');
       return;
     }
-    // {Chore? (
-    //   titel: Chore.name,
-    //   image: Chore.imageUri,
-    //   Discription: Chore.discription,
-    //   Interval: Chore.interval,
-    //   Rating: Chore.task_rating,
-    // } : null)
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -45,30 +55,23 @@ export default function EditTaskScreen({ navigation }: Props) {
     }
   };
 
-  const handelEditTask = async () => {
-    try {
-      const Chore = {
-        // id:slrctedChoreId.current,
-        home_id: slectedHomeId.current,
-        name: titel,
-        imageUri: image,
-        discription: Discription,
-        interval: parseInt(Interval, 10),
-        task_rating: parseInt(Rating, 10),
-      };
-
-      await AsyncStorage.setItem('ChoreKey', JSON.stringify(Chore));
-      console.log(Chore);
-      navigation.navigate('Household');
-    } catch (error) {
-      console.log(error);
+  const handleEditTask = async () => {
+    if (!chore) {
+      return;
     }
-    setTitel('');
-    setDiscription('');
-    setInterval('');
-    setRating('');
-    setImage(null);
+
+    const editedChore: Chore = {
+      ...chore,
+      name: title,
+      description,
+      interval: parseInt(interval, 10),
+      task_rating: parseInt(rating, 10),
+    };
+
+    editChore(editedChore);
+
     navigation.navigate('Household');
+    console.log(chore);
   };
 
   return (
@@ -131,8 +134,8 @@ export default function EditTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={titel}
-            onChangeText={(text) => setTitel(text)}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
           />
           <Text
             style={{
@@ -151,14 +154,14 @@ export default function EditTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={Discription}
-            onChangeText={(text) => setDiscription(text)}
+            value={description}
+            onChangeText={(text) => setDescription(text)}
             multiline
             numberOfLines={4}
           />
           {/* <Text>Återkommer:</Text> */}
           <Intervals
-            selectedInterval={parseInt(Interval, 10)}
+            selectedInterval={parseInt(interval, 10)}
             onIntervalChange={(value) => setInterval(value.toString())}
           />
           <Text
@@ -179,7 +182,7 @@ export default function EditTaskScreen({ navigation }: Props) {
               paddingLeft: 10,
               marginBottom: 10,
             }}
-            value={Rating.toString()}
+            value={rating.toString()}
             onChangeText={(text) => setRating(text)}
             keyboardType="numeric"
           />
@@ -235,7 +238,7 @@ export default function EditTaskScreen({ navigation }: Props) {
             }}
             icon="content-save-outline"
             mode="contained"
-            onPress={handelEditTask}
+            onPress={handleEditTask}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
