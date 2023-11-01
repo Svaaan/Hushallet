@@ -12,7 +12,7 @@ import {
 import { useChoresContext } from '../Context/ChoressContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'EditTask'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'EditChore'>;
 
 export default function EditTaskScreen({ route, navigation }: Props) {
   const { getChoreById, editChore } = useChoresContext();

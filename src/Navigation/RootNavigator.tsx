@@ -2,16 +2,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import CreateAccountScreen from '../Screen/CreateAccountScreen';
 import CreateHouseholdScreen from '../Screen/CreateHouseholdScreen';
-import CreateTaskScreen from '../Screen/CreateTaskScreen';
+import CreateChoreScreen from '../Screen/CreateChoreScreen';
 import DisplayUsersScreen from '../Screen/DisplayUsersScreen';
 import EditHouseholdScreen from '../Screen/EditHouseholdScreen';
-import EditTask from '../Screen/EditTaskScreen';
+import EditChore from '../Screen/EditChoreScreen';
 import HouseProfileScreen from '../Screen/HouseProfileScreen';
 import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
 import StartScreen from '../Screen/StartScreen';
-import TaskDetailsScreen from '../Screen/TaskDetailsScreen';
+import ChoreDetailsScreen from '../Screen/ChoreDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
 
 export type RootStackParamList = {
@@ -21,14 +21,14 @@ export type RootStackParamList = {
   CreateAccount: undefined;
   Profile: { userId: number };
   Login: undefined;
-  TaskDetails: { choreId: number };
+  ChoreDetails: { choreId: number };
   ProfileSettings: undefined;
   Household: undefined;
-  CreateTask: undefined;
+  CreateChores: undefined;
   JoinHousehold: undefined;
   EditHousehold: undefined;
   Users: undefined;
-  EditTask: { choreId: number };
+  EditChore: { choreId: number };
   SwipeNav: undefined;
 };
 
@@ -93,21 +93,21 @@ export default function RootNavigator() {
         component={HouseholdSwipeNavigator}
         options={{ title: 'Hushållet' }}
       />
-
+      
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen
-          name="TaskDetails"
-          component={TaskDetailsScreen}
+          name="ChoreDetails"
+          component={ChoreDetailsScreen}
           options={{ title: 'Syssla detaljer' }}
         />
         <Stack.Screen
-          name="CreateTask"
-          component={CreateTaskScreen}
+          name="CreateChores"
+          component={CreateChoreScreen}
           options={{ title: 'Skapa Syssla' }}
         />
         <Stack.Screen
-          name="EditTask"
-          component={EditTask}
+          name="EditChore"
+          component={EditChore}
           options={{ title: 'Redigera Syssla' }}
         />
       </Stack.Group>

@@ -21,14 +21,14 @@ export default function TodayScreen({ navigation }: Props) {
 
   const handleGoToTaskDetails = (choreId: number) => {
     // Pass the chore data to the TaskDetails screen.
-    navigation.navigate('TaskDetails', { choreId });
+    navigation.navigate('ChoreDetails', { choreId });
   };
   const handleGoToCreateChore = () => {
     navigation.navigate('CreateTask');
   };
   // denna används inte då jag kommenterade ut knappen för den. bara fått Edit att fungera genom att klicka på en Chore först sen edit.
   const handleGoToEditTask = (choreId: number) => {
-    navigation.navigate('EditTask', { choreId });
+    navigation.navigate('EditChore', { choreId });
   };
   useFocusEffect(
     React.useCallback(() => {

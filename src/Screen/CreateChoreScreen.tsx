@@ -7,7 +7,7 @@ import { Chore, mockChores } from '../../data/mockedChores';
 import { ProjectTheme } from '../../theme/theme';
 import Intervals from '../Component/Interval';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-type Props = NativeStackScreenProps<RootStackParamList, 'CreateTask'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'CreateChores'>;
 
 export default function CreateTaskScreen({ navigation }: Props) {
   const slectedHomeId = React.useRef<string>('1'); // Ref to store the selected home id
