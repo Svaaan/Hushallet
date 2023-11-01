@@ -96,8 +96,8 @@ Sysslor (3)
 
 Statistik (2)
 
-[] Det ska finnas en statistikvy över ”förra vecka”.
-[] Det ska finnas en statistikvy över ”förra månaden”.
+[x] Det ska finnas en statistikvy över ”förra vecka”.
+[x] Det ska finnas en statistikvy över ”förra månaden”.
 
 Schemaläggning (3)
 
