@@ -16,7 +16,6 @@ const mockChores: Chore[] = [
     description: 'Wash all the dirty dishes in the kitchen',
     task_rating: 2,
     interval: 2,
-    imageUri: '',
   },
   {
     id: 2,
@@ -25,7 +24,6 @@ const mockChores: Chore[] = [
     description: 'Mow the front and backyard lawns',
     task_rating: 4,
     interval: 7,
-    imageUri: '',
   },
   {
     id: 3,
@@ -34,7 +32,6 @@ const mockChores: Chore[] = [
     description: 'Do a load of laundry',
     task_rating: 2,
     interval: 4,
-    imageUri: '',
   },
   {
     id: 4,
@@ -43,7 +40,6 @@ const mockChores: Chore[] = [
     description: 'Cook todays dinner',
     task_rating: 1,
     interval: 1,
-    imageUri: '',
   },
   {
     id: 5,
@@ -52,7 +48,6 @@ const mockChores: Chore[] = [
     description: 'Dust the furnitures',
     task_rating: 8,
     interval: 5,
-    imageUri: '',
   },
   {
     id: 6,
@@ -61,7 +56,6 @@ const mockChores: Chore[] = [
     description: 'Mop the floor',
     task_rating: 6,
     interval: 6,
-    imageUri: '',
   },
 ];
 
