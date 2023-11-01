@@ -19,16 +19,12 @@ export default function TodayScreen({ navigation }: Props) {
   const { choreEvents } = useChoreEventsContext();
   const { profiles } = useProfileContext();
 
-  const handleGoToTaskDetails = (choreId: number) => {
-    // Pass the chore data to the TaskDetails screen.
+  const handleGoToChoreDetails = (choreId: number) => {
+    // Pass the chore data to the ChoreDetails screen.
     navigation.navigate('ChoreDetails', { choreId });
   };
   const handleGoToCreateChore = () => {
     navigation.navigate('CreateChore');
-  };
-  // denna används inte då jag kommenterade ut knappen för den. bara fått Edit att fungera genom att klicka på en Chore först sen edit.
-  const handleGoToEditTask = (choreId: number) => {
-    navigation.navigate('EditChore', { choreId });
   };
   useFocusEffect(
     React.useCallback(() => {
@@ -79,7 +75,7 @@ export default function TodayScreen({ navigation }: Props) {
           return (
             <TouchableOpacity
               key={chore.id}
-              onPress={() => handleGoToTaskDetails(chore.id)}
+              onPress={() => handleGoToChoreDetails(chore.id)}
               style={{
                 width: 390,
                 height: 65,
