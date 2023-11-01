@@ -10,7 +10,6 @@ import HouseProfileScreen from '../Screen/HouseProfileScreen';
 import JoinHouseholdScreen from '../Screen/JoinHouseholdScreen';
 import LoginScreen from '../Screen/LoginScreen';
 import MyHouseholdsScreen from '../Screen/MyHouseholdsScreen';
-import ProfileSettingScreen from '../Screen/ProfileSettingScreen';
 import StartScreen from '../Screen/StartScreen';
 import TaskDetailsScreen from '../Screen/TaskDetailsScreen';
 import HouseholdSwipeNavigator from './HouseholdSwipeNavigator';
@@ -44,7 +43,6 @@ export default function RootNavigator() {
       <Stack.Screen name="CreateHousehold" component={CreateHouseholdScreen} />
       <Stack.Screen name="JoinHousehold" component={JoinHouseholdScreen} />
       <Stack.Screen name="MyHouseholds" component={MyHouseholdsScreen} />
-      <Stack.Screen name="ProfileSettings" component={ProfileSettingScreen} />
       <Stack.Screen name="EditHousehold" component={EditHouseholdScreen} />
       <Stack.Screen name="Users" component={DisplayUsersScreen} />
       <Stack.Screen name="Household" component={HouseholdSwipeNavigator} />
