@@ -12,7 +12,7 @@ import { sameDay } from './TodayScreen';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChoreDetails'>;
 
-const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
+const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const { profiles } = useProfileContext();
   const { getChoreById } = useChoresContext();
   const Chore = getChoreById(route.params.choreId);
@@ -29,7 +29,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [showChoreCompletedMessage, setShowChoreCompletedMessage] =
     useState(false);
 
-  const handleCompleteTask = async () => {
+  const handleCompleteChore = async () => {
     try {
       // Check if the profile has already completed this chore today
       const isAlreadyCompleted = mockChoreEvents.some((event) => {
@@ -177,7 +177,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             )}
           </View>
         ) : (
-          <Text>Loading task data...</Text>
+          <Text>Loading chore data...</Text>
         )}
       </ScrollView>
 
@@ -207,7 +207,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
                 }}
                 icon="archive-plus-outline"
                 mode="contained"
-                onPress={handleCompleteTask}
+                onPress={handleCompleteChore}
                 labelStyle={{ color: ProjectTheme.colors.secondary }}
                 rippleColor={ProjectTheme.colors.background}
               >
@@ -234,7 +234,7 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             }}
             icon="archive-plus-outline"
             mode="contained"
-            onPress={handleCompleteTask}
+            onPress={handleCompleteChore}
             labelStyle={{ color: ProjectTheme.colors.secondary }}
             rippleColor={ProjectTheme.colors.background}
           >
@@ -264,4 +264,4 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     </View>
   );
 };
-export default TaskDetailsScreen;
+export default ChoreDetailsScreen;
