@@ -12,7 +12,7 @@ const ChoresRating: React.FC<RaingsProps> = ({
   selectedRating = 0,
   onRatingChange,
 }) => {
-  const numbers = [1, 2, 4, 6, 7, 8];
+  const numbers = [1, 2, 4, 6, 8];
   const [scrollViewOpen, setScrollViewOpen] = useState(false);
 
   return (
@@ -23,9 +23,9 @@ const ChoresRating: React.FC<RaingsProps> = ({
         height: 70,
         backgroundColor: ProjectTheme.inputBackground,
         borderRadius: ProjectTheme.borderRadius.medium,
-        paddingLeft: 10,
+        paddingLeft: 25,
         paddingRight: 10,
-        paddingTop: 15,
+        paddingTop: 5,
         elevation: ProjectTheme.elevation.small,
       }}
     >
