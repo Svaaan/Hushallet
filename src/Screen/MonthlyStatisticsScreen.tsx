@@ -19,11 +19,7 @@ export default function MonthlyStatisticsScreen({ navigation }: Props) {
     today.getMonth(),
     1
   );
-  const lastMonthEndDate = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    0 // 0); to get last month data
-  );
+  const lastMonthEndDate = new Date(today.getFullYear(), today.getMonth(), 0);
 
   const monthlyChoreEvents = choreEvents.filter((event) => {
     return event.date >= lastMonthStartDate && event.date <= lastMonthEndDate;
