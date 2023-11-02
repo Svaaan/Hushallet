@@ -85,7 +85,7 @@ Konto (3)
 Profil (2)
 
 [] En användare ska kunna ställa in appens utseende (mörkt, ljust, auto).
-[] Om en användare tillhör två eller fler hushåll ska denne kunna välja att byta mellan de olika hushållen.
+[x] Om en användare tillhör två eller fler hushåll ska denne kunna välja att byta mellan de olika hushållen.
 
 Sysslor (3)
 
