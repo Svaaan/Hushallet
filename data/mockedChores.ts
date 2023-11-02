@@ -36,7 +36,7 @@ const mockChores: Chore[] = [
   {
     id: 4,
     home_id: 1,
-    name: 'Lga mat',
+    name: 'Laga mat',
     description: 'Laga mat och städa kökbänken efteråt',
     chore_rating: 1,
     interval: 1,
@@ -52,8 +52,8 @@ const mockChores: Chore[] = [
   {
     id: 6,
     home_id: 1,
-    name: 'Mopa',
-    description: 'Mopa golven i hela huset',
+    name: 'Moppa',
+    description: 'Moppa golven i hela huset',
     chore_rating: 6,
     interval: 6,
   },
