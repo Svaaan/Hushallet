@@ -1,4 +1,3 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -9,6 +8,7 @@ import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
 import { sameDay } from './TodayScreen';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChoreDetails'>;
 
@@ -46,7 +46,6 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
       }
       const newChoreEvent: ChoreEvent = {
         id: getNextChoreEventId(),
-        // bör använda route.params.profilId
         profile_id: profileId,
         chore_id: Chore?.id,
         date: new Date(),
@@ -55,28 +54,27 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
       console.log('ChoreEvent', newChoreEvent);
 
       navigation.navigate('Household');
-      console.log('Navigated back to houshold');
+      console.log('Navigated back to household');
     } catch (error) {
       console.log(error);
     }
   };
-  // Function to generate a unique ID for the new ChoreEvent
+
   const getNextChoreEventId = () => {
-    // Find the maximum ID in the existing ChoreEvents
     const maxId = Math.max(...mockChoreEvents.map((event) => event.id), 0);
-    // Increment the maximum ID to get the new ID
     return maxId + 1;
   };
+
   const handleEdit = (choreId: number) => {
     navigation.navigate('EditChore', { choreId });
   };
 
-  // Wrap handleEdit in a function that takes no arguments
   const handleEditButtonPress = () => {
     if (Chore) {
       handleEdit(Chore.id);
     }
   };
+
   const nameStyle = {
     height: 40,
     backgroundColor: ProjectTheme.inputBackground,
@@ -177,7 +175,7 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             )}
           </View>
         ) : (
-          <Text>Loading chore data...</Text>
+          <Text>Loading Chore data...</Text>
         )}
       </ScrollView>
 
@@ -186,60 +184,68 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
           <View>
             <Text style={{ color: 'red' }}>Chore already completed today</Text>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <View
+          <View style={{ width: '100%' }}>
+            <Button
               style={{
-                width: '48%',
+                flex: 1,
+                marginBottom: 5,
+                width: '100%',
+                height: 50,
+                backgroundColor: ProjectTheme.colors.error,
               }}
+              icon="archive-plus-outline"
+              mode="contained"
+              onPress={handleCompleteChore}
+              labelStyle={{ color: ProjectTheme.colors.secondary }}
+              rippleColor={ProjectTheme.colors.background}
             >
-              <Button
-                style={{
-                  flex: 1,
-                  marginBottom: 5,
-                  height: 50,
-                  backgroundColor: ProjectTheme.colors.error,
-                }}
-                icon="archive-plus-outline"
-                mode="contained"
-                onPress={handleCompleteChore}
-                labelStyle={{ color: ProjectTheme.colors.secondary }}
-                rippleColor={ProjectTheme.colors.background}
-              >
-                Avklarat
-              </Button>
-            </View>
+              Avklarat
+            </Button>
           </View>
         </>
       ) : (
         <View
           style={{
             flexDirection: 'row',
-            alignItems: 'flex-end',
+            alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
-          <Button
-            style={{
-              marginBottom: 5,
-              height: 50,
-              width: '48%',
-              justifyContent: 'center',
-              backgroundColor: ProjectTheme.colors.primary,
-            }}
-            icon="archive-plus-outline"
-            mode="contained"
-            onPress={handleCompleteChore}
-            labelStyle={{ color: ProjectTheme.colors.secondary }}
-            rippleColor={ProjectTheme.colors.background}
-          >
-            Avklarat
-          </Button>
+          {profiles[0].is_owner ? (
+            <Button
+              style={{
+                marginBottom: 5,
+                height: 50,
+                width: '48%',
+                justifyContent: 'center',
+                backgroundColor: ProjectTheme.colors.primary,
+              }}
+              icon="archive-plus-outline"
+              mode="contained"
+              onPress={handleCompleteChore}
+              labelStyle={{ color: ProjectTheme.colors.secondary }}
+              rippleColor={ProjectTheme.colors.background}
+            >
+              Avklarat
+            </Button>
+          ) : (
+            <Button
+              style={{
+                marginBottom: 5,
+                height: 50,
+                width: '85%',
+                marginLeft: 30,
+                backgroundColor: ProjectTheme.colors.primary,
+              }}
+              icon="archive-plus-outline"
+              mode="contained"
+              onPress={handleCompleteChore}
+              labelStyle={{ color: ProjectTheme.colors.secondary }}
+              rippleColor={ProjectTheme.colors.background}
+            >
+              Avklarat
+            </Button>
+          )}
           {profiles[0].is_owner && (
             <Button
               style={{
@@ -264,4 +270,5 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     </View>
   );
 };
+
 export default ChoreDetailsScreen;

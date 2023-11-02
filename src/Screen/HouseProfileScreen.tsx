@@ -148,7 +148,7 @@ export default function ProfileScreen({ navigation, route }: Props) {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          width: '100%',
+          marginBottom: 10,
         }}
       >
         <Button

@@ -12,11 +12,12 @@ const Button = ({ title, onPress }: ButtonProps) => {
     <TouchableOpacity
       style={{
         width: 200,
-        height: 45,
+        height: 60,
         backgroundColor: ProjectTheme.buttonPrimary.color,
         elevation: ProjectTheme.elevation.medium,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 1,
       }}
       onPress={onPress}
     >
