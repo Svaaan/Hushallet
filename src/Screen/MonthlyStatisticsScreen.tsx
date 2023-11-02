@@ -13,21 +13,16 @@ export default function MonthlyStatisticsScreen({ navigation }: Props) {
   const { choreEvents } = useChoreEventsContext();
   // Calculate the start and end date for the monthly statistics
   const today = new Date();
-  const currentMonthStartDate = new Date(
-    today.getFullYear(), //- 1, 1); To get lastMonth data
+  const lastMonthStartDate = new Date(
+    today.getFullYear() - 1,
+    1,
     today.getMonth(),
     1
   );
-  const currentMonthEndDate = new Date(
-    today.getFullYear(),
-    today.getMonth() + 1, // 0); to get last month data
-    0
-  );
+  const lastMonthEndDate = new Date(today.getFullYear(), today.getMonth(), 0);
 
   const monthlyChoreEvents = choreEvents.filter((event) => {
-    return (
-      event.date >= currentMonthStartDate && event.date <= currentMonthEndDate
-    );
+    return event.date >= lastMonthStartDate && event.date <= lastMonthEndDate;
   });
 
   const eventsByChoreId: { [key: number]: ChoreEvent[] } = {};
@@ -41,8 +36,8 @@ export default function MonthlyStatisticsScreen({ navigation }: Props) {
   return (
     <View>
       <PieChartWithCenteredLabels
-        startDate={currentMonthStartDate}
-        endDate={currentMonthEndDate}
+        startDate={lastMonthStartDate}
+        endDate={lastMonthEndDate}
         choreEvents={monthlyChoreEvents}
         slices={[]}
         height={300}
@@ -54,8 +49,8 @@ export default function MonthlyStatisticsScreen({ navigation }: Props) {
             <View key={chore.id} style={{ width: '33%', padding: 8 }}>
               <ChoreChart
                 choreEvents={eventsByChoreId[chore.id]}
-                startDate={currentMonthStartDate}
-                endDate={currentMonthEndDate}
+                startDate={lastMonthStartDate}
+                endDate={lastMonthEndDate}
               />
               <Text
                 style={{

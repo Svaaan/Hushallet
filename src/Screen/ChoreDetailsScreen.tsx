@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { Image, ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -7,8 +8,6 @@ import Intervals from '../Component/Interval';
 import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
-import { sameDay } from './TodayScreen';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ChoreDetails'>;
 
@@ -26,24 +25,9 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
   }, [Chore]);
 
   const profileId: number | undefined = profiles[0]?.id;
-  const [showChoreCompletedMessage, setShowChoreCompletedMessage] =
-    useState(false);
 
   const handleCompleteChore = async () => {
     try {
-      // Check if the profile has already completed this chore today
-      const isAlreadyCompleted = mockChoreEvents.some((event) => {
-        return (
-          event.profile_id === profileId &&
-          event.chore_id === Chore?.id &&
-          sameDay(event.date, new Date())
-        );
-      });
-
-      if (isAlreadyCompleted) {
-        setShowChoreCompletedMessage(true);
-        return;
-      }
       const newChoreEvent: ChoreEvent = {
         id: getNextChoreEventId(),
         profile_id: profileId,
@@ -178,95 +162,68 @@ const ChoreDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
           <Text>Loading Chore data...</Text>
         )}
       </ScrollView>
-
-      {showChoreCompletedMessage ? (
-        <>
-          <View>
-            <Text style={{ color: 'red' }}>Chore already completed today</Text>
-          </View>
-          <View style={{ width: '100%' }}>
-            <Button
-              style={{
-                flex: 1,
-                marginBottom: 5,
-                width: '100%',
-                height: 50,
-                backgroundColor: ProjectTheme.colors.error,
-              }}
-              icon="archive-plus-outline"
-              mode="contained"
-              onPress={handleCompleteChore}
-              labelStyle={{ color: ProjectTheme.colors.secondary }}
-              rippleColor={ProjectTheme.colors.background}
-            >
-              Avklarat
-            </Button>
-          </View>
-        </>
-      ) : (
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          {profiles[0].is_owner ? (
-            <Button
-              style={{
-                marginBottom: 5,
-                height: 50,
-                width: '48%',
-                justifyContent: 'center',
-                backgroundColor: ProjectTheme.colors.primary,
-              }}
-              icon="archive-plus-outline"
-              mode="contained"
-              onPress={handleCompleteChore}
-              labelStyle={{ color: ProjectTheme.colors.secondary }}
-              rippleColor={ProjectTheme.colors.background}
-            >
-              Avklarat
-            </Button>
-          ) : (
-            <Button
-              style={{
-                marginBottom: 5,
-                height: 50,
-                width: '85%',
-                marginLeft: 30,
-                backgroundColor: ProjectTheme.colors.primary,
-              }}
-              icon="archive-plus-outline"
-              mode="contained"
-              onPress={handleCompleteChore}
-              labelStyle={{ color: ProjectTheme.colors.secondary }}
-              rippleColor={ProjectTheme.colors.background}
-            >
-              Avklarat
-            </Button>
-          )}
-          {profiles[0].is_owner && (
-            <Button
-              style={{
-                elevation: ProjectTheme.elevation.large,
-                marginBottom: 5,
-                height: 50,
-                width: '48%',
-                justifyContent: 'center',
-                backgroundColor: ProjectTheme.colors.primary,
-              }}
-              icon="archive-cog-outline"
-              mode="contained"
-              onPress={handleEditButtonPress}
-              labelStyle={{ color: ProjectTheme.colors.secondary }}
-              rippleColor={ProjectTheme.colors.background}
-            >
-              Redigera
-            </Button>
-          )}
-        </View>
-      )}
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        {profiles[0].is_owner ? (
+          <Button
+            style={{
+              marginBottom: 5,
+              height: 50,
+              width: '48%',
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="archive-plus-outline"
+            mode="contained"
+            onPress={handleCompleteChore}
+            labelStyle={{ color: ProjectTheme.colors.secondary }}
+            rippleColor={ProjectTheme.colors.background}
+          >
+            Avklarat
+          </Button>
+        ) : (
+          <Button
+            style={{
+              marginBottom: 5,
+              height: 50,
+              width: '85%',
+              marginLeft: 30,
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="archive-plus-outline"
+            mode="contained"
+            onPress={handleCompleteChore}
+            labelStyle={{ color: ProjectTheme.colors.secondary }}
+            rippleColor={ProjectTheme.colors.background}
+          >
+            Avklarat
+          </Button>
+        )}
+        {profiles[0].is_owner && (
+          <Button
+            style={{
+              elevation: ProjectTheme.elevation.large,
+              marginBottom: 5,
+              height: 50,
+              width: '48%',
+              justifyContent: 'center',
+              backgroundColor: ProjectTheme.colors.primary,
+            }}
+            icon="archive-cog-outline"
+            mode="contained"
+            onPress={handleEditButtonPress}
+            labelStyle={{ color: ProjectTheme.colors.secondary }}
+            rippleColor={ProjectTheme.colors.background}
+          >
+            Redigera
+          </Button>
+        )}
+      </View>
     </View>
   );
 };
