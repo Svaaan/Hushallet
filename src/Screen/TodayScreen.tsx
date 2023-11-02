@@ -126,7 +126,7 @@ export default function TodayScreen({ navigation }: Props) {
                     style={{
                       width: 30,
                       height: 30,
-                      backgroundColor: overdue ? 'red' : '#f2f2f2',
+                      backgroundColor: overdue ? '#CD5D6F' : '#f2f2f2',
                       borderRadius: 15,
                       marginRight: 15,
                       justifyContent: 'center',

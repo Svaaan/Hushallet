@@ -4,6 +4,7 @@ import { Image, ScrollView, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ChoreEvent, mockChoreEvents } from '../../data/mockedChoreEvents';
 import { ProjectTheme } from '../../theme/theme';
+import Intervals from '../Component/Interval';
 import { useChoresContext } from '../Context/ChoressContext';
 import { useProfileContext } from '../Context/ProfileContext';
 import { RootStackParamList } from '../Navigation/RootNavigator';
@@ -92,20 +93,77 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
     <View
       style={{
         flex: 1,
-        alignItems: 'center',
         justifyContent: 'space-between',
         backgroundColor: ProjectTheme.colors.background,
-        paddingTop: 20,
       }}
     >
-      <ScrollView>
+      <ScrollView
+        contentContainerStyle={{ paddingHorizontal: 10, marginTop: 10 }}
+      >
         {Chore ? (
           <View>
-            <Text style={{ ...nameStyle, width: '100%' }}>ID: {Chore.id}</Text>
-            <Text style={nameStyle}>Title: {Chore.name}</Text>
-            <Text style={nameStyle}>Description: {Chore.description}</Text>
-            <Text style={nameStyle}>Interval: {Chore.interval}</Text>
-            <Text style={nameStyle}>Rating: {Chore.chore_rating}</Text>
+            <Text style={nameStyle}>{Chore.name}</Text>
+            <Text
+              style={{
+                borderRadius: ProjectTheme.borderRadius.large,
+                height: 100,
+                elevation: ProjectTheme.elevation.small,
+                backgroundColor: '#FFFFFF',
+                paddingLeft: 10,
+                marginBottom: 10,
+                fontSize: 15,
+                color: 'grey',
+              }}
+            >
+              {Chore.description}
+            </Text>
+            <Intervals
+              selectedInterval={Chore.interval}
+              onIntervalChange={() => {}}
+            />
+            <View
+              style={{
+                borderRadius: ProjectTheme.borderRadius.large,
+                height: 70,
+                elevation: ProjectTheme.elevation.small,
+                backgroundColor: '#FFFFFF',
+                paddingLeft: 10,
+                marginBottom: 5,
+                marginTop: 10,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Värde:</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                    backgroundColor: '#f2f2f2',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: ProjectTheme.colors.iconcolor,
+                    }}
+                  >
+                    {Chore.chore_rating}
+                  </Text>
+                </View>
+              </View>
+            </View>
             {image && (
               <Image
                 source={{ uri: image }}
@@ -142,9 +200,9 @@ const TaskDetailsScreen: React.FC<Props> = ({ route, navigation }) => {
             >
               <Button
                 style={{
+                  flex: 1,
                   marginBottom: 5,
                   height: 50,
-                  justifyContent: 'center',
                   backgroundColor: ProjectTheme.colors.error,
                 }}
                 icon="archive-plus-outline"
