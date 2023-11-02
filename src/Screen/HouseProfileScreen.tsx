@@ -117,7 +117,7 @@ export default function ProfileScreen({ navigation, route }: Props) {
 
       <View
         style={{
-          marginBottom: 230,
+          marginBottom: 130,
           elevation: ProjectTheme.elevation.small,
           width: 300,
           height: 45,
