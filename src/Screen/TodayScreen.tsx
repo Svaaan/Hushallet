@@ -108,9 +108,10 @@ export default function TodayScreen({ navigation }: Props) {
                     if (!profile) {
                       return null;
                     }
+                    const avatarKey = `${profile.id}-${event.chore_id}-${event.id}`;
                     return (
                       <Image
-                        key={profile.id}
+                        key={avatarKey}
                         source={profile.avatar}
                         style={{
                           width: 30,
