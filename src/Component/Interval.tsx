@@ -73,17 +73,17 @@ const Intervals: React.FC<IntervalsProps> = ({
               </Text>
               <Text
                 style={{
-                  paddingLeft: 10,
-                  backgroundColor: 'red',
+                  backgroundColor: '#CD5D6F',
                   borderRadius: 14,
                   justifyContent: 'center',
                   alignContent: 'center',
                   width: 28,
                   height: 28,
-                  paddingTop: 5,
                   fontSize: 15,
                   color: 'white',
                   fontWeight: 'bold',
+                  textAlign: 'center',
+                  lineHeight: 28,
                 }}
               >
                 {selectedInterval}
