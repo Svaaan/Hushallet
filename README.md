@@ -10,7 +10,9 @@ följa vilken person som har gjort vad och hur ansträngande denna syssla var.
 
 Köra app:
 
-Npm start eller npx expo start.
+npm install --legacy-peer-deps 
+
+Npm start eller npx expo start .
 
 Använd en owner för att logga in: Användarnamn - JohnAccount, Lösenord: password 123
 Använd en medlem i johns home: Användarnamn: Alice, Lösenord: 123 
